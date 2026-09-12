@@ -828,6 +828,164 @@ function initGroundingLab() {
   render();
 }
 
+function initCoulombScenarios() {
+  const chargeInput = $('#hangingCharge');
+  const svg = $('#hangingChargeSvg');
+  if (chargeInput && svg) {
+    const ropeLength = 0.4;
+    const mass = 0.002;
+    const gravity = 9.8;
+    const k = 9e9;
+
+    function solveAngle(qMicroCoulomb) {
+      const charge = qMicroCoulomb * 1e-6;
+      let low = 0.002;
+      let high = 1.3;
+      for (let i = 0; i < 70; i += 1) {
+        const angle = (low + high) / 2;
+        const electricForce = k * charge ** 2 / (4 * ropeLength ** 2 * Math.sin(angle) ** 2);
+        const balance = mass * gravity * Math.tan(angle) - electricForce;
+        if (balance > 0) high = angle;
+        else low = angle;
+      }
+      return (low + high) / 2;
+    }
+
+    function updateHangingScene() {
+      const qMicro = Number(chargeInput.value);
+      const angle = solveAngle(qMicro);
+      const visualLength = 170;
+      const pivotX = 260;
+      const pivotY = 35;
+      const dx = visualLength * Math.sin(angle);
+      const dy = visualLength * Math.cos(angle);
+      const leftX = pivotX - dx;
+      const rightX = pivotX + dx;
+      const ballY = pivotY + dy;
+      const distance = 2 * ropeLength * Math.sin(angle);
+      const force = mass * gravity * Math.tan(angle);
+      const set = (id, attributes) => {
+        const element = $(id);
+        Object.entries(attributes).forEach(([key, value]) => element.setAttribute(key, String(value)));
+      };
+
+      set('#hangRopeLeft', { x2: leftX, y2: ballY });
+      set('#hangRopeRight', { x2: rightX, y2: ballY });
+      set('#hangBallLeft', { cx: leftX, cy: ballY });
+      set('#hangBallRight', { cx: rightX, cy: ballY });
+      set('#hangBallLeftCharge', { x: leftX, y: ballY + 6 });
+      set('#hangBallRightCharge', { x: rightX, y: ballY + 6 });
+      set('#hangForceLeft', { x1: leftX - 26, y1: ballY, x2: leftX - 80, y2: ballY });
+      set('#hangForceRight', { x1: rightX + 26, y1: ballY, x2: rightX + 80, y2: ballY });
+      set('#hangForceTextLeft', { x: leftX - 90, y: ballY - 10 });
+      set('#hangForceTextRight', { x: rightX + 73, y: ballY - 10 });
+      set('#hangGravityLeft', { x1: leftX, y1: ballY + 27, x2: leftX, y2: ballY + 77 });
+      set('#hangGravityRight', { x1: rightX, y1: ballY + 27, x2: rightX, y2: ballY + 77 });
+      set('#hangGravityTextLeft', { x: leftX + 10, y: ballY + 68 });
+      set('#hangGravityTextRight', { x: rightX + 10, y: ballY + 68 });
+      set('#hangTensionLeft', { x1: leftX + 11, y1: ballY - 22, x2: leftX + dx * 0.43, y2: ballY - dy * 0.43 });
+      set('#hangTensionRight', { x1: rightX - 11, y1: ballY - 22, x2: rightX - dx * 0.43, y2: ballY - dy * 0.43 });
+      set('#hangTensionTextLeft', { x: leftX + dx * 0.35 - 24, y: ballY - dy * 0.35 });
+      set('#hangTensionTextRight', { x: rightX - dx * 0.35 + 16, y: ballY - dy * 0.35 });
+      set('#hangDistance', { x1: leftX, x2: rightX });
+      set('#hangDistanceText', { x: pivotX });
+      const arcX = pivotX - 40 * Math.sin(angle);
+      const arcY = pivotY + 40 * Math.cos(angle);
+      $('#hangAngleArc').setAttribute('d', `M ${pivotX} ${pivotY + 40} A 40 40 0 0 0 ${arcX.toFixed(1)} ${arcY.toFixed(1)}`);
+      set('#hangAngleLabel', { x: pivotX - 48 * Math.sin(angle / 2) - 4, y: pivotY + 48 * Math.cos(angle / 2) + 4 });
+
+      $('#hangingChargeValue').textContent = `${qMicro.toFixed(2)} μC`;
+      $('#hangingAngleValue').textContent = `θ = ${(angle * 180 / Math.PI).toFixed(1)}°`;
+      $('#hangingDistanceValue').textContent = `r = ${distance.toFixed(3)} m`;
+      $('#hangingForceValue').textContent = `F电 = ${(force * 1000).toFixed(2)} mN`;
+    }
+
+    chargeInput.addEventListener('input', updateHangingScene);
+    updateHangingScene();
+  }
+
+  const contactStage = $('#sphereContactStage');
+  if (contactStage) {
+    const presetButtons = $$('[data-contact-preset]');
+    const stepButtons = $$('[data-contact-step]');
+    let charges = [6, -2];
+    let contactStep = 1;
+    const signed = value => `${value > 0 ? '＋' : value < 0 ? '−' : ''}${Math.abs(value)} μC`;
+
+    function renderContact() {
+      const average = (charges[0] + charges[1]) / 2;
+      const shown = contactStep === 1 ? charges : [average, average];
+      contactStage.dataset.step = String(contactStep);
+      contactStage.dataset.flow = charges[0] <= charges[1] ? 'right' : 'left';
+      $('#sphereACharge').textContent = signed(shown[0]);
+      $('#sphereBCharge').textContent = signed(shown[1]);
+      $('#contactTotalFormula').textContent = `Q总 = ${signed(charges[0]).replace(' μC', '')} + (${signed(charges[1]).replace(' μC', '')}) = ${signed(charges[0] + charges[1])}`;
+      $('#contactAverageFormula').textContent = `Q′ = Q总/2 = ${signed(average)}`;
+      if (contactStep === 1) {
+        $('#contactStageCaption').textContent = '初始：两球分开，各自保持原来的电荷量。';
+      } else if (contactStep === 2) {
+        const from = charges[0] < charges[1] ? 'A' : 'B';
+        const to = from === 'A' ? 'B' : 'A';
+        $('#contactStageCaption').textContent = charges[0] === charges[1]
+          ? '两球原本电荷相同，接触后没有净电荷转移。'
+          : `接触：电子从 ${from} 球流向 ${to} 球，直到两球电势相等。`;
+      } else {
+        $('#contactStageCaption').textContent = `再次分开：每个球都稳定为 ${signed(average)}，总电荷没有改变。`;
+      }
+      stepButtons.forEach(button => {
+        const active = Number(button.dataset.contactStep) === contactStep;
+        button.classList.toggle('active', active);
+        button.setAttribute('aria-pressed', String(active));
+      });
+    }
+
+    presetButtons.forEach(button => button.addEventListener('click', () => {
+      charges = button.dataset.contactPreset.split(',').map(Number);
+      contactStep = 1;
+      presetButtons.forEach(item => item.classList.toggle('active', item === button));
+      renderContact();
+    }));
+    stepButtons.forEach(button => button.addEventListener('click', () => {
+      contactStep = Number(button.dataset.contactStep);
+      renderContact();
+    }));
+    renderContact();
+  }
+}
+
+function initStorageMotion() {
+  const lab = $('#storageMotionLab');
+  const buttons = $$('[data-storage-mode]');
+  if (!lab || !buttons.length) return;
+
+  function selectMode(mode) {
+    const charging = mode === 'charge';
+    lab.dataset.mode = mode;
+    $('#capMotionDevice').textContent = charging ? '电源' : '小灯泡';
+    $('#batteryMotionDevice').textContent = charging ? '充电器' : '手机电路';
+    $('#capMotionEnergy').textContent = charging ? '电能 → 电场能' : '电场能 → 电能';
+    $('#batteryMotionEnergy').textContent = charging ? '电能 → 化学能' : '化学能 → 电能';
+    $('#capMotionText').textContent = charging
+      ? '电源把电子从左极板搬到右极板。两板出现等量异号电荷，板间电场逐渐建立。'
+      : '电子从负极板经过小灯泡回到正极板。电荷分离逐渐消失，电场能转化为电能、光和热。';
+    $('#batteryMotionText').textContent = charging
+      ? '充电器推动电子走外电路，同时锂离子在电池内部迁移，使材料进入较高能量的化学状态。'
+      : '电池内部自发发生化学反应，推动电子经过手机电路，同时锂离子向相反方向迁移。';
+    $('#storageModeTitle').textContent = charging ? '充电时' : '放电时';
+    $('#storageModeSummary').textContent = charging
+      ? '两者都从外部接收电能，但电容器建立电场，手机电池改变内部化学状态。'
+      : '两者都向外部电路供能，但电容器削弱电场，手机电池进行化学反应。';
+    buttons.forEach(button => {
+      const active = button.dataset.storageMode === mode;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  buttons.forEach(button => button.addEventListener('click', () => selectMode(button.dataset.storageMode)));
+  selectMode('charge');
+}
+
 const situationQuestions = [
   {
     topic: '静电感应', difficulty: '基础',
@@ -1061,5 +1219,7 @@ initWorkedExamples();
 initChargeLedger();
 initLifeCases();
 initGroundingLab();
+initCoulombScenarios();
+initStorageMotion();
 initSituationQuiz();
 updateNav();

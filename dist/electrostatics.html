@@ -601,6 +601,82 @@
           <article><span>多电荷</span><h3>矢量叠加</h3><p>每个力单独画方向；共线用正负号，非共线用平行四边形法则。</p></article>
         </div>
 
+        <section class="coulomb-scenario-lab" aria-labelledby="coulomb-scenario-title">
+          <div class="scenario-lab-heading">
+            <span>ANIMATED EXAMPLES · 典型模型</span>
+            <h3 id="coulomb-scenario-title">把“带电小球与细线”“相同金属球接触”真正动起来</h3>
+            <p>先操作，再看受力和电荷怎样变化；图中的数值会跟着控制项实时更新。</p>
+          </div>
+
+          <div class="scenario-lab-grid">
+            <article class="hanging-charge-lab">
+              <div class="scenario-title"><span>例子 1</span><h4>两个相同带电小球为什么会张开？</h4></div>
+              <p class="scenario-copy">两颗质量均为 2.0 g 的小球，用等长 0.40 m 的绝缘细线悬挂在同一点，并带上等量同号电荷。电荷越多，排斥越强，细线张开的角度越大。</p>
+              <svg id="hangingChargeSvg" class="hanging-charge-svg" viewBox="0 0 520 300" role="img" aria-label="两个同号带电小球在重力、拉力和库仑斥力作用下平衡的动画">
+                <defs><marker id="forceArrowHead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z"></path></marker></defs>
+                <circle class="hang-pivot" cx="260" cy="35" r="7"></circle>
+                <line id="hangRopeLeft" class="hang-rope" x1="260" y1="35" x2="185" y2="188"></line>
+                <line id="hangRopeRight" class="hang-rope" x1="260" y1="35" x2="335" y2="188"></line>
+                <path id="hangAngleArc" class="hang-angle" d="M260 75 A40 40 0 0 0 242 71"></path>
+                <text id="hangAngleLabel" class="hang-angle-label" x="218" y="82">θ</text>
+                <circle id="hangBallLeft" class="hang-ball" cx="185" cy="188" r="24"></circle>
+                <circle id="hangBallRight" class="hang-ball" cx="335" cy="188" r="24"></circle>
+                <text id="hangBallLeftCharge" class="hang-ball-label" x="185" y="194">＋q</text>
+                <text id="hangBallRightCharge" class="hang-ball-label" x="335" y="194">＋q</text>
+                <line id="hangForceLeft" class="hang-force electric" x1="160" y1="188" x2="105" y2="188" marker-end="url(#forceArrowHead)"></line>
+                <line id="hangForceRight" class="hang-force electric" x1="360" y1="188" x2="415" y2="188" marker-end="url(#forceArrowHead)"></line>
+                <text id="hangForceTextLeft" class="hang-force-text electric-text" x="96" y="178">F电</text>
+                <text id="hangForceTextRight" class="hang-force-text electric-text" x="408" y="178">F电</text>
+                <line id="hangGravityLeft" class="hang-force gravity" x1="185" y1="216" x2="185" y2="267" marker-end="url(#forceArrowHead)"></line>
+                <line id="hangGravityRight" class="hang-force gravity" x1="335" y1="216" x2="335" y2="267" marker-end="url(#forceArrowHead)"></line>
+                <text id="hangGravityTextLeft" class="hang-force-text gravity-text" x="195" y="258">mg</text>
+                <text id="hangGravityTextRight" class="hang-force-text gravity-text" x="345" y="258">mg</text>
+                <line id="hangTensionLeft" class="hang-force tension" x1="174" y1="166" x2="205" y2="105" marker-end="url(#forceArrowHead)"></line>
+                <line id="hangTensionRight" class="hang-force tension" x1="346" y1="166" x2="315" y2="105" marker-end="url(#forceArrowHead)"></line>
+                <text id="hangTensionTextLeft" class="hang-force-text tension-text" x="174" y="119">T</text>
+                <text id="hangTensionTextRight" class="hang-force-text tension-text" x="335" y="119">T</text>
+                <line id="hangDistance" class="hang-distance" x1="185" y1="286" x2="335" y2="286"></line>
+                <text id="hangDistanceText" class="hang-distance-text" x="260" y="282">r</text>
+              </svg>
+              <label class="scenario-slider">每个小球的电荷量 q <output id="hangingChargeValue">0.18 μC</output>
+                <input id="hangingCharge" type="range" min="0.05" max="0.40" value="0.18" step="0.01">
+              </label>
+              <div class="hanging-live-result" aria-live="polite">
+                <span>平衡角 <b id="hangingAngleValue">θ = 17.0°</b></span>
+                <span>球间距 <b id="hangingDistanceValue">r = 0.23 m</b></span>
+                <span>库仑力 <b id="hangingForceValue">F电 = 5.4 mN</b></span>
+              </div>
+              <div class="scenario-formula"><b>平衡时：</b><code>Tcosθ = mg</code><code>Tsinθ = F<sub>电</sub></code><strong>所以 tanθ = F<sub>电</sub>/mg</strong><small>同时 r = 2l sinθ，且 F<sub>电</sub> = kq²/r²。q 增大后，必须以更大的 θ 才能重新平衡。</small></div>
+            </article>
+
+            <article class="sphere-contact-lab">
+              <div class="scenario-title"><span>例子 2</span><h4>相同金属球接触后，电荷为什么平均？</h4></div>
+              <p class="scenario-copy">两个大小、材料完全相同的金属球接触时，电子会在两球之间移动；直到两球电势相等。由于它们完全相同，最后电荷量也相等。</p>
+              <div class="contact-presets" role="group" aria-label="选择两球初始电荷">
+                <button type="button" class="active" data-contact-preset="6,-2">＋6 μC 与 −2 μC</button>
+                <button type="button" data-contact-preset="8,2">＋8 μC 与 ＋2 μC</button>
+                <button type="button" data-contact-preset="-6,-2">−6 μC 与 −2 μC</button>
+              </div>
+              <div class="sphere-contact-stage" id="sphereContactStage" data-step="1" aria-label="两个相同金属球靠近、接触、分开的电荷重新分配动画">
+                <div class="contact-sphere sphere-a"><span>A</span><b id="sphereACharge">＋6 μC</b></div>
+                <div class="contact-transfer" aria-hidden="true"><i>e⁻</i><i>e⁻</i><i>e⁻</i></div>
+                <div class="contact-sphere sphere-b"><span>B</span><b id="sphereBCharge">−2 μC</b></div>
+                <p id="contactStageCaption">初始：两球分开，各自保持原来的电荷量。</p>
+              </div>
+              <div class="contact-step-buttons" role="group" aria-label="选择金属球接触过程步骤">
+                <button type="button" class="active" data-contact-step="1"><b>1</b>初始分开</button>
+                <button type="button" data-contact-step="2"><b>2</b>让两球接触</button>
+                <button type="button" data-contact-step="3"><b>3</b>再次分开</button>
+              </div>
+              <div class="contact-calculation" aria-live="polite">
+                <span>总电荷守恒</span><code id="contactTotalFormula">Q总 = ＋6 ＋ (−2) = ＋4 μC</code>
+                <span>相同球平均</span><strong id="contactAverageFormula">Q′ = Q总/2 = ＋2 μC</strong>
+              </div>
+              <p class="scenario-warning"><b>别机械套平均：</b>只有大小、形状和材料相同的金属球，接触后才可以直接平均；不同大小的导体要按“电势相等”分析。</p>
+            </article>
+          </div>
+        </section>
+
         <article class="worked-example" data-example>
           <div class="example-header">
             <div><span class="example-label">例题 02</span><span class="difficulty medium">综合 · 平衡点</span></div>
@@ -1272,6 +1348,40 @@
               <span>SAME WORD · DIFFERENT STORAGE</span>
               <h3 id="charge-kind-title">都叫“充放电”，电容器和手机电池做的事不一样</h3>
               <p>共同点是都在接收或释放能量；真正的区别是<strong>能量被存在哪里</strong>。</p>
+            </div>
+
+            <div class="storage-motion-lab" id="storageMotionLab" data-mode="charge">
+              <div class="storage-mode-switch" role="group" aria-label="选择观察充电或放电过程">
+                <button type="button" class="active" data-storage-mode="charge">观察充电</button>
+                <button type="button" data-storage-mode="discharge">观察放电</button>
+              </div>
+              <div class="storage-motion-grid">
+                <article class="cap-motion-panel">
+                  <div class="motion-panel-head"><b>电容器</b><span id="capMotionEnergy">电能 → 电场能</span></div>
+                  <div class="cap-motion-stage" aria-label="电容器充放电时电子在外电路移动、两极板电荷分离或中和的动画">
+                    <span class="motion-device" id="capMotionDevice">电源</span>
+                    <i class="motion-wire cap-wire"></i>
+                    <i class="moving-electron e1">e⁻</i><i class="moving-electron e2">e⁻</i><i class="moving-electron e3">e⁻</i>
+                    <div class="motion-plate plate-left"><em>＋ ＋ ＋</em></div>
+                    <div class="motion-field"><i>→</i><i>→</i><i>→</i><small>电场</small></div>
+                    <div class="motion-plate plate-right"><em>− − −</em></div>
+                  </div>
+                  <p id="capMotionText">电源把电子从左极板搬到右极板。两板出现等量异号电荷，板间电场逐渐建立。</p>
+                  <strong class="motion-storage-tag">能量存放处：两极板之间的电场</strong>
+                </article>
+                <article class="battery-motion-panel">
+                  <div class="motion-panel-head"><b>手机锂电池</b><span id="batteryMotionEnergy">电能 → 化学能</span></div>
+                  <div class="battery-motion-stage" aria-label="手机锂电池充放电时电子经过外电路、锂离子在电池内部移动的动画">
+                    <span class="motion-device" id="batteryMotionDevice">充电器</span>
+                    <i class="motion-wire battery-wire"></i>
+                    <i class="battery-electron be1">e⁻</i><i class="battery-electron be2">e⁻</i><i class="battery-electron be3">e⁻</i>
+                    <div class="battery-cell-motion"><span class="battery-side left-side">材料 A</span><i class="battery-separator"></i><span class="battery-side right-side">材料 B</span><b class="li-ion li1">Li⁺</b><b class="li-ion li2">Li⁺</b><b class="li-ion li3">Li⁺</b></div>
+                  </div>
+                  <p id="batteryMotionText">充电器推动电子走外电路，同时锂离子在电池内部迁移，使材料进入较高能量的化学状态。</p>
+                  <strong class="motion-storage-tag battery-tag">能量存放处：电池材料的化学状态</strong>
+                </article>
+              </div>
+              <div class="storage-motion-summary" aria-live="polite"><b id="storageModeTitle">充电时</b><span id="storageModeSummary">两者都从外部接收电能，但电容器建立电场，手机电池改变内部化学状态。</span></div>
             </div>
 
             <div class="charge-kind-cards">
