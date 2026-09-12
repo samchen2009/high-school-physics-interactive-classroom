@@ -1,0 +1,42 @@
+name: Deploy to CloudBase
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "dist/**"
+      - ".github/workflows/deploy-cloudbase.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: cloudbase-production
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install CloudBase CLI
+        run: npm install --global @cloudbase/cli
+
+      - name: Deploy static website
+        env:
+          CLOUDBASE_API_KEY: ${{ secrets.CLOUDBASE_API_KEY }}
+          CLOUDBASE_ENV_ID: physics-d2guqmua62be39ddf
+        run: |
+          tcb login --cloudbase-api-key "$CLOUDBASE_API_KEY" -e "$CLOUDBASE_ENV_ID"
+          tcb hosting deploy ./dist /high-school-physics-classroom -e "$CLOUDBASE_ENV_ID" --safe --verify
