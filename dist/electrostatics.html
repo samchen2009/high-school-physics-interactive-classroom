@@ -1066,6 +1066,43 @@
             <p><strong>一句话：</strong>电容器造好以后，它的 C 由结构和两板之间的介质决定；不是由这一次“充了多少电”决定。</p>
           </div>
 
+          <section class="capacitance-meaning" aria-labelledby="capacitance-meaning-title">
+            <div class="meaning-lead">
+              <span>先回答：C 的数值意味着什么？</span>
+              <h4 id="capacitance-meaning-title">C 表示“电压每升高 1 V，极板上能分离多少电荷”。</h4>
+              <p>它不是现在已经有多少电荷，也不是一个写死的“最大装载量”；它表示电容器把<strong>电压 U</strong>和<strong>极板电荷量 Q</strong>联系起来的能力。</p>
+            </div>
+            <div class="meaning-equation">
+              <div><span>定义</span><strong>C = Q / U</strong></div>
+              <i>所以</i>
+              <div><span>换个写法</span><strong>Q = CU</strong></div>
+              <p><b>1 F = 1 C/V</b>：电容为 1 F，表示电压每升高 1 V，一块极板上的电荷量绝对值增加 1 C，另一块极板同时出现等量异号电荷。</p>
+            </div>
+          </section>
+
+          <div class="capacitance-number-meaning">
+            <article>
+              <span class="meaning-case">同样接 2 V 电源</span>
+              <h4>C 越大，能分离的 Q 越多</h4>
+              <div class="cap-compare-row"><b>1 μF</b><i style="--fill:25%"></i><strong>Q = 2 μC</strong></div>
+              <div class="cap-compare-row"><b>4 μF</b><i style="--fill:100%"></i><strong>Q = 8 μC</strong></div>
+              <p>电压相同，电容变成 4 倍，极板电荷量也变成 4 倍。</p>
+            </article>
+            <article>
+              <span class="meaning-case">同样带 4 μC 电荷</span>
+              <h4>C 越大，产生的 U 越小</h4>
+              <div class="cap-compare-row voltage"><b>1 μF</b><i style="--fill:100%"></i><strong>U = 4 V</strong></div>
+              <div class="cap-compare-row voltage"><b>4 μF</b><i style="--fill:25%"></i><strong>U = 1 V</strong></div>
+              <p>电荷量相同，大电容不容易被“充出很高电压”，所以也更能缓冲电压波动。</p>
+            </article>
+          </div>
+
+          <div class="micro-charge-example">
+            <div><span>一个真实数量感</span><strong>100 μF 电容接在 5 V 电源上</strong></div>
+            <div class="micro-calculation"><b>Q = CU</b><i>=</i><span>100×10<sup>−6</sup> F × 5 V</span><i>=</i><strong>5×10<sup>−4</sup> C</strong></div>
+            <p>也就是一块极板比中性状态多约 <b>3.1×10<sup>15</sup></b> 个电子，另一块极板少同样多的电子。两板合起来的净电荷仍约为 0，储存的是<strong>分离电荷形成的电场能</strong>。</p>
+          </div>
+
           <div class="capacitance-core">
             <div class="capacitance-formula" aria-label="平行板电容器电容公式">
               <span>平行板电容器</span>
@@ -1078,6 +1115,7 @@
               <article><b>ε<sub>r</sub> ↑</b><h4>介电常数越大，C 越大</h4><p>插入绝缘介质后会发生极化，削弱电荷造成的部分电场；同一电压下，两板可以带更多电荷。</p><code>C ∝ ε<sub>r</sub></code></article>
             </div>
           </div>
+          <p class="proportion-note"><b>符号 ∝ 读作“成正比”。</b>例如 C ∝ S：其他条件不变，S 变为 2 倍，C 也变为 2 倍；C ∝ 1/d：d 变为 2 倍，C 变为原来的 1/2。</p>
 
           <div class="capacitance-notice">
             <div><b>公式 C = Q/U 是定义式</b><p>它表示：对同一个电容器，Q 会跟 U 成正比，所以 Q/U 始终是同一个 C。</p></div>
