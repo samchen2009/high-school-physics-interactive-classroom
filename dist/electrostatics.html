@@ -361,24 +361,56 @@
         <section class="electroscope-guide" aria-labelledby="electroscope-title">
           <div class="electroscope-heading">
             <p class="eyebrow">ELECTROSCOPE · 验电器</p>
-            <h3 id="electroscope-title">两片金属箔张开，因为它们带上同种电荷，彼此排斥。</h3>
-            <p>验电器把“看不见的带电”变成“看得见的张角”。它主要判断物体<strong>是否带电</strong>，张角越大通常表示带电越明显。</p>
+            <h3 id="electroscope-title">先看清验电器的“身体”：金属球、金属杆和两片金属箔全部连在一起。</h3>
+            <p>它们是一整块导体，电子可以在其中移动。两片箔片张开，不是被外物直接推开，而是因为<strong>两片箔片最后带上同种电荷，彼此排斥</strong>。</p>
           </div>
-          <div class="electroscope-cases">
-            <article>
-              <div class="electroscope-visual contact-scope" aria-label="带电体接触验电器后两片金属箔带同种电荷并张开">
-                <span class="scope-source">＋＋</span><i>接触 →</i><b class="scope-knob">＋</b><em class="scope-stem"></em><span class="scope-leaf left">＋</span><span class="scope-leaf right">＋</span>
+
+          <div class="electroscope-lab" id="electroscopeLab" data-mode="contact" data-step="1">
+            <div class="electroscope-mode-switch" role="group" aria-label="选择验电方式">
+              <button type="button" class="active" data-scope-mode="contact">接触验电：真的碰到</button>
+              <button type="button" data-scope-mode="induction">感应验电：只靠近</button>
+            </div>
+
+            <div class="electroscope-layout">
+              <div class="scope-stage" aria-label="带正电棒接触或靠近验电器时电荷移动和箔片张开的分步动画">
+                <div class="scope-rod" id="scopeRod"><b>＋ ＋ ＋</b><small>带正电棒</small></div>
+                <div class="scope-action-label" id="scopeActionLabel">还没有靠近</div>
+                <div class="scope-apparatus">
+                  <div class="scope-top-ball"><b id="scopeTopCharge">＋ −</b><small>金属球</small></div>
+                  <div class="scope-metal-rod"><i class="scope-electron se1">e⁻</i><i class="scope-electron se2">e⁻</i><small>金属杆</small></div>
+                  <div class="scope-leaf-hinge"></div>
+                  <div class="scope-clear-case"><small>透明外壳<br>挡住气流</small></div>
+                  <div class="scope-foil scope-foil-left"><b id="scopeLeftCharge">＋ −</b><small>金属箔</small></div>
+                  <div class="scope-foil scope-foil-right"><b id="scopeRightCharge">＋ −</b><small>金属箔</small></div>
+                  <div class="scope-repel-arrows"><i>←</i><span>同号相斥</span><i>→</i></div>
+                </div>
+                <div class="scope-contact-electrons" aria-hidden="true"><i>e⁻</i><i>e⁻</i><i>e⁻</i></div>
+                <div class="scope-legend"><span><i class="legend-electron">e⁻</i> 蓝色表示电子</span><span><i class="legend-positive">＋</i> 粉色“＋”表示缺少电子</span></div>
               </div>
-              <h4>接触验电：电荷真正转移</h4>
-              <p>带电体碰到金属球，电荷沿金属杆传到两片金属箔。两片箔带同种电荷，于是互相排斥并张开；移开带电体后，箔片通常仍保持张开。</p>
-            </article>
-            <article>
-              <div class="electroscope-visual induction-scope" aria-label="带电体靠近但不接触验电器时内部电荷重新分布，金属箔张开">
-                <span class="scope-source">＋＋</span><i>靠近　</i><b class="scope-knob">−</b><em class="scope-stem"></em><span class="scope-leaf left">＋</span><span class="scope-leaf right">＋</span>
+
+              <div class="scope-explanation">
+                <div class="scope-step-buttons" role="group" aria-label="选择验电器动画步骤">
+                  <button type="button" class="active" data-scope-step="1"><b>1</b><span>初始中性</span></button>
+                  <button type="button" data-scope-step="2"><b>2</b><span id="scopeStepTwoLabel">让正电棒接触</span></button>
+                  <button type="button" data-scope-step="3"><b>3</b><span>移开带电棒</span></button>
+                </div>
+                <div class="scope-readout" aria-live="polite">
+                  <span id="scopeStepTitle">第 1 步 · 验电器原来不带电</span>
+                  <p id="scopeStepText">金属球、金属杆和两片金属箔中都有正、负电荷，正负总量相等。两片箔片没有同号电荷的明显排斥，因此自然下垂。</p>
+                  <strong id="scopeStepResult">箔片状态：闭合｜验电器净电荷：0</strong>
+                </div>
+                <div class="scope-why-box">
+                  <b>只盯住两片箔片：</b>
+                  <p>左箔片带正电，会排斥同样带正电的右箔片；如果两片都带负电，也同样互相排斥。<strong>张开只说明两片箔片同号，不等于一定是正电。</strong></p>
+                </div>
               </div>
-              <h4>靠近验电：只是重新分布</h4>
-              <p>正电体靠近但不接触时，顶部电子被吸引，金属箔一端显得正电偏多，所以箔片也会张开。移走带电体后，电荷重新均匀分布，箔片闭合。</p>
-            </article>
+            </div>
+
+            <div class="scope-process-strip" aria-label="验电器两种验电方式的过程对照">
+              <article><span>接触验电</span><b>电子跨过接触点</b><p>正电棒接触后，电子从验电器流向正电棒。验电器失去电子而整体带正电；移开棒后仍带电，箔片继续张开。</p></article>
+              <i>对比</i>
+              <article><span>感应验电</span><b>电子只在验电器内部搬家</b><p>正电棒只靠近时，电子被吸到顶部，下面两片箔片都缺电子而带正电；移开棒后重新均匀分布，箔片闭合。</p></article>
+            </div>
           </div>
           <div class="electroscope-limit"><b>考试易错：</b>一个原本中性的验电器，单凭“箔片张开”只能说明受到带电体影响，<strong>不能直接判断未知物体带正电还是负电</strong>。判断电性还需要已知电荷作比较实验。</div>
         </section>

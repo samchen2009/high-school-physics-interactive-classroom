@@ -828,6 +828,93 @@ function initGroundingLab() {
   render();
 }
 
+function initElectroscopeLab() {
+  const lab = $('#electroscopeLab');
+  const modeButtons = $$('[data-scope-mode]');
+  const stepButtons = $$('[data-scope-step]');
+  if (!lab || !modeButtons.length || !stepButtons.length) return;
+
+  let mode = 'contact';
+  let step = 1;
+  const states = {
+    contact: {
+      1: {
+        title: '第 1 步 · 验电器原来不带电',
+        text: '金属球、金属杆和两片金属箔中都有正、负电荷，正负总量相等。两片箔片没有同号电荷的明显排斥，因此自然下垂。',
+        result: '箔片状态：闭合｜验电器净电荷：0',
+        action: '还没有接触', top: '＋ −', leaves: '＋ −'
+      },
+      2: {
+        title: '第 2 步 · 正电棒接触金属球',
+        text: '正电棒缺少电子。接触以后，验电器中的电子沿金属杆向上运动，并跨过接触点进入正电棒。验电器整体失去电子，所以金属球、金属杆和两片箔片都带正电。',
+        result: '两片箔片：都带正电 → 同号排斥 → 张开',
+        action: '已经接触｜e⁻ 向正电棒移动', top: '＋ ＋', leaves: '＋ ＋'
+      },
+      3: {
+        title: '第 3 步 · 移开带电棒',
+        text: '带电棒虽然移开了，但刚才失去的电子没有自动回来。验电器仍有电子缺失，仍然带正电，所以两片箔片继续排斥。',
+        result: '箔片状态：仍然张开｜验电器净电荷：正',
+        action: '带电棒已移开', top: '＋ ＋', leaves: '＋ ＋'
+      }
+    },
+    induction: {
+      1: {
+        title: '第 1 步 · 验电器原来不带电',
+        text: '正负电荷总量相等，电子大致均匀分布。两片箔片没有同号电荷的明显排斥，因此自然下垂。',
+        result: '箔片状态：闭合｜验电器净电荷：0',
+        action: '还没有靠近', top: '＋ −', leaves: '＋ −'
+      },
+      2: {
+        title: '第 2 步 · 正电棒靠近，但不接触',
+        text: '正电棒吸引电子，电子只在验电器内部向上移动，聚集到顶部金属球附近。下面两片箔片都缺少电子，于是都表现为正电并彼此排斥。',
+        result: '顶部负、下部正；整体净电荷仍为 0｜箔片张开',
+        action: '留有空隙｜没有电子跨过去', top: '− − −', leaves: '＋ ＋'
+      },
+      3: {
+        title: '第 3 步 · 移开带电棒',
+        text: '外部吸引消失，聚集在顶部的电子重新分散到整个验电器。两片箔片不再同号带电，于是恢复下垂。',
+        result: '箔片状态：重新闭合｜验电器净电荷：0',
+        action: '带电棒已移开', top: '＋ −', leaves: '＋ −'
+      }
+    }
+  };
+
+  function render() {
+    const current = states[mode][step];
+    lab.dataset.mode = mode;
+    lab.dataset.step = String(step);
+    $('#scopeStepTitle').textContent = current.title;
+    $('#scopeStepText').textContent = current.text;
+    $('#scopeStepResult').textContent = current.result;
+    $('#scopeActionLabel').textContent = current.action;
+    $('#scopeTopCharge').textContent = current.top;
+    $('#scopeLeftCharge').textContent = current.leaves;
+    $('#scopeRightCharge').textContent = current.leaves;
+    $('#scopeStepTwoLabel').textContent = mode === 'contact' ? '让正电棒接触' : '让正电棒靠近';
+    modeButtons.forEach(button => {
+      const active = button.dataset.scopeMode === mode;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+    stepButtons.forEach(button => {
+      const active = Number(button.dataset.scopeStep) === step;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  modeButtons.forEach(button => button.addEventListener('click', () => {
+    mode = button.dataset.scopeMode;
+    step = 1;
+    render();
+  }));
+  stepButtons.forEach(button => button.addEventListener('click', () => {
+    step = Number(button.dataset.scopeStep);
+    render();
+  }));
+  render();
+}
+
 function initCoulombScenarios() {
   const chargeInput = $('#hangingCharge');
   const svg = $('#hangingChargeSvg');
@@ -1219,6 +1306,7 @@ initWorkedExamples();
 initChargeLedger();
 initLifeCases();
 initGroundingLab();
+initElectroscopeLab();
 initCoulombScenarios();
 initStorageMotion();
 initSituationQuiz();
