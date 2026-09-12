@@ -1174,6 +1174,56 @@
             </div>
           </section>
 
+          <section class="charge-kind-compare" aria-labelledby="charge-kind-title">
+            <div class="charge-kind-heading">
+              <span>SAME WORD · DIFFERENT STORAGE</span>
+              <h3 id="charge-kind-title">都叫“充放电”，电容器和手机电池做的事不一样</h3>
+              <p>共同点是都在接收或释放能量；真正的区别是<strong>能量被存在哪里</strong>。</p>
+            </div>
+
+            <div class="charge-kind-cards">
+              <article class="capacitor-kind-card">
+                <div class="kind-card-title"><span>电容器 <small lang="en">Capacitor</small></span><b>储存电场能</b></div>
+                <div class="energy-route" aria-label="电容器充电时电能转化为电场能">
+                  <span>电源做功</span><i>→</i><span>电子从一块极板搬到另一块</span><i>→</i><strong>形成 +Q、−Q 和电场</strong>
+                </div>
+                <dl>
+                  <div><dt>充电</dt><dd>建立电荷分离。两板分别出现等量异号电荷，电压随 Q 增大。</dd></div>
+                  <div><dt>放电</dt><dd>电子经外电路从负极板流向正极板，正负电荷重新中和。</dd></div>
+                </dl>
+                <div class="kind-formula"><span>直接使用</span><strong>U = Q/C</strong><small>同一个电容器中，Q 减少，U 就随之减小。</small></div>
+              </article>
+
+              <article class="battery-kind-card">
+                <div class="kind-card-title"><span>手机锂电池 <small lang="en">Li-ion battery</small></span><b>储存化学能</b></div>
+                <div class="energy-route chemical-route" aria-label="手机电池充电时电能转化为化学能">
+                  <span>外部输入电能</span><i>→</i><span>离子和电子重新排列</span><i>→</i><strong>形成较高能量的化学状态</strong>
+                </div>
+                <dl>
+                  <div><dt>充电</dt><dd>外部电源迫使电池内部发生反向化学过程，把电能储存为化学能。</dd></div>
+                  <div><dt>放电</dt><dd>化学反应自然进行，释放能量并推动电路中的电荷运动。</dd></div>
+                </dl>
+                <div class="kind-formula battery-formula"><span>不能直接套</span><strong>U = Q/C</strong><small>手机电池不是理想电容器，电压由材料、化学状态、温度等共同影响。</small></div>
+              </article>
+            </div>
+
+            <div class="storage-ledger" aria-label="电容器和手机电池的充放电过程对照">
+              <div class="storage-ledger-head"><span>比较角度</span><b>电容器</b><b>手机电池</b></div>
+              <div><span>能量存在哪里</span><p>两极板之间的<strong>电场</strong></p><p>电池材料的<strong>化学状态</strong></p></div>
+              <div><span>充电后的净电荷</span><p>整体通常仍约为 0，只是两板出现 +Q 和 −Q</p><p>也不是把电子无限堆进去，关键是内部粒子重新排列</p></div>
+              <div><span>典型速度</span><p>通常可以很快充放电</p><p>受到化学反应、温度和安全条件限制</p></div>
+              <div><span>高中主要公式</span><p><code>Q=CU</code>、<code>E<sub>C</sub>=½CU²</code></p><p><code>Q=It</code>、<code>W≈UIt</code>，具体电压变化不能只靠一个简单式子描述</p></div>
+            </div>
+
+            <div class="energy-account">
+              <b>用能量账本记：</b>
+              <span>电容器充电：电能 → 电场能</span>
+              <i>｜</i>
+              <span>手机充电：电能 → 化学能</span>
+              <p>两种过程中都会有一部分能量转化为热，因此输入的能量不会全部成为最终储存的能量。</p>
+            </div>
+          </section>
+
         </section>
 
         <div class="decision-tree">
