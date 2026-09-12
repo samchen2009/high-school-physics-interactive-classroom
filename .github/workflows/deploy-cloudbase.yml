@@ -39,4 +39,4 @@ jobs:
           CLOUDBASE_ENV_ID: physics-d2guqmua62be39ddf
         run: |
           tcb login --cloudbase-api-key "$CLOUDBASE_API_KEY" -e "$CLOUDBASE_ENV_ID"
-          tcb hosting deploy ./dist /high-school-physics-classroom -e "$CLOUDBASE_ENV_ID" --safe --verify
+          tcb hosting deploy ./dist /high-school-physics-classroom -e "$CLOUDBASE_ENV_ID"
