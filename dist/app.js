@@ -542,6 +542,42 @@ function initChargeLedger() {
   renderLedger();
 }
 
+function initLifeCases() {
+  const buttons = $$('[data-life-case]');
+  const panels = $$('[data-life-panel]');
+  if (!buttons.length || !panels.length) return;
+
+  function selectCase(caseName, moveFocus = false) {
+    buttons.forEach(button => {
+      const selected = button.dataset.lifeCase === caseName;
+      button.classList.toggle('active', selected);
+      button.setAttribute('aria-selected', selected ? 'true' : 'false');
+      button.tabIndex = selected ? 0 : -1;
+      if (selected && moveFocus) button.focus();
+    });
+    panels.forEach(panel => {
+      const selected = panel.dataset.lifePanel === caseName;
+      panel.hidden = !selected;
+      panel.classList.toggle('active', selected);
+    });
+  }
+
+  buttons.forEach((button, index) => {
+    button.addEventListener('click', () => selectCase(button.dataset.lifeCase));
+    button.addEventListener('keydown', event => {
+      let nextIndex = index;
+      if (event.key === 'ArrowRight') nextIndex = (index + 1) % buttons.length;
+      else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + buttons.length) % buttons.length;
+      else if (event.key === 'Home') nextIndex = 0;
+      else if (event.key === 'End') nextIndex = buttons.length - 1;
+      else return;
+      event.preventDefault();
+      selectCase(buttons[nextIndex].dataset.lifeCase, true);
+    });
+  });
+  selectCase(buttons.find(button => button.classList.contains('active'))?.dataset.lifeCase || buttons[0].dataset.lifeCase);
+}
+
 $('#sourceSign')?.addEventListener('change', drawInduction);
 $('#inductionDistance')?.addEventListener('input', drawInduction);
 window.addEventListener('resize', drawInduction);
@@ -557,4 +593,5 @@ initParticle();
 initCapacitor();
 initWorkedExamples();
 initChargeLedger();
+initLifeCases();
 updateNav();

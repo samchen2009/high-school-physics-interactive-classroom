@@ -110,6 +110,110 @@
           </div>
         </div>
 
+        <section class="life-observatory" aria-labelledby="life-title">
+          <div class="life-heading">
+            <div><span class="live-dot"></span><span>生活观察站</span></div>
+            <h3 id="life-title">把“见过的现象”翻译成物理语言</h3>
+            <p>点击一种常见物品，按“现象 → 电子 → 规律”往下看。考试题换了外壳，本质通常还是这三步。</p>
+          </div>
+
+          <div class="life-tabs" role="tablist" aria-label="选择生活中的静电现象">
+            <button class="active" role="tab" aria-selected="true" data-life-case="balloon">气球与头发</button>
+            <button role="tab" aria-selected="false" data-life-case="comb">梳子与纸屑</button>
+            <button role="tab" aria-selected="false" data-life-case="spark">毛衣与门把手</button>
+            <button role="tab" aria-selected="false" data-life-case="humidity">冬天与加湿器</button>
+            <button role="tab" aria-selected="false" data-life-case="screen">手机触控屏</button>
+            <button role="tab" aria-selected="false" data-life-case="flash">相机闪光灯</button>
+          </div>
+
+          <div class="life-panels">
+            <article class="life-panel active" role="tabpanel" data-life-panel="balloon">
+              <div class="life-scene">
+                <span class="object-chip">干燥头发</span><b class="electron-route"><i>e⁻</i><i>e⁻</i><em>→</em></b><span class="object-chip charged-negative">橡胶气球</span>
+                <small>常见情况下，电子从头发转移到橡胶气球</small>
+              </div>
+              <div class="life-reasoning">
+                <div><span>你看到</span><p>气球能粘在头发或墙上，几缕头发互相散开。</p></div>
+                <div><span>电子发生什么</span><p>摩擦后气球通常得到电子而带负电，头发失去电子而带正电。</p></div>
+                <div><span>对应规律</span><p>同号的发丝相互排斥；气球与头发异号相吸。气球靠近中性墙面时，还会使墙面发生极化。</p></div>
+              </div>
+              <p class="life-caveat">材料不同，电子转移方向可能不同；题目若未说明，要根据实验现象或题设判断。</p>
+            </article>
+
+            <article class="life-panel" role="tabpanel" data-life-panel="comb" hidden>
+              <div class="life-scene">
+                <span class="object-chip charged-negative">摩擦后的塑料梳</span><b class="attract-route">吸引 →</b><span class="object-chip polarized">中性碎纸屑</span>
+                <small>纸屑整体净电荷仍为 0，但内部正负电荷位置略有偏移</small>
+              </div>
+              <div class="life-reasoning">
+                <div><span>你看到</span><p>塑料梳在头发上摩擦后，可以把轻小纸屑吸起来。</p></div>
+                <div><span>电子发生什么</span><p>梳子带电后，使纸屑中靠近梳子的一端出现异号电荷偏多的效果，远端出现同号电荷偏多的效果。</p></div>
+                <div><span>对应规律</span><p>近处的吸引力比远处的排斥力更强，因此合力表现为吸引。这叫静电极化。</p></div>
+              </div>
+              <p class="life-caveat important">重要：带电体吸引一个轻小物体，不能直接证明两者带异种电荷；被吸物体可能原本是中性的。</p>
+            </article>
+
+            <article class="life-panel" role="tabpanel" data-life-panel="spark" hidden>
+              <div class="life-scene">
+                <span class="object-chip">毛衣 / 鞋底</span><b class="electron-route stored"><i>积累电荷</i><em>→</em></b><span class="object-chip metal">金属门把手</span>
+                <small>接触前电势不同，接触瞬间发生快速放电</small>
+              </div>
+              <div class="life-reasoning">
+                <div><span>你看到</span><p>脱毛衣时听见噼啪声，或手刚碰金属门把手时感到轻微刺痛。</p></div>
+                <div><span>电子发生什么</span><p>衣物摩擦使人体获得或失去电子；接触导体时，电荷在很短时间内重新分配。</p></div>
+                <div><span>对应规律</span><p>空气被强电场击穿会出现微小火花。金属导电好，所以放电集中而迅速，感觉更明显。</p></div>
+              </div>
+              <p class="life-caveat important">不要在燃气、汽油或酒精蒸气附近主动尝试放电实验。</p>
+            </article>
+
+            <article class="life-panel" role="tabpanel" data-life-panel="humidity" hidden>
+              <div class="life-scene weather-scene">
+                <span class="object-chip dry">干燥空气</span><b class="compare-route">电荷留得久　⇄　电荷容易漏走</b><span class="object-chip wet">潮湿表面</span>
+                <small>水分会在物体表面形成较容易导电的薄层</small>
+              </div>
+              <div class="life-reasoning">
+                <div><span>你看到</span><p>冬季脱毛衣、梳头时更容易产生静电；空气湿润时现象减弱。</p></div>
+                <div><span>电子发生什么</span><p>干燥环境中电荷不容易沿物体表面流走；潮湿时电荷可以通过水膜缓慢泄漏。</p></div>
+                <div><span>对应规律</span><p>摩擦产生电荷只是前半程，“电荷积累速度”和“电荷泄漏速度”的竞争决定现象是否明显。</p></div>
+              </div>
+              <p class="life-caveat">所以“冬天静电多”更准确的说法是：干燥时电荷保存得更久、积累得更多。</p>
+            </article>
+
+            <article class="life-panel" role="tabpanel" data-life-panel="screen" hidden>
+              <div class="life-scene">
+                <span class="object-chip field-object">触控屏电极</span><b class="compare-route">局部电场改变</b><span class="object-chip conductor">手指（导体）</span>
+                <small>屏幕检测的不是“按压力气”，而是局部电容的改变</small>
+              </div>
+              <div class="life-reasoning">
+                <div><span>你看到</span><p>手指轻触手机屏幕即可定位；戴普通厚手套时往往无法操作。</p></div>
+                <div><span>电荷发生什么</span><p>手指靠近电极后，会影响附近电荷分布，使该位置的电场和电容发生微小变化。</p></div>
+                <div><span>对应规律</span><p>设备扫描各位置电容的变化来判断触点。能导电的触控笔或专用手套可以模拟手指作用。</p></div>
+              </div>
+              <p class="life-caveat">这会在后面的“电场”和“电容器”两节重新出现。</p>
+            </article>
+
+            <article class="life-panel" role="tabpanel" data-life-panel="flash" hidden>
+              <div class="life-scene">
+                <span class="object-chip source-object">电池慢慢充电</span><b class="electron-route stored"><i>储存能量</i><em>→</em></b><span class="object-chip flash-object">闪光灯瞬间释放</span>
+                <small>慢慢储存，短时间释放：瞬时功率就能很大</small>
+              </div>
+              <div class="life-reasoning">
+                <div><span>你看到</span><p>一些相机闪光后需要等待片刻才能再次闪光。</p></div>
+                <div><span>电荷发生什么</span><p>电源先把正负电荷分别积累到电容器两极板上，在板间电场中储存能量。</p></div>
+                <div><span>对应规律</span><p>放电时，储存的能量在极短时间内送给闪光灯，因此产生很亮的一闪。</p></div>
+              </div>
+              <p class="life-caveat">电容器不像电池那样持续供能，它更擅长快速充放电。</p>
+            </article>
+          </div>
+
+          <div class="common-language">
+            <span>“粘住”<b>静电力大于重力等其他作用</b></span>
+            <span>“噼啪一下”<b>空气击穿与快速放电</b></span>
+            <span>“越干越明显”<b>电荷泄漏得更慢</b></span>
+            <span>“接地”<b>给电荷一条流向大地的通路</b></span>
+          </div>
+        </section>
+
         <div class="lab-grid">
           <article class="lab-panel">
             <div class="panel-head">
