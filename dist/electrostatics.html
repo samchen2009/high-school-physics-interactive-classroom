@@ -1123,6 +1123,57 @@
             <div><b>不是 Q 和 U “决定” C</b><p>就像增加拉力 F 会让伸长量 x 同比例增加，却不会因此改变弹簧的劲度系数 k。</p></div>
           </div>
 
+          <section class="u-q-c-life" aria-labelledby="uqc-life-title">
+            <div class="uqc-life-heading">
+              <span>FROM FORMULA TO LIFE</span>
+              <h3 id="uqc-life-title">U = Q/C 在生活中到底怎么用？</h3>
+              <p>先把三个量翻译成人话：<strong>Q 是已经分离了多少电荷，C 是电容器的“体量”，U 是这些电荷把两端撑出了多大的电压差。</strong></p>
+            </div>
+
+            <div class="uqc-role-strip" aria-label="电荷量、电容和电压三个物理量的作用">
+              <article><b>Q</b><span>现在有多少</span><p>一块极板多出的电荷量绝对值，单位 C。充电时 Q 增加，放电时 Q 减少。</p></article>
+              <i>÷</i>
+              <article><b>C</b><span>器件有多“宽容”</span><p>同样的 Q，大 C 只产生较小的 U；小 C 更容易被同样的电荷“顶高电压”。</p></article>
+              <i>=</i>
+              <article class="voltage-role"><b>U</b><span>两端被撑出多大电压</span><p>电压太低可能带不动电路；超过额定耐压，电容器可能损坏甚至发生危险。</p></article>
+            </div>
+
+            <div class="uqc-use-grid">
+              <article>
+                <span class="meaning-case">场景一 · 拔掉电源后</span>
+                <h4>用 U = Q/C 判断电压怎样下降</h4>
+                <div class="uqc-discharge-visual" aria-label="相同放电量下大电容与小电容的电压下降比较">
+                  <div><b>小 C</b><i style="--drop:72%"></i><strong>电压掉得快</strong></div>
+                  <div><b>大 C</b><i style="--drop:30%"></i><strong>电压掉得慢</strong></div>
+                </div>
+                <p>两只电容在相同时间内都流走 ΔQ：由 <b>ΔU = ΔQ/C</b> 可知，C 越大，电压下降得越少。这就是大电容能“稳住”电源电压的原因。</p>
+              </article>
+              <article>
+                <span class="meaning-case">场景二 · 已知电源电压</span>
+                <h4>用 Q = CU 判断需要搬多少电荷</h4>
+                <div class="uqc-number-line"><span>100 μF</span><i>×</i><span>12 V</span><i>=</i><strong>1.2×10<sup>−3</sup> C</strong></div>
+                <p>同接 12 V 时，换成 1000 μF，Q 会变为 0.012 C。大电容需要电源搬运更多电荷才能达到同一电压，充电浪涌也可能更明显。</p>
+              </article>
+              <article>
+                <span class="meaning-case">场景三 · 选器件</span>
+                <h4>不能只看 C，还要看额定耐压</h4>
+                <div class="rating-rule"><b>工作电压</b><span>必须低于</span><strong>电容额定耐压</strong></div>
+                <p>例如 12 V 电路不能选额定耐压 6.3 V 的电容。相同 C 下，耐压更高的型号通常更大、更贵；工程上会留安全余量。</p>
+              </article>
+            </div>
+
+            <div class="cap-choice-guide">
+              <div class="cap-choice-title"><span>电容 C 选大还是选小？</span><strong>不是越大越好，要看任务</strong></div>
+              <div class="cap-choice-scale">
+                <article><b>0.1 μF</b><h4>芯片旁滤掉尖锐干扰</h4><p>体积小、离芯片近，擅长处理很快的电压毛刺。</p></article>
+                <article><b>1000 μF</b><h4>电源出口缓冲波动</h4><p>短时间补充较多电荷，减小启动或负载变化造成的电压下陷。</p></article>
+                <article><b>120 μF / 330 V</b><h4>闪光灯瞬间放能</h4><p>高电压下储能约 6.5 J；这里 C 和 U 都影响储能。</p></article>
+                <article><b>10 F / 2.7 V</b><h4>超级电容短时后备</h4><p>C 极大但单体耐压较低，适合快速充放电，不等于能替代所有电池。</p></article>
+              </div>
+              <p class="cap-choice-warning"><b>选型口诀：</b>先保证耐压，再按“允许电压波动多少、要支撑多久”选择 C；还要考虑体积、价格、内阻和允许温度。</p>
+            </div>
+          </section>
+
           <section class="ev-capacity" aria-labelledby="ev-capacity-title">
             <div class="ev-capacity-heading">
               <span>新能源车里的“容量”</span>
@@ -1152,6 +1203,26 @@
             <div class="supercap-note">
               <b>那“超级电容”呢？</b>
               <p>超级电容 <span lang="en">supercapacitor</span> 的 C 很大，特别适合在刹车时快速接收回收的能量，再在起步时快速释放；但单位质量储能通常仍低于锂电池。因此它更像“短跑选手”，动力电池更像“长跑选手”。</p>
+            </div>
+
+            <div class="battery-device-compare" aria-labelledby="battery-device-title">
+              <div class="battery-device-heading">
+                <span>BATTERY LABELS</span>
+                <h4 id="battery-device-title">动力电池、充电宝、纽扣电池：真正要看哪些数？</h4>
+                <p>它们主要靠化学反应储能，不能把铭牌上的 mAh 或 kWh 当成电容 C，更不能直接套 U=Q/C。</p>
+              </div>
+              <div class="battery-device-table" role="table" aria-label="三类电池设备参数对比，数值为便于理解的典型示例">
+                <div class="battery-device-row table-head" role="row"><span role="columnheader">设备</span><span role="columnheader">电压 U</span><span role="columnheader">容量 / 能量</span><span role="columnheader">大小意味着什么</span></div>
+                <div class="battery-device-row" role="row"><b role="cell">纽扣电池</b><span role="cell">约 3 V</span><span role="cell">约 220 mAh<br>≈ 0.66 Wh</span><p role="cell">体积小、能量少，适合钟表和小传感器长期小电流工作；不适合带动大功率设备。</p></div>
+                <div class="battery-device-row" role="row"><b role="cell">充电宝</b><span role="cell">电芯约 3.7 V<br>输出常见 5 V 等</span><span role="cell">10000 mAh<br>约 37 Wh</span><p role="cell">mAh 越大通常可充次数越多，但也更重；输出电压由转换电路调节，转换中会有能量损耗。</p></div>
+                <div class="battery-device-row" role="row"><b role="cell">动力电池</b><span role="cell">常见约 400 V<br>或 800 V 平台</span><span role="cell">例如 60 kWh</span><p role="cell">kWh 越大通常续航潜力越大；电压越高，在相同功率 P 下电流 I=P/U 越小，可减小线路的 I²R 发热。</p></div>
+              </div>
+              <div class="battery-formula-bridge">
+                <div><span>电池的 mAh / Ah</span><strong>Q = It</strong><small>表示可转移的电荷量；1 Ah = 3600 C</small></div>
+                <i>再结合电压</i>
+                <div><span>电池的 Wh / kWh</span><strong>W ≈ UQ</strong><small>表示可提供的能量；实际还受放电条件影响</small></div>
+                <p>简化例子：400 V、60 kWh 的动力电池，若把电压近似看作不变，则容量约为 <b>60,000 Wh ÷ 400 V = 150 Ah</b>。这是电池的电荷容量，不是 150 F。</p>
+              </div>
             </div>
           </section>
         </section>
