@@ -224,7 +224,19 @@ function updateNav() {
   const links = $$('.side-nav a');
   let active = sections[0]?.id;
   sections.forEach(section => { if (section.getBoundingClientRect().top < 180) active = section.id; });
-  links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${active}`));
+  let activeLink;
+  links.forEach(link => {
+    const selected = link.getAttribute('href') === `#${active}`;
+    link.classList.toggle('active', selected);
+    if (selected) activeLink = link;
+  });
+
+  const nav = $('.side-nav');
+  if (nav && activeLink && window.matchMedia('(max-width: 1000px)').matches && nav.dataset.visibleSection !== active) {
+    nav.dataset.visibleSection = active;
+    const targetLeft = activeLink.offsetLeft - (nav.clientWidth - activeLink.offsetWidth) / 2;
+    nav.scrollTo({ left: Math.max(0, targetLeft), behavior: 'smooth' });
+  }
 }
 
 const fieldState = { preset: 'dipole' };

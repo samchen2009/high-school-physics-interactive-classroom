@@ -16,7 +16,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-x: clip; }
+html { scroll-behavior: smooth; overflow-x: clip; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0;
   overflow-x: clip;
@@ -32,6 +32,11 @@ body {
 }
 a { color: inherit; }
 button, input, select { font: inherit; }
+button, a, input, select, summary { -webkit-tap-highlight-color: rgba(109,229,255,.16); }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+  outline: 3px solid rgba(255,209,102,.85);
+  outline-offset: 3px;
+}
 
 .topbar {
   position: sticky;
@@ -653,18 +658,18 @@ input[type="range"] { width: 100%; accent-color: var(--cyan); cursor: pointer; }
   .scenario-lab-grid { grid-template-columns:1fr; }.scenario-copy { min-height:0; }
 }
 @media (max-width: 700px) {
-  :root { --radius: 14px; }
+  :root { --radius: 14px; --mobile-topbar-height: calc(60px + env(safe-area-inset-top, 0px)); }
   body { font-size: 15px; }
-  .topbar { height: 60px; padding: 0 12px; }
+  .topbar { height: var(--mobile-topbar-height); padding: env(safe-area-inset-top, 0px) max(12px, env(safe-area-inset-right, 0px)) 0 max(12px, env(safe-area-inset-left, 0px)); }
   .brand { min-width: 0; gap: 8px; }
   .brand-mark { flex: 0 0 auto; width: 32px; height: 32px; border-radius: 9px; }
   .brand span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .top-progress { display: none; }
   .course-home-link { flex: 0 0 auto; min-height: 40px; display: grid; place-items: center; margin-left: 8px; padding: 6px 9px; font-size: .7rem; }
-  .side-nav { top: 60px; gap: 4px; padding: 7px 10px; scroll-snap-type: x proximity; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .side-nav { top: var(--mobile-topbar-height); gap: 4px; padding: 7px max(10px, env(safe-area-inset-right, 0px)) 7px max(10px, env(safe-area-inset-left, 0px)); scroll-padding-inline: 10px; scroll-snap-type: x proximity; scrollbar-width: none; overscroll-behavior-x: contain; touch-action: pan-x; -webkit-overflow-scrolling: touch; }
   .side-nav::-webkit-scrollbar { display: none; }
   .side-nav a { min-height: 44px; padding: 8px 10px; scroll-snap-align: start; }
-  main { padding: 0 12px 64px; }
+  main { padding: 0 max(12px, env(safe-area-inset-right, 0px)) calc(64px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); }
   main > *, .lab-grid > *, .field-layout > *, .potential-layout > *, .capacitor-layout > *, .worked-example > *, .example-body > * { min-width: 0; }
   .hero { min-height: 350px; gap: 28px; padding: 42px 2px 38px; }
   h1 { font-size: clamp(2.75rem, 15vw, 4.2rem); overflow-wrap: anywhere; }
@@ -705,6 +710,9 @@ input[type="range"] { width: 100%; accent-color: var(--cyan); cursor: pointer; }
   .panel-head { min-height: 0; align-items: flex-start; flex-direction: column; gap: 4px; padding: 11px 14px; }
   .panel-head output { max-width: 100%; overflow-wrap: anywhere; }
   .controls { gap: 14px; padding: 15px 14px 18px; }
+  .lab-panel canvas, .chart-panel svg, .hanging-charge-svg { max-width: 100%; }
+  .visual-equation, .work-rule { flex-wrap: wrap; row-gap: 6px; text-align: center; }
+  .exam-note { align-items: flex-start; }
   .model-grid, .case-grid, .application-grid, .mistake-grid { grid-template-columns: 1fr; }
   .fact-ribbon, .problem-cards, .formula-map { grid-template-columns: 1fr; }
   .coulomb-scenario-lab { padding:18px 14px; }.scenario-lab-grid > article { padding:14px 12px; }.hanging-live-result { grid-template-columns:1fr 1fr; }.hanging-live-result span:last-child { grid-column:1/-1; }.scenario-formula { grid-template-columns:1fr; }.scenario-formula > b { grid-row:auto; }.contact-step-buttons { grid-template-columns:1fr; }.storage-motion-grid { grid-template-columns:1fr; }.storage-motion-grid article > p { min-height:0; }.storage-motion-summary { align-items:flex-start; flex-direction:column; gap:5px; }
@@ -755,8 +763,24 @@ input[type="range"] { width: 100%; accent-color: var(--cyan); cursor: pointer; }
   .solution-panel summary span { display: none; }
   .takeaway { align-items: flex-start; flex-direction: column; }
   .electron-controls { grid-template-columns: 1fr; }.electron-controls .quiet-button { grid-column: auto; }
+  .grounding-step-buttons { grid-template-columns: 1fr; }
+  .test-stage { gap: 6px; padding-inline: 7px; }.test-source,.test-probe { width: 54px; height: 54px; }.test-field-arrow { white-space: normal; text-align: center; }
+  .contact-calculation { grid-template-columns: 1fr; }.contact-calculation code,.contact-calculation strong { overflow-wrap: anywhere; word-break: break-word; }
+  .motion-panel-head { align-items: flex-start; flex-direction: column; gap: 3px; }
+  .life-cap-flow { grid-template-columns: 1fr; }.life-cap-flow i { transform: rotate(90deg); }
+  .meaning-equation { grid-template-columns: 1fr; }.meaning-equation > i { transform: rotate(90deg); justify-self: center; }.meaning-equation > p { grid-column: auto; }
+  .micro-calculation { align-items: flex-start; flex-direction: column; }
   .work-comparison > article { grid-template-columns: 1fr; }.work-comparison code { grid-column: auto; }.energy-ledger label { grid-template-columns: 82px minmax(50px,1fr) 32px; }
   .quiz-origin-note { grid-template-columns: 1fr; }.quiz-card { padding: 20px 16px; }.quiz-actions { grid-template-columns: 1fr 1fr; padding-inline: 16px; }.quiz-actions button:last-child { justify-self: stretch; }.quiz-actions button:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 360px) {
+  .brand span:last-child { max-width: 94px; font-size: .8rem; }
+  .course-home-link { padding-inline: 7px; font-size: .66rem; }
+  main { padding-inline: 10px; }
+  h1 { font-size: 2.5rem; }
+  .section-heading h2 { font-size: 1.8rem; }
+  .foundation-intro,.field-foundations,.test-charge-lab,.potential-analogy,.capacitor-life,.capacitance-explainer,.grounding-lab,.electroscope-guide,.field-line-guide,.coulomb-scenario-lab { padding-inline: 12px; }
+  .quiz-actions { grid-template-columns: 1fr; }.quiz-actions button:nth-child(2) { grid-column: auto; grid-row: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
