@@ -16,9 +16,10 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 body {
   margin: 0;
+  overflow-x: clip;
   background:
     linear-gradient(rgba(109,229,255,.035) 1px, transparent 1px),
     linear-gradient(90deg, rgba(109,229,255,.035) 1px, transparent 1px),
@@ -615,16 +616,36 @@ input[type="range"] { width: 100%; accent-color: var(--cyan); cursor: pointer; }
   .formula-symbols { grid-template-columns: repeat(3,1fr); }
 }
 @media (max-width: 700px) {
-  .topbar { padding: 0 16px; }
-  .top-progress > span:first-child, .progress-dots { display: none; }
-  .course-home-link { padding: 7px 9px; font-size: .7rem; }
-  main { padding: 0 16px 70px; }
-  .hero { min-height: 390px; padding-top: 54px; }
+  :root { --radius: 14px; }
+  body { font-size: 15px; }
+  .topbar { height: 60px; padding: 0 12px; }
+  .brand { min-width: 0; gap: 8px; }
+  .brand-mark { flex: 0 0 auto; width: 32px; height: 32px; border-radius: 9px; }
+  .brand span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .top-progress { display: none; }
+  .course-home-link { flex: 0 0 auto; min-height: 40px; display: grid; place-items: center; margin-left: 8px; padding: 6px 9px; font-size: .7rem; }
+  .side-nav { top: 60px; gap: 4px; padding: 7px 10px; scroll-snap-type: x proximity; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .side-nav::-webkit-scrollbar { display: none; }
+  .side-nav a { min-height: 44px; padding: 8px 10px; scroll-snap-align: start; }
+  main { padding: 0 12px 64px; }
+  main > *, .lab-grid > *, .field-layout > *, .potential-layout > *, .capacitor-layout > *, .worked-example > *, .example-body > * { min-width: 0; }
+  .hero { min-height: 350px; gap: 28px; padding: 42px 2px 38px; }
+  h1 { font-size: clamp(2.75rem, 15vw, 4.2rem); overflow-wrap: anywhere; }
+  .hero-copy { margin-top: 18px; line-height: 1.72; }
   .concept-chain { gap: 8px; }
-  .concept-chain div { min-width: 110px; flex: 1; }
+  .concept-chain div { min-width: calc(50% - 4px); flex: 1; padding: 13px 14px; }
   .concept-chain em { display: none; }
+  .lesson { scroll-margin-top: 118px; padding: 48px 0 64px; }
+  .section-heading { margin-bottom: 24px; }
   .section-heading { display: block; }
   .section-heading h2 { margin: 10px 0 12px; }
+  .term-en { display: block; margin: 6px 0 0; font-size: .48em; line-height: 1.35; }
+  .section-heading > p { line-height: 1.7; }
+  .chapter-no { font-size: 1.8rem; }
+  .lab-panel, .chart-panel, .insight-card, .worked-example, .quiz-shell { box-shadow: 0 14px 34px rgba(0,0,0,.2); }
+  button, select { min-height: 44px; }
+  input[type="range"] { min-height: 32px; touch-action: pan-y; }
+  code, .formula-chain, .formula-stack, .ratio-calculation, .calculation-line b, .calculation-line output, .capacitance-formula strong, .kind-formula strong { overflow-wrap: anywhere; word-break: break-word; }
   .foundation-intro { padding: 18px 16px; }
   .foundation-title { display: block; }.foundation-title > span { display: inline-block; margin-bottom: 10px; padding: 0 0 7px; border-right: 0; border-bottom: 1px solid rgba(255,209,102,.35); }
   .foundation-title h3 { margin-bottom: 9px; }
@@ -642,13 +663,15 @@ input[type="range"] { width: 100%; accent-color: var(--cyan); cursor: pointer; }
   .charge-orb { width: 60px; height: 60px; }
   .distance-line { margin: 0 8px; }
   .force-arrow { width: 38px; }
-  .panel-head { align-items: flex-start; flex-direction: column; padding: 12px 16px; }
+  .panel-head { min-height: 0; align-items: flex-start; flex-direction: column; gap: 4px; padding: 11px 14px; }
+  .panel-head output { max-width: 100%; overflow-wrap: anywhere; }
+  .controls { gap: 14px; padding: 15px 14px 18px; }
   .model-grid, .case-grid, .application-grid, .mistake-grid { grid-template-columns: 1fr; }
   .fact-ribbon, .problem-cards, .formula-map { grid-template-columns: 1fr; }
   .graph-explainer { grid-template-columns: 1fr; }
   .field-foundations,.test-charge-lab { padding: 18px 16px; }.field-wind-analogy { grid-template-columns: 1fr; }.test-charge-results { grid-template-columns: 1fr; }.test-charge-results .test-ratio { grid-column: auto; }.test-stage { gap: 10px; padding-inline: 12px; }.test-field-arrow { font-size: .68rem; }
   .potential-analogy { padding: 18px 16px; }.analogy-topline { align-items: flex-start; flex-direction: column; }.energy-demo-grid,.work-comparison { grid-template-columns: 1fr; }.energy-scene { min-height: 210px; }.terrain-legend { justify-content: flex-start; }.work-comparison > article { grid-template-columns: minmax(130px,.55fr) minmax(0,1.45fr); }.kinetic-bridge { grid-template-columns: 1fr; }.kinetic-bridge > em { justify-self: center; writing-mode: horizontal-tb; }
-  .derivation-prereq { grid-template-columns: 1fr; margin-inline: 16px; }.formula-symbols { grid-template-columns: repeat(2,1fr); margin-inline: 16px; }.expanded-derivation { padding-inline: 34px 16px; }.derivation-title { align-items: flex-start; flex-direction: column; gap: 7px; }
+  .derivation-prereq { grid-template-columns: 1fr; margin-inline: 12px; }.formula-symbols { grid-template-columns: repeat(2,minmax(0,1fr)); margin-inline: 12px; }.expanded-derivation { padding-inline: 30px 12px; }.expanded-derivation > li { padding: 14px 12px; }.derivation-title { align-items: flex-start; flex-direction: column; gap: 7px; }.formula-chain { justify-content: flex-start; }.ratio-calculation { font-size: .76rem; }
   .dual-view { grid-template-columns: 1fr; }
   .view-link { transform: rotate(90deg); justify-self: center; }
   .motion-steps { grid-template-columns: 1fr; }
@@ -657,19 +680,34 @@ input[type="range"] { width: 100%; accent-color: var(--cyan); cursor: pointer; }
   .tree-branches { grid-template-columns: 1fr; }
   .tree-branches::before { display: none; }
   .capacitor-life { padding: 18px 16px; }.capacitor-water-analogy,.life-cap-grid { grid-template-columns: 1fr; }.capacitor-life-summary { align-items: flex-start; flex-direction: column; }
-  .capacitance-explainer { padding: 18px 16px; }.capacitance-number-meaning,.capacitance-levers { grid-template-columns: 1fr; }.micro-charge-example { grid-template-columns: 1fr; }.micro-charge-example > p { grid-column: auto; }.uqc-role-strip { grid-template-columns:1fr; }.uqc-role-strip > i { transform:rotate(90deg); justify-self:center; }.uqc-use-grid { grid-template-columns:1fr; }.uqc-use-grid > article:last-child { grid-column:auto; }.cap-choice-title { align-items:flex-start; flex-direction:column; }.cap-choice-scale,.charge-kind-cards { grid-template-columns:1fr; }.energy-route { grid-template-columns:1fr; }.energy-route i { justify-self:center; animation:none; transform:rotate(90deg); }.storage-ledger > div { grid-template-columns:1fr; }.storage-ledger-head b { display:none; }.storage-ledger > div:not(.storage-ledger-head) p::before { display:block; margin-bottom:4px; color:var(--cyan); font-size:.74rem; font-weight:850; }.storage-ledger > div:not(.storage-ledger-head) p:first-of-type::before { content:"电容器"; }.storage-ledger > div:not(.storage-ledger-head) p:last-of-type::before { content:"手机电池"; color:var(--green); }.energy-account > i { display:none; }.energy-account > span { flex-basis:100%; }
+  .capacitance-explainer { padding: 18px 14px; }.capacitance-number-meaning,.capacitance-levers { grid-template-columns: 1fr; }.micro-charge-example { grid-template-columns: 1fr; }.micro-charge-example > p { grid-column: auto; }.uqc-role-strip { grid-template-columns:1fr; }.uqc-role-strip > i { transform:rotate(90deg); justify-self:center; }.uqc-use-grid { grid-template-columns:1fr; }.uqc-use-grid > article:last-child { grid-column:auto; }.cap-choice-title { align-items:flex-start; flex-direction:column; }.cap-choice-scale,.charge-kind-cards { grid-template-columns:1fr; }.kind-card-title { align-items:flex-start; flex-direction:column; gap:4px; }.charge-kind-cards > article { padding:15px 13px; }.charge-kind-cards dl > div { grid-template-columns:1fr; gap:3px; }.energy-route { grid-template-columns:1fr; text-align:center; }.energy-route span,.energy-route strong { padding:8px; border:1px solid rgba(109,229,255,.14); background:rgba(5,16,29,.36); }.chemical-route span,.chemical-route strong { border-color:rgba(112,225,161,.16); }.energy-route i { justify-self:center; animation:none; transform:rotate(90deg); }.kind-formula { grid-template-columns:1fr; }.kind-formula small { grid-column:auto; }.storage-ledger { border:0; }.storage-ledger > div { grid-template-columns:1fr; margin-top:9px; border:1px solid var(--line); }.storage-ledger > div > * { padding:10px 12px; border-right:0; }.storage-ledger-head { display:none!important; }.storage-ledger > div:not(.storage-ledger-head) > span { color:var(--yellow); font-weight:850; background:rgba(255,209,102,.045); }.storage-ledger > div:not(.storage-ledger-head) p::before { display:block; margin-bottom:4px; color:var(--cyan); font-size:.74rem; font-weight:850; }.storage-ledger > div:not(.storage-ledger-head) p:first-of-type::before { content:"电容器"; }.storage-ledger > div:not(.storage-ledger-head) p:last-of-type::before { content:"手机电池"; color:var(--green); }.energy-account > i { display:none; }.energy-account > span { flex-basis:100%; }
   .answer-options, .cap-result-grid { grid-template-columns: 1fr 1fr; }
   .cap-case-switch { flex-direction: column; }
-  .quiz-status { grid-template-columns: 1fr auto; }.quiz-progress { grid-column: 1 / -1; grid-row: 2; }.quiz-options { grid-template-columns: 1fr; }
+  .knowledge-table-wrap { overflow: visible; border: 0; }
+  .knowledge-table, .knowledge-table tbody, .knowledge-table tr, .knowledge-table td { display: block; width: 100%; min-width: 0; }
+  .knowledge-table thead { display: none; }
+  .knowledge-table tr { margin-bottom: 10px; overflow: hidden; border: 1px solid var(--line); border-radius: 11px; background: rgba(14,32,53,.58); }
+  .knowledge-table td { padding: 10px 13px 10px 104px; position: relative; border-bottom: 1px solid var(--line); }
+  .knowledge-table td::before { position: absolute; left: 13px; top: 10px; width: 82px; color: var(--cyan); font-size: .75rem; font-weight: 850; }
+  .knowledge-table td:nth-child(1)::before { content: "关系"; }
+  .knowledge-table td:nth-child(2)::before { content: "图像理解"; }
+  .knowledge-table td:nth-child(3)::before { content: "易错点"; }
+  .knowledge-table tr:last-child td { border-bottom: 1px solid var(--line); }
+  .knowledge-table td:last-child { border-bottom: 0!important; }
+  .quiz-status { grid-template-columns: 1fr auto; padding: 13px 14px; }.quiz-progress { grid-column: 1 / -1; grid-row: 2; }.quiz-options { grid-template-columns: 1fr; }.quiz-option { min-height: 62px; padding: 12px; }
   .glossary-heading { grid-template-columns: 1fr; gap: 7px; }.bilingual-glossary dl { grid-template-columns: 1fr; }
   .site-footer { flex-direction: column; }
 }
 @media (max-width: 420px) {
-  .brand span:last-child { font-size: .9rem; }
+  .brand span:last-child { max-width: 118px; font-size: .86rem; }
   .top-progress { font-size: .75rem; }
   .side-nav { padding-inline: 10px; }
   .side-nav a { padding: 8px; font-size: .85rem; }
-  h1 { font-size: 3.2rem; }
+  h1 { font-size: clamp(2.65rem, 14vw, 3.2rem); }
+  .concept-chain div { min-width: 100%; }
+  .section-heading h2 { font-size: 2rem; line-height: 1.12; }
+  .knowledge-table td { padding-left: 13px; padding-top: 34px; }
+  .knowledge-table td::before { top: 8px; }
   .force-arrow { display: none; }
   .example-header, .example-body { padding-left: 16px; padding-right: 16px; }
   .answer-options, .cap-result-grid { grid-template-columns: 1fr; }
