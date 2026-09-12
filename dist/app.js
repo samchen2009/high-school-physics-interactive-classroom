@@ -453,6 +453,95 @@ function initCapacitor() {
   drawCapacitor();
 }
 
+function initWorkedExamples() {
+  $$('.answer-options').forEach(group => {
+    const correctChoice = group.dataset.answer;
+    const feedback = group.parentElement.querySelector('.answer-feedback');
+    $$('button', group).forEach(button => {
+      button.addEventListener('click', () => {
+        const isCorrect = button.dataset.choice === correctChoice;
+        $$('button', group).forEach(option => {
+          option.classList.remove('chosen-wrong', 'chosen-correct', 'reveal-correct');
+          option.setAttribute('aria-pressed', option === button ? 'true' : 'false');
+        });
+        button.classList.add(isCorrect ? 'chosen-correct' : 'chosen-wrong');
+        if (!isCorrect) {
+          $(`button[data-choice="${correctChoice}"]`, group)?.classList.add('reveal-correct');
+        }
+        if (feedback) {
+          feedback.textContent = isCorrect ? group.dataset.correctNote : group.dataset.wrongNote;
+          feedback.className = `answer-feedback ${isCorrect ? 'correct' : 'wrong'}`;
+        }
+      });
+    });
+  });
+
+  const capacitorCases = {
+    connected: {
+      c: 'C/2 ↓', q: 'Q/2 ↓', u: 'U 不变', e: 'E/2 ↓',
+      qReason: 'Q = CU，U 锁定', uReason: '由电源锁定', eReason: 'E = U/d'
+    },
+    isolated: {
+      c: 'C/2 ↓', q: 'Q 不变', u: '2U ↑', e: 'E 不变',
+      qReason: '电路断开，无处转移电荷', uReason: 'U = Q/C', eReason: 'E ∝ Q/S，或 E = 2U/2d'
+    }
+  };
+  $$('[data-cap-case]').forEach(button => {
+    button.addEventListener('click', () => {
+      const values = capacitorCases[button.dataset.capCase];
+      $$('[data-cap-case]').forEach(item => item.classList.toggle('active', item === button));
+      $('#caseC').textContent = values.c;
+      $('#caseQ').textContent = values.q;
+      $('#caseU').textContent = values.u;
+      $('#caseE').textContent = values.e;
+      $('#caseQReason').textContent = values.qReason;
+      $('#caseUReason').textContent = values.uReason;
+      $('#caseEReason').textContent = values.eReason;
+    });
+  });
+}
+
+function initChargeLedger() {
+  const protonRow = $('#protonRow');
+  const electronRow = $('#electronRow');
+  if (!protonRow || !electronRow) return;
+
+  const protons = 6;
+  let electrons = 6;
+  const makeTokens = (count, symbol) => Array.from({ length: count }, () => {
+    const token = document.createElement('b');
+    token.className = 'charge-token';
+    token.textContent = symbol;
+    return token;
+  });
+
+  function renderLedger() {
+    protonRow.replaceChildren(...makeTokens(protons, '+'));
+    electronRow.replaceChildren(...makeTokens(electrons, '−'));
+    $('#protonCount').textContent = protons;
+    $('#electronCount').textContent = electrons;
+
+    const net = protons - electrons;
+    const result = $('#netResult');
+    result.className = `net-result ${net > 0 ? 'positive' : net < 0 ? 'negative' : 'neutral'}`;
+    $('#netChargeValue').innerHTML = `Q<sub>净</sub> = ${net > 0 ? '+' : net < 0 ? '−' : ''}${Math.abs(net) || 0}${net === 0 ? '' : 'e'}`;
+    $('#netChargeMeaning').textContent = net > 0
+      ? `电子比质子少 ${net} 个，抵消后还剩正电，所以物体带正电。`
+      : net < 0
+        ? `电子比质子多 ${Math.abs(net)} 个，抵消后还剩负电，所以物体带负电。`
+        : '正负电荷总量相等，所以物体呈电中性；不是说物体内部没有电荷。';
+    $('#addElectron').disabled = electrons >= 9;
+    $('#removeElectron').disabled = electrons <= 3;
+    result.classList.remove('flash');
+    requestAnimationFrame(() => result.classList.add('flash'));
+  }
+
+  $('#addElectron').addEventListener('click', () => { electrons = Math.min(9, electrons + 1); renderLedger(); });
+  $('#removeElectron').addEventListener('click', () => { electrons = Math.max(3, electrons - 1); renderLedger(); });
+  $('#resetElectrons').addEventListener('click', () => { electrons = 6; renderLedger(); });
+  renderLedger();
+}
+
 $('#sourceSign')?.addEventListener('change', drawInduction);
 $('#inductionDistance')?.addEventListener('input', drawInduction);
 window.addEventListener('resize', drawInduction);
@@ -466,4 +555,6 @@ initField();
 initPotential();
 initParticle();
 initCapacitor();
+initWorkedExamples();
+initChargeLedger();
 updateNav();

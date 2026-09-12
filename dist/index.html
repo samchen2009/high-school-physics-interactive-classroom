@@ -55,6 +55,61 @@
           <p>起电不是“创造电荷”，而是电子发生转移或重新分布。</p>
         </div>
 
+        <div class="foundation-intro" id="charge-basics">
+          <div class="foundation-title">
+            <span>先补地基</span>
+            <h3>看懂静电，先认识“电子”和“净电荷”</h3>
+            <p>后面所有的起电、库仑力和电场题，都在追踪两件事：电子去了哪里，以及正负电荷抵消后还剩多少。</p>
+          </div>
+
+          <div class="foundation-grid">
+            <article class="atom-explainer">
+              <div class="concept-tag">概念 1 · 电子是什么</div>
+              <div class="atom-content">
+                <div class="atom-diagram" role="img" aria-label="原子由原子核中的质子、中子和核外电子组成的示意图">
+                  <i class="orbit orbit-one"><b class="electron-dot">−</b></i>
+                  <i class="orbit orbit-two"><b class="electron-dot">−</b></i>
+                  <i class="orbit orbit-three"><b class="electron-dot">−</b></i>
+                  <span class="nucleus"><b>p⁺</b><b>n⁰</b></span>
+                  <small>原子结构示意 · 不按比例</small>
+                </div>
+                <div class="atom-copy">
+                  <p>普通物质由原子组成。原子核里的<strong>质子带正电</strong>，核外的<strong>电子带负电</strong>，中子不带电。</p>
+                  <div class="particle-ledger">
+                    <span><i class="particle-icon proton">＋</i><b>质子</b><em>+e</em></span>
+                    <span><i class="particle-icon neutron">0</i><b>中子</b><em>0</em></span>
+                    <span><i class="particle-icon electron">−</i><b>电子</b><em>−e</em></span>
+                  </div>
+                  <p class="electron-key"><b>高中静电中的主角是电子。</b>一个电子带电 −e，其中 e = 1.60×10⁻¹⁹ C。在固体中，原子核通常不能整体移动；发生转移或重新分布的，主要是电子。</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="net-charge-lab">
+              <div class="concept-tag">概念 2 · 净电荷是什么</div>
+              <div class="net-formula"><span>净电荷</span><b>Q = (N<sub>p</sub> − N<sub>e</sub>)e</b><small>把所有正负电荷带符号相加；下图只用 6 个质子做记账示意</small></div>
+              <div class="charge-counts" aria-label="质子数和电子数的电荷记账">
+                <div><span>质子数固定</span><strong id="protonCount">6</strong><i id="protonRow" class="charge-token-row positive-row"></i></div>
+                <div><span>电子数可变</span><strong id="electronCount">6</strong><i id="electronRow" class="charge-token-row negative-row"></i></div>
+              </div>
+              <div class="electron-controls" role="group" aria-label="改变电子数量">
+                <button id="addElectron">＋ 移入 1 个电子</button>
+                <button id="removeElectron">− 移出 1 个电子</button>
+                <button id="resetElectrons" class="quiet-button">恢复中性</button>
+              </div>
+              <div class="net-result neutral" id="netResult" aria-live="polite">
+                <strong id="netChargeValue">Q<sub>净</sub> = 0</strong>
+                <p id="netChargeMeaning">正负电荷总量相等，所以物体呈电中性；不是说物体内部没有电荷。</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="foundation-checks">
+            <details><summary>判断 ①：中性物体内部没有电荷，对吗？</summary><p><b>不对。</b>中性物体内部仍有大量质子和电子，只是正、负电荷的总量恰好相等，净电荷为零。</p></details>
+            <details><summary>判断 ②：物体带 +3e，表示什么？</summary><p>表示它的质子总数比电子总数多 3 个。普通起电过程中通常可理解为：<b>物体比中性状态少了 3 个电子。</b></p></details>
+          </div>
+        </div>
+
         <div class="lab-grid">
           <article class="lab-panel">
             <div class="panel-head">
@@ -123,6 +178,38 @@
             </ul>
           </div>
         </div>
+
+        <article class="worked-example" data-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 01</span><span class="difficulty basic">基础 · 顺序判断</span></div>
+            <h3>感应起电：到底是谁带正、谁带负？</h3>
+            <p>两个相同金属球 A、B 相互接触。将带正电的玻璃棒靠近 A，保持玻璃棒不动，先分开 A、B，再移走玻璃棒。最后两球的带电情况是：</p>
+          </div>
+          <div class="example-body two-part">
+            <div class="induction-question" aria-label="正电棒靠近相互接触的金属球 A 和 B">
+              <span class="rod-positive">＋＋＋</span><i class="field-wave"></i><span class="quiz-sphere">A</span><span class="contact-link"></span><span class="quiz-sphere">B</span>
+              <small>① 靠近　② 先分球　③ 后移棒</small>
+            </div>
+            <div>
+              <div class="answer-options" data-answer="b" data-correct-note="对！关键是“先分球、后移棒”，电荷已经被锁在两球上。" data-wrong-note="再看一眼操作顺序：正电棒先吸引电子，分球时电荷才被固定。">
+                <button data-choice="a">A、B 都带正电</button>
+                <button data-choice="b">A 带负电，B 带正电</button>
+                <button data-choice="c">A 带正电，B 带负电</button>
+                <button data-choice="d">A、B 最后都不带电</button>
+              </div>
+              <p class="answer-feedback" aria-live="polite">先自己判断，再点选答案。</p>
+            </div>
+          </div>
+          <details class="solution-panel">
+            <summary>展开分步解析 <span>不是背结论，要追电子</span></summary>
+            <ol class="solution-steps">
+              <li><b>靠近：</b>正电棒吸引自由电子，电子从 B 移向 A，所以 A 端电子过量，B 端电子不足。</li>
+              <li><b>先分球：</b>A、B 不再连通，负电荷留在 A，正电荷留在 B。</li>
+              <li><b>后移棒：</b>玻璃棒移走只会让各球表面电荷重新分布，不会改变每个球的净电荷。</li>
+            </ol>
+            <div class="takeaway"><span>答案 B</span><b>感应起电题先写操作顺序：靠近 → 分离 → 移开。</b></div>
+          </details>
+        </article>
       </section>
 
       <section class="lesson" id="coulomb" data-section="coulomb">
@@ -186,6 +273,34 @@
           <article><span>平衡问题</span><h3>带电小球与细线</h3><p>把库仑力与重力、拉力放在同一受力图中，再按平衡条件分解。</p></article>
           <article><span>多电荷</span><h3>矢量叠加</h3><p>每个力单独画方向；共线用正负号，非共线用平行四边形法则。</p></article>
         </div>
+
+        <article class="worked-example" data-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 02</span><span class="difficulty medium">综合 · 平衡点</span></div>
+            <h3>两个同号电荷之间，合力为零的位置在哪？</h3>
+            <p>A 点固定电荷 +Q，B 点固定电荷 +4Q，AB = 3 m。在两者之间放一个正试探电荷 q，q 距 A 多远时受到的合力为零？</p>
+          </div>
+          <div class="example-body two-part">
+            <div class="number-line-visual" aria-label="A 点正 Q 与 B 点正 4Q 相距 3 米">
+              <span class="line-charge small">+Q<em>A</em></span><i class="segment"><b>x</b><u></u><b>3−x</b></i><span class="test-charge">+q</span><span class="line-charge large">+4Q<em>B</em></span>
+            </div>
+            <div>
+              <div class="answer-options compact-options" data-answer="a" data-correct-note="正确。大电荷推得更强，所以平衡点应更靠近小电荷 A。" data-wrong-note="先做定性判断：平衡点一定更靠近电荷量较小的 A。">
+                <button data-choice="a">1.0 m</button><button data-choice="b">1.5 m</button><button data-choice="c">2.0 m</button><button data-choice="d">不存在</button>
+              </div>
+              <p class="answer-feedback" aria-live="polite">先用“近小远大”缩小范围。</p>
+            </div>
+          </div>
+          <details class="solution-panel">
+            <summary>展开分步解析 <span>定性判断比列式更早</span></summary>
+            <ol class="solution-steps">
+              <li><b>方向：</b>q 在两电荷之间，A 对 q 的力向右，B 对 q 的力向左，方向相反，才可能抵消。</li>
+              <li><b>大小：</b>令 q 距 A 为 x，则距 B 为 3−x。平衡时 kQq/x² = k·4Qq/(3−x)²。</li>
+              <li><b>约去公共量：</b>1/x² = 4/(3−x)²，所以 3−x = 2x，得到 x = 1.0 m。</li>
+            </ol>
+            <div class="takeaway"><span>答案 A</span><b>同号电荷的零场点在中间，并且“近小远大”。</b></div>
+          </details>
+        </article>
       </section>
 
       <section class="lesson" id="field" data-section="field">
@@ -242,6 +357,38 @@
             <span class="axis-arrow up">E &gt; 0 · 向右</span><i></i><span class="axis-arrow down">E &lt; 0 · 向左</span>
           </div>
         </div>
+
+        <article class="worked-example" data-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 03</span><span class="difficulty trap">易错 · 矢量与标量</span></div>
+            <h3>场强为零，电势也一定为零吗？</h3>
+            <p>两个等量正点电荷 +Q 固定在 A、B 两点，O 为 AB 中点，取无穷远处电势为零。O 点的场强 E 和电势 φ 分别怎样？</p>
+          </div>
+          <div class="example-body two-part">
+            <div class="superposition-visual" aria-label="两个等量正电荷在中点产生方向相反的电场">
+              <span>+Q</span><i class="arrow-to-right">E₁ →</i><b>O</b><i class="arrow-to-left">← E₂</i><span>+Q</span>
+              <small>电场看方向；电势只做代数相加</small>
+            </div>
+            <div>
+              <div class="answer-options" data-answer="c" data-correct-note="正确！E 是矢量相消，φ 是标量相加。" data-wrong-note="不要把 E 和 φ 用同一种叠加方法：一个是矢量，一个是标量。">
+                <button data-choice="a">E = 0，φ = 0</button>
+                <button data-choice="b">E &gt; 0，φ = 0</button>
+                <button data-choice="c">E = 0，φ &gt; 0</button>
+                <button data-choice="d">E &gt; 0，φ &gt; 0</button>
+              </div>
+              <p class="answer-feedback" aria-live="polite">先分别写出 E₁、E₂ 和 φ₁、φ₂。</p>
+            </div>
+          </div>
+          <details class="solution-panel">
+            <summary>展开分步解析 <span>上海卷高频陷阱</span></summary>
+            <ol class="solution-steps">
+              <li><b>算场强：</b>两个正电荷在 O 点产生的场强等大反向，矢量和为 0。</li>
+              <li><b>算电势：</b>正点电荷在 O 点的电势都为正，φ = kQ/r + kQ/r = 2kQ/r &gt; 0。</li>
+              <li><b>辨析：</b>“E = 0”只说明该点没有确定的电场方向，不代表该点处在零电势参考面上。</li>
+            </ol>
+            <div class="takeaway"><span>答案 C</span><b>场强用箭头合成；电势带正负号直接相加。</b></div>
+          </details>
+        </article>
       </section>
 
       <section class="lesson" id="potential" data-section="potential">
@@ -302,6 +449,37 @@
             </tbody>
           </table>
         </div>
+
+        <article class="worked-example" data-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 04</span><span class="difficulty medium">综合 · 功能关系</span></div>
+            <h3>负电荷移动：三个正负号一次理清</h3>
+            <p>电荷量 q = −2.0 μC 的粒子从 A 点移到 B 点，φ<sub>A</sub> = 300 V，φ<sub>B</sub> = −100 V。电场力做功 W<sub>AB</sub> 和电势能变化 ΔE<sub>p</sub> 是多少？</p>
+          </div>
+          <div class="example-body two-part">
+            <div class="potential-stairs" aria-label="A 点 300 伏到 B 点负 100 伏的电势下降">
+              <div><b>A</b><span>300 V</span></div><i>电势下降 400 V ↘</i><div><b>B</b><span>−100 V</span></div><em>移动的是负电荷 −q</em>
+            </div>
+            <div>
+              <div class="answer-options" data-answer="d" data-correct-note="正确。负电荷跨越正电势差，电场力做负功，电势能增加。" data-wrong-note="先算 UAB = φA−φB，再把 q 的负号完整代入 W=qUAB。">
+                <button data-choice="a">W = +8.0×10⁻⁴ J，ΔEₚ = +8.0×10⁻⁴ J</button>
+                <button data-choice="b">W = +8.0×10⁻⁴ J，ΔEₚ = −8.0×10⁻⁴ J</button>
+                <button data-choice="c">W = −8.0×10⁻⁴ J，ΔEₚ = −8.0×10⁻⁴ J</button>
+                <button data-choice="d">W = −8.0×10⁻⁴ J，ΔEₚ = +8.0×10⁻⁴ J</button>
+              </div>
+              <p class="answer-feedback" aria-live="polite">建议把“电势差、功、势能”分三行写。</p>
+            </div>
+          </div>
+          <details class="solution-panel">
+            <summary>展开分步解析 <span>正负号一行也不要跳</span></summary>
+            <ol class="solution-steps">
+              <li><b>电势差：</b>U<sub>AB</sub> = φ<sub>A</sub> − φ<sub>B</sub> = 300 − (−100) = 400 V。</li>
+              <li><b>电场力做功：</b>W<sub>AB</sub> = qU<sub>AB</sub> = (−2.0×10⁻⁶)×400 = −8.0×10⁻⁴ J。</li>
+              <li><b>电势能：</b>ΔE<sub>p</sub> = −W<sub>AB</sub> = +8.0×10⁻⁴ J。</li>
+            </ol>
+            <div class="takeaway"><span>答案 D</span><b>稳妥链条：UAB = φA−φB → WAB = qUAB → ΔEp = −WAB。</b></div>
+          </details>
+        </article>
       </section>
 
       <section class="lesson" id="particle" data-section="particle">
@@ -345,6 +523,36 @@
           <article><span>偏转模型</span><h3>速度与电场垂直</h3><p>与平抛运动同构，关键量是加速度和在板间运动的时间。</p></article>
           <article><span>复合场平衡</span><h3>电场力与重力抵消</h3><p>带电液滴悬浮时合力为零；先判断电性，再列平衡条件。</p></article>
         </div>
+
+        <article class="worked-example" data-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 05</span><span class="difficulty graph">模型 · 比例推理</span></div>
+            <h3>电压和速度同时改变，偏转量怎么变？</h3>
+            <p>同一带电粒子水平进入同一对平行板。若板间电压变为原来的 2 倍、入射速度变为原来的 2 倍，其他条件不变，则粒子离开极板时的竖直偏移量变为原来的：</p>
+          </div>
+          <div class="example-body two-part">
+            <div class="trajectory-ratio" aria-label="粒子通过平行板时形成抛物线轨迹">
+              <div class="mini-plates"><span>＋＋＋＋＋</span><i class="path-old"></i><i class="path-new"></i><span>− − − − −</span></div>
+              <p><b>U ×2</b><span>竞争</span><b>v₀ ×2</b></p>
+            </div>
+            <div>
+              <div class="answer-options compact-options" data-answer="b" data-correct-note="正确。电压让加速度 ×2，但速度让板内时间变成 1/2，时间平方带来 1/4。" data-wrong-note="别只看电场变强；偏转时间 t=L/v₀ 也同时改变了。">
+                <button data-choice="a">2 倍</button><button data-choice="b">1/2</button><button data-choice="c">1/4</button><button data-choice="d">不变</button>
+              </div>
+              <p class="answer-feedback" aria-live="polite">提示：偏转量里速度是平方关系。</p>
+            </div>
+          </div>
+          <details class="solution-panel">
+            <summary>展开分步解析 <span>先拆运动，再做比例</span></summary>
+            <ol class="solution-steps">
+              <li><b>板内时间：</b>水平方向匀速，t = L/v₀。</li>
+              <li><b>竖直加速度：</b>a = qE/m = qU/(md)。</li>
+              <li><b>合并：</b>y = ½at² = qUL²/(2mdv₀²)，所以 y ∝ U/v₀²。</li>
+              <li><b>代比例：</b>y′/y = 2/2² = 1/2。</li>
+            </ol>
+            <div class="takeaway"><span>答案 B</span><b>偏转模型的核心结论：y ∝ U、y ∝ 1/v₀²。</b></div>
+          </details>
+        </article>
       </section>
 
       <section class="lesson" id="capacitor" data-section="capacitor">
@@ -399,6 +607,33 @@
           <article><b>插入介质</b><span>相同结构下，介质通常使电容增大。</span></article>
           <article><b>改变结构</b><span>面积越大电容越大；板间距越大电容越小。</span></article>
         </div>
+
+        <article class="worked-example capacitor-example" data-cap-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 06</span><span class="difficulty trap">压轴易错 · 两种状态</span></div>
+            <h3>极板间距变成 2d，四个物理量怎样联动？</h3>
+            <p>平行板电容器原来充电完毕。保持正对面积和介质不变，把板间距由 d 缓慢增大到 2d。先选择实验状态，再观察 C、Q、U、E 的变化。</p>
+          </div>
+          <div class="cap-case-switch" role="group" aria-label="选择电容器是否连接电源">
+            <button class="active" data-cap-case="connected">仍连接电源（U 不变）</button>
+            <button data-cap-case="isolated">先断开电源（Q 不变）</button>
+          </div>
+          <div class="cap-result-grid" aria-live="polite">
+            <article><span>电容 C</span><strong id="caseC">C/2 ↓</strong><small>C ∝ 1/d</small></article>
+            <article><span>电荷量 Q</span><strong id="caseQ">Q/2 ↓</strong><small id="caseQReason">Q = CU，U 锁定</small></article>
+            <article><span>电压 U</span><strong id="caseU">U 不变</strong><small id="caseUReason">由电源锁定</small></article>
+            <article><span>场强 E</span><strong id="caseE">E/2 ↓</strong><small id="caseEReason">E = U/d</small></article>
+          </div>
+          <details class="solution-panel">
+            <summary>展开通用解法 <span>先锁定不变量</span></summary>
+            <ol class="solution-steps">
+              <li><b>先判结构：</b>C = εS/(4πkd)，d 加倍，因此 C 变为一半，这一步与是否接电源无关。</li>
+              <li><b>再找锁定量：</b>接电源锁定 U，断电源锁定 Q。</li>
+              <li><b>最后联动：</b>用 Q = CU 求第三个量，用 E = U/d 或 E ∝ Q/S 求场强。</li>
+            </ol>
+            <div class="takeaway"><span>决策口令</span><b>结构先判 C，状态锁 U/Q，最后再求 E。</b></div>
+          </details>
+        </article>
       </section>
 
       <section class="lesson final-review" id="review" data-section="review">
