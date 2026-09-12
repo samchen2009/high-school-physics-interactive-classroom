@@ -754,6 +754,80 @@ function initLifeCases() {
   selectCase(buttons.find(button => button.classList.contains('active'))?.dataset.lifeCase || buttons[0].dataset.lifeCase);
 }
 
+function initGroundingLab() {
+  const stage = $('#groundingStage');
+  const signButton = $('#groundingSign');
+  const stepButtons = $$('[data-ground-step]');
+  if (!stage || !signButton || !stepButtons.length) return;
+
+  let step = 1;
+  let rodSign = 1;
+  const stepLabel = $('#groundingStepLabel');
+  const stepText = $('#groundingStepText');
+  const netText = $('#groundingNet');
+  const rod = $('#groundingRod');
+  const near = $('#groundNear');
+  const far = $('#groundFar');
+  const spread = $('#spreadCharge');
+  const flow = $('#electronFlow');
+  const field = $('.grounding-field', stage);
+
+  const descriptions = {
+    1: {
+      positive: ['第 1 步 · 只靠近，不接触', '正电棒吸引电子。金属球靠近棒的一侧电子偏多，远端电子偏少，但整个球的净电荷仍为 0。', '近端负、远端正；整体中性'],
+      negative: ['第 1 步 · 只靠近，不接触', '负电棒排斥电子。金属球靠近棒的一侧电子偏少，远端电子偏多，但整个球的净电荷仍为 0。', '近端正、远端负；整体中性']
+    },
+    2: {
+      positive: ['第 2 步 · 保持棒不动，再接地', '正电棒仍在吸引电子。接地提供通路，电子从大地进入金属球，远端原先“缺电子”的状态被补上。', '电子从大地流入；金属球已有净负电荷'],
+      negative: ['第 2 步 · 保持棒不动，再接地', '负电棒仍在排斥电子。接地提供通路，电子从金属球流入大地，金属球于是缺少电子。', '电子流向大地；金属球已有净正电荷']
+    },
+    3: {
+      positive: ['第 3 步 · 先断开接地', '带电棒还没移走，但电子回到大地的通路已经切断，多出来的电子被留在金属球上。', '通路切断；净负电荷被“锁住”'],
+      negative: ['第 3 步 · 先断开接地', '带电棒还没移走，但电子从大地返回的通路已经切断，金属球缺少电子的状态被保留下来。', '通路切断；净正电荷被“锁住”']
+    },
+    4: {
+      positive: ['第 4 步 · 最后移走带电棒', '外部吸引消失，多出来的电子在金属球表面重新均匀分布。金属球仍然带负电。', '最终：金属球带负电，与正电棒异号'],
+      negative: ['第 4 步 · 最后移走带电棒', '外部排斥消失，金属球表面的电子重新均匀分布。因为缺少电子，金属球仍然带正电。', '最终：金属球带正电，与负电棒异号']
+    }
+  };
+
+  function render() {
+    const key = rodSign > 0 ? 'positive' : 'negative';
+    const copy = descriptions[step][key];
+    stage.dataset.step = String(step);
+    stage.dataset.rodSign = key;
+    rod.querySelector('b').textContent = rodSign > 0 ? '＋＋＋' : '−−−';
+    rod.querySelector('small').textContent = `带${rodSign > 0 ? '正' : '负'}电棒`;
+    near.textContent = rodSign > 0 ? '− − −' : '＋ ＋ ＋';
+    far.textContent = step === 1
+      ? (rodSign > 0 ? '＋ ＋ ＋' : '− − −')
+      : (rodSign > 0 ? '−' : '＋');
+    spread.textContent = rodSign > 0 ? '−　−　−　−' : '＋　＋　＋　＋';
+    flow.textContent = rodSign > 0 ? 'e⁻ ↑' : 'e⁻ ↓';
+    field.textContent = rodSign > 0 ? '→　→' : '←　←';
+    stepLabel.textContent = copy[0];
+    stepText.textContent = copy[1];
+    netText.textContent = copy[2];
+    signButton.textContent = `换成${rodSign > 0 ? '负' : '正'}电棒，观察电子反向流动`;
+    stepButtons.forEach((button) => {
+      const active = Number(button.dataset.groundStep) === step;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  stepButtons.forEach((button) => button.addEventListener('click', () => {
+    step = Number(button.dataset.groundStep);
+    render();
+  }));
+  signButton.addEventListener('click', () => {
+    rodSign *= -1;
+    step = 1;
+    render();
+  });
+  render();
+}
+
 const situationQuestions = [
   {
     topic: '静电感应', difficulty: '基础',
@@ -986,5 +1060,6 @@ initCapacitor();
 initWorkedExamples();
 initChargeLedger();
 initLifeCases();
+initGroundingLab();
 initSituationQuiz();
 updateNav();

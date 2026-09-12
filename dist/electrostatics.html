@@ -298,6 +298,53 @@
           </div>
         </div>
 
+        <section class="grounding-lab" aria-labelledby="grounding-title">
+          <div class="grounding-heading">
+            <div>
+              <p class="eyebrow">GROUNDING · 接地不是“把电荷倒掉”</p>
+              <h3 id="grounding-title">大地像一座巨大的“电子仓库”：电子既能流入，也能流出。</h3>
+            </div>
+            <p><strong>接地 <span class="term-en" lang="en">Grounding</span></strong>就是用导线把导体与大地连通。大地非常大，少量电子进出几乎不会改变它的状态，所以能为电子提供来路或去路。</p>
+          </div>
+
+          <div class="grounding-layout">
+            <div class="grounding-stage" id="groundingStage" data-step="1" data-rod-sign="positive" aria-label="用带电棒和接地使金属球感应起电的四步动画">
+              <div class="grounding-rod" id="groundingRod"><b>＋＋＋</b><small>带正电棒</small></div>
+              <i class="grounding-field" aria-hidden="true">→　→</i>
+              <div class="grounding-sphere">
+                <span class="ground-near" id="groundNear">− − −</span>
+                <b>金属球</b>
+                <span class="ground-far" id="groundFar">＋ ＋ ＋</span>
+                <em class="spread-charge" id="spreadCharge">−　−　−　−</em>
+              </div>
+              <div class="ground-wire"><i></i><span id="electronFlow">e⁻ ↑</span></div>
+              <div class="earth-symbol"><b>大地</b><span>电子仓库</span></div>
+            </div>
+
+            <div class="grounding-control">
+              <div class="grounding-step-buttons" role="group" aria-label="感应起电步骤">
+                <button type="button" class="active" data-ground-step="1"><b>1</b>靠近</button>
+                <button type="button" data-ground-step="2"><b>2</b>接地</button>
+                <button type="button" data-ground-step="3"><b>3</b>先断地</button>
+                <button type="button" data-ground-step="4"><b>4</b>再移棒</button>
+              </div>
+              <button type="button" class="grounding-sign-button" id="groundingSign">换成负电棒，观察电子反向流动</button>
+              <div class="grounding-readout" aria-live="polite">
+                <span id="groundingStepLabel">第 1 步 · 只靠近，不接触</span>
+                <p id="groundingStepText">正电棒吸引电子。金属球靠近棒的一侧电子偏多，远端电子偏少，但整个球的净电荷仍为 0。</p>
+                <b id="groundingNet">金属球：近端负、远端正；整体中性</b>
+              </div>
+            </div>
+          </div>
+
+          <div class="grounding-rules">
+            <article><span>为什么电子会从大地进入？</span><p>正电棒还在旁边时，它对电子有吸引作用。接地一接通，原来封闭的金属球多了一条通路，电子便可从大地进入金属球。</p></article>
+            <article><span>顺序为什么不能反？</span><p>必须<strong>保持带电棒不动，先断开接地，再移走带电棒</strong>。若先移棒，金属球还连着大地，多出来的电子会流回大地，最后又恢复中性。</p></article>
+            <article><span>负电棒时会怎样？</span><p>所有方向反过来：负电棒排斥电子，接地后电子从金属球流向大地；先断地再移棒，金属球最终带正电。</p></article>
+          </div>
+          <p class="grounding-memory"><b>一句话记忆：</b>感应起电得到的电性与靠近的带电棒相反；操作顺序是“棒不动 → 接地 → 断地 → 移棒”。</p>
+        </section>
+
         <div class="law-strip">
           <strong>守恒底线</strong>
           <div class="law-visual" aria-label="电子只是转移，系统总电荷量保持不变">
@@ -310,6 +357,31 @@
           <article><span>导体 <i class="term-en" lang="en">Conductor</i></span><strong>自由电荷可以移动</strong><p>外电场作用下会重新分布，最终形成静电平衡。</p></article>
           <article><span>绝缘体 <i class="term-en" lang="en">Insulator</i></span><strong>电荷不易自由移动</strong><p>带电位置通常比较固定，但内部仍可能发生极化。</p></article>
         </div>
+
+        <section class="electroscope-guide" aria-labelledby="electroscope-title">
+          <div class="electroscope-heading">
+            <p class="eyebrow">ELECTROSCOPE · 验电器</p>
+            <h3 id="electroscope-title">两片金属箔张开，因为它们带上同种电荷，彼此排斥。</h3>
+            <p>验电器把“看不见的带电”变成“看得见的张角”。它主要判断物体<strong>是否带电</strong>，张角越大通常表示带电越明显。</p>
+          </div>
+          <div class="electroscope-cases">
+            <article>
+              <div class="electroscope-visual contact-scope" aria-label="带电体接触验电器后两片金属箔带同种电荷并张开">
+                <span class="scope-source">＋＋</span><i>接触 →</i><b class="scope-knob">＋</b><em class="scope-stem"></em><span class="scope-leaf left">＋</span><span class="scope-leaf right">＋</span>
+              </div>
+              <h4>接触验电：电荷真正转移</h4>
+              <p>带电体碰到金属球，电荷沿金属杆传到两片金属箔。两片箔带同种电荷，于是互相排斥并张开；移开带电体后，箔片通常仍保持张开。</p>
+            </article>
+            <article>
+              <div class="electroscope-visual induction-scope" aria-label="带电体靠近但不接触验电器时内部电荷重新分布，金属箔张开">
+                <span class="scope-source">＋＋</span><i>靠近　</i><b class="scope-knob">−</b><em class="scope-stem"></em><span class="scope-leaf left">＋</span><span class="scope-leaf right">＋</span>
+              </div>
+              <h4>靠近验电：只是重新分布</h4>
+              <p>正电体靠近但不接触时，顶部电子被吸引，金属箔一端显得正电偏多，所以箔片也会张开。移走带电体后，电荷重新均匀分布，箔片闭合。</p>
+            </article>
+          </div>
+          <div class="electroscope-limit"><b>考试易错：</b>一个原本中性的验电器，单凭“箔片张开”只能说明受到带电体影响，<strong>不能直接判断未知物体带正电还是负电</strong>。判断电性还需要已知电荷作比较实验。</div>
+        </section>
 
         <section class="equilibrium-guide" aria-labelledby="equilibrium-title">
           <div class="equilibrium-heading">
@@ -658,11 +730,32 @@
         </section>
 
         <div class="model-grid">
-          <article><span>点电荷场 <i class="term-en" lang="en">Point-charge field</i></span><b>E ∝ Q / r²</b><div class="model-sketch radial-field"><i>↖　↑　↗</i><strong>←　＋　→</strong><i>↙　↓　↘</i></div><p>正电荷的场向外，负电荷的场向内；距离越远，场越弱。</p></article>
+          <article><span>点电荷场 <i class="term-en" lang="en">Point-charge field</i></span><b>E = k|Q| / r²</b><div class="model-sketch radial-field"><i>↖　↑　↗</i><strong>←　＋　→</strong><i>↙　↓　↘</i></div><p>Q 是产生电场的场源电荷，r 是该点到 Q 的距离。正电荷的场向外，负电荷的场向内；k = 9.0×10⁹ N·m²/C²。</p></article>
           <article><span>匀强电场 <i class="term-en" lang="en">Uniform electric field</i></span><b>等长、平行、同向</b><div class="model-sketch uniform-field"><i>＋＋＋＋</i><strong>↓　↓　↓</strong><em>−−−−</em></div><p>两块平行带电板中央可近似看作匀强电场。</p></article>
           <article><span>电场叠加 <i class="term-en" lang="en">Superposition</i></span><b>先分开，后合成</b><div class="model-sketch vector-sum"><i>E₁ →</i><em>＋</em><i>↑ E₂</i><strong>↗ E合</strong></div><p>每个源电荷单独贡献一个场强，最后像合成力一样做矢量合成。</p></article>
           <article><span>电场线 <i class="term-en" lang="en">Electric field lines</i></span><b>疏密表示强弱</b><div class="model-sketch density-field"><i>→→→→</i><strong>＋</strong><em>→　→　→</em></div><p>线密处场强，线疏处场弱；电场线不相交，也不闭合。</p></article>
         </div>
+
+        <section class="field-line-guide" aria-labelledby="field-line-title">
+          <div class="field-line-heading">
+            <p class="eyebrow">HOW TO READ FIELD LINES</p>
+            <h3 id="field-line-title">电场线是一张“方向与强弱地图”，不是电荷真的走过的轨迹。</h3>
+          </div>
+          <div class="field-line-rules">
+            <article><b>方向看切线</b><p>线上任一点的切线方向，就是该点的电场方向，也是正试探电荷的受力方向。</p></article>
+            <article><b>强弱看疏密</b><p>线画得密表示场强较大，画得疏表示场强较小；不能用某一根线的“长短”判断强弱。</p></article>
+            <article><b>从正到负</b><p>电场线从正电荷或无穷远出发，终止于负电荷或无穷远；箭头不能反画。</p></article>
+            <article><b>不相交、不闭合</b><p>同一点的电场方向只能有一个，所以电场线不能相交；静电场线也不会首尾闭合。</p></article>
+          </div>
+          <div class="field-line-atlas" aria-label="五种常见电场的电场线形状">
+            <article><span>单个正电荷</span><div><i>↖ ↑ ↗</i><b>← ＋ →</b><i>↙ ↓ ↘</i></div><p>放射状向外</p></article>
+            <article><span>单个负电荷</span><div><i>↘ ↓ ↙</i><b>→ − ←</b><i>↗ ↑ ↖</i></div><p>从四周指向它</p></article>
+            <article><span>等量同号</span><div class="same-field"><b>＋</b><i>↗　↖</i><b>＋</b><em>中点 E = 0</em></div><p>中间互相排开</p></article>
+            <article><span>等量异号</span><div class="opposite-field"><b>＋</b><i>→→→</i><b>−</b><em>由正指向负</em></div><p>连线中点场强不为 0</p></article>
+            <article><span>匀强电场</span><div class="uniform-atlas"><i>→　→　→</i><i>→　→　→</i><i>→　→　→</i></div><p>平行、等距、同向</p></article>
+          </div>
+          <p class="field-line-warning"><b>再提醒一次：</b>电场线是人为画出的辅助线。粒子的真实轨迹由初速度和受力共同决定，一般不与电场线重合。</p>
+        </section>
 
         <div class="graph-explainer">
           <div>
@@ -1388,6 +1481,7 @@
             <div><dt>导体</dt><dd lang="en">conductor</dd></div>
             <div><dt>绝缘体</dt><dd lang="en">insulator</dd></div>
             <div><dt>静电感应</dt><dd lang="en">electrostatic induction</dd></div>
+            <div><dt>验电器</dt><dd lang="en">electroscope</dd></div>
             <div><dt>静电极化</dt><dd lang="en">electrostatic polarization</dd></div>
             <div><dt>接地</dt><dd lang="en">grounding / earthing</dd></div>
             <div><dt>放电</dt><dd lang="en">electric discharge</dd></div>
