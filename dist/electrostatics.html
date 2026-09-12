@@ -1,0 +1,1354 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="面向上海高中生的静电场互动学习网页：用动画、图表和实验理解电荷、库仑定律、电场、电势、带电粒子运动与电容器。">
+  <meta name="theme-color" content="#07111f">
+  <title>静电场互动课堂｜高中物理互动课堂</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307111f'/%3E%3Ccircle cx='32' cy='32' r='9' fill='%236de5ff'/%3E%3Cpath d='M7 32h13m24 0h13M32 7v13m0 24v13' stroke='%23ffd166' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="返回顶部">
+      <span class="brand-mark" aria-hidden="true">ϟ</span>
+      <span>静电场互动课堂</span>
+    </a>
+    <a class="course-home-link" href="./index.html" aria-label="返回高中物理互动课堂首页">← 全部章节</a>
+    <div class="top-progress" aria-label="课程共六个模块">
+      <span>第一篇</span>
+      <span class="progress-dots" aria-hidden="true"><i class="active"></i><i></i><i></i><i></i><i></i><i></i></span>
+      <strong>静电场</strong>
+    </div>
+  </header>
+
+  <div class="site-shell" id="top">
+    <aside class="side-nav" aria-label="章节导航">
+      <p class="nav-kicker">学习路径</p>
+      <a class="active" href="#charge"><span>01</span> 电荷与起电 <small lang="en">Charge</small></a>
+      <a href="#coulomb"><span>02</span> 库仑定律 <small lang="en">Coulomb</small></a>
+      <a href="#field"><span>03</span> 电场强度 <small lang="en">Field</small></a>
+      <a href="#potential"><span>04</span> 电势与能量 <small lang="en">Potential</small></a>
+      <a href="#particle"><span>05</span> 粒子运动 <small lang="en">Motion</small></a>
+      <a href="#capacitor"><span>06</span> 电容器 <small lang="en">Capacitor</small></a>
+      <a href="#quiz"><span>07</span> 情境练习</a>
+    </aside>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">SHANGHAI · HIGH SCHOOL PHYSICS</p>
+          <h1 id="page-title">看见<span>看不见</span>的电场</h1>
+          <p class="hero-copy">别从公式出发。先改变电荷、距离和电压，看力、场与能量怎样响应，再把规律写成公式。</p>
+        </div>
+        <div class="concept-chain" aria-label="静电场知识主线">
+          <div><b>电荷 <i lang="en">Charge</i></b><small>源头</small></div><em>→</em>
+          <div><b>电场 <i lang="en">Electric field</i></b><small>空间状态</small></div><em>→</em>
+          <div><b>力与能 <i lang="en">Force & energy</i></b><small>两种视角</small></div><em>→</em>
+          <div><b>运动 <i lang="en">Motion</i></b><small>最终结果</small></div>
+        </div>
+      </section>
+
+      <section class="lesson" id="charge" data-section="charge">
+        <div class="section-heading">
+          <div><span class="chapter-no">01</span><p class="eyebrow">CHARGE</p></div>
+          <h2>电荷与起电 <span class="term-en" lang="en">Electric Charge & Charging</span></h2>
+          <p>起电不是“创造电荷”，而是电子发生转移或重新分布。</p>
+        </div>
+
+        <div class="foundation-intro" id="charge-basics">
+          <div class="foundation-title">
+            <span>先补地基</span>
+            <h3>看懂静电，先认识“电子”和“净电荷”</h3>
+            <p>后面所有的起电、库仑力和电场题，都在追踪两件事：电子去了哪里，以及正负电荷抵消后还剩多少。</p>
+          </div>
+
+          <div class="foundation-grid">
+            <article class="atom-explainer">
+              <div class="concept-tag">概念 1 · 电子 <span lang="en">Electron</span></div>
+              <div class="atom-content">
+                <div class="atom-diagram" role="img" aria-label="原子由原子核中的质子、中子和核外电子组成的示意图">
+                  <i class="orbit orbit-one"><b class="electron-dot">−</b></i>
+                  <i class="orbit orbit-two"><b class="electron-dot">−</b></i>
+                  <i class="orbit orbit-three"><b class="electron-dot">−</b></i>
+                  <span class="nucleus"><b>p⁺</b><b>n⁰</b></span>
+                  <small>原子结构示意 · 不按比例</small>
+                </div>
+                <div class="atom-copy">
+                  <p>普通物质由原子组成。原子核里的<strong>质子带正电</strong>，核外的<strong>电子带负电</strong>，中子不带电。</p>
+                  <div class="particle-ledger">
+                    <span><i class="particle-icon proton">＋</i><b>质子 <small lang="en">Proton</small></b><em>+e</em></span>
+                    <span><i class="particle-icon neutron">0</i><b>中子 <small lang="en">Neutron</small></b><em>0</em></span>
+                    <span><i class="particle-icon electron">−</i><b>电子 <small lang="en">Electron</small></b><em>−e</em></span>
+                  </div>
+                  <p class="electron-key"><b>高中静电中的主角是电子。</b>一个电子带电 −e，其中 e = 1.60×10⁻¹⁹ C。在固体中，原子核通常不能整体移动；发生转移或重新分布的，主要是电子。</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="net-charge-lab">
+              <div class="concept-tag">概念 2 · 净电荷 <span lang="en">Net charge</span></div>
+              <div class="net-formula"><span>净电荷 <i lang="en">Net charge</i></span><b>Q = (N<sub>p</sub> − N<sub>e</sub>)e</b><small>把所有正负电荷带符号相加；下图只用 6 个质子做记账示意</small></div>
+              <div class="charge-counts" aria-label="质子数和电子数的电荷记账">
+                <div><span>质子数固定</span><strong id="protonCount">6</strong><i id="protonRow" class="charge-token-row positive-row"></i></div>
+                <div><span>电子数可变</span><strong id="electronCount">6</strong><i id="electronRow" class="charge-token-row negative-row"></i></div>
+              </div>
+              <div class="electron-controls" role="group" aria-label="改变电子数量">
+                <button id="addElectron">＋ 移入 1 个电子</button>
+                <button id="removeElectron">− 移出 1 个电子</button>
+                <button id="resetElectrons" class="quiet-button">恢复中性</button>
+              </div>
+              <div class="net-result neutral" id="netResult" aria-live="polite">
+                <strong id="netChargeValue">Q<sub>净</sub> = 0</strong>
+                <p id="netChargeMeaning">正负电荷总量相等，所以物体呈电中性；不是说物体内部没有电荷。</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="foundation-checks">
+            <details><summary>判断 ①：中性物体内部没有电荷，对吗？</summary><p><b>不对。</b>中性物体内部仍有大量质子和电子，只是正、负电荷的总量恰好相等，净电荷为零。</p></details>
+            <details><summary>判断 ②：物体带 +3e，表示什么？</summary><p>表示它的质子总数比电子总数多 3 个。普通起电过程中通常可理解为：<b>物体比中性状态少了 3 个电子。</b></p></details>
+          </div>
+        </div>
+
+        <section class="life-observatory" aria-labelledby="life-title">
+          <div class="life-heading">
+            <div><span class="live-dot"></span><span>生活观察站</span></div>
+            <h3 id="life-title">把“见过的现象”翻译成物理语言</h3>
+            <p>点击一种常见物品，按“现象 → 电子 → 规律”往下看。考试题换了外壳，本质通常还是这三步。</p>
+          </div>
+
+          <div class="life-tabs" role="tablist" aria-label="选择生活中的静电现象">
+            <button class="active" role="tab" aria-selected="true" data-life-case="balloon">气球与头发</button>
+            <button role="tab" aria-selected="false" data-life-case="comb">梳子与纸屑</button>
+            <button role="tab" aria-selected="false" data-life-case="spark">毛衣与门把手</button>
+            <button role="tab" aria-selected="false" data-life-case="humidity">冬天与加湿器</button>
+            <button role="tab" aria-selected="false" data-life-case="screen">手机触控屏</button>
+            <button role="tab" aria-selected="false" data-life-case="flash">相机闪光灯</button>
+          </div>
+
+          <div class="life-panels">
+            <article class="life-panel active" role="tabpanel" data-life-panel="balloon">
+              <div class="life-scene">
+                <span class="object-chip">干燥头发</span><b class="electron-route"><i>e⁻</i><i>e⁻</i><em>→</em></b><span class="object-chip charged-negative">橡胶气球</span>
+                <small>常见情况下，电子从头发转移到橡胶气球</small>
+              </div>
+              <div class="life-reasoning">
+                <div><span>你看到</span><p>气球能粘在头发或墙上，几缕头发互相散开。</p></div>
+                <div><span>电子发生什么</span><p>摩擦后气球通常得到电子而带负电，头发失去电子而带正电。</p></div>
+                <div><span>对应规律</span><p>同号的发丝相互排斥；气球与头发异号相吸。气球靠近中性墙面时，还会使墙面发生极化。</p></div>
+              </div>
+              <p class="life-caveat">材料不同，电子转移方向可能不同；题目若未说明，要根据实验现象或题设判断。</p>
+            </article>
+
+            <article class="life-panel story-panel" role="tabpanel" data-life-panel="comb" hidden>
+              <div class="plain-definition">
+                <span class="definition-tag">先弄懂“梳子带电”</span>
+                <p>梳子本来有一样多的正电荷和负电荷，互相抵消，所以不带电。塑料梳与干燥头发摩擦时，常见情况是<strong>少量电子从头发跑到梳子上</strong>。梳子因此“电子多了一点”，我们就说它<strong>带负电</strong>。</p>
+                <small>“带电”不是梳子里突然有了电，也不是所有电子都堆过去；只是原来正好平衡，现在多了极少量电子。</small>
+              </div>
+
+              <div class="story-strip comb-story" aria-label="梳子吸引纸屑的三个步骤">
+                <section class="story-step">
+                  <b class="step-number">1</b><h4>梳子多了电子</h4>
+                  <div class="comb-demo"><span>塑料梳</span><i>−</i><i>−</i><i>−</i><i>−</i></div>
+                  <p>摩擦后，梳子上多出的电子让它带负电。</p>
+                </section>
+                <span class="story-arrow" aria-hidden="true">→</span>
+                <section class="story-step">
+                  <b class="step-number">2</b><h4>梳子把纸里的电子推远</h4>
+                  <div class="polarization-demo">
+                    <div class="mini-comb">− − −</div>
+                    <span class="push-label">电子被推开 →</span>
+                    <div class="paper-chip"><b>＋ ＋</b><i>− −</i></div>
+                  </div>
+                  <p>纸屑里的电子也带负电，遇到负梳子会被排斥，便向纸屑的远端挪一点；较重的原子核几乎不动。</p>
+                </section>
+                <span class="story-arrow" aria-hidden="true">→</span>
+                <section class="story-step">
+                  <b class="step-number">3</b><h4>近处的吸引胜出</h4>
+                  <div class="force-demo"><span class="force-comb">− − −</span><b class="near-force">← 吸引（近、强）</b><em class="force-paper">＋＋　−−</em><small>排斥（远、弱）→</small></div>
+                  <p>梳子吸引近端的“＋”，也排斥远端的“−”。因为距离越近静电力越强，最后纸屑被拉向梳子。</p>
+                </section>
+              </div>
+
+              <p class="one-sentence"><b>一句话记住：</b>梳子多了一点电子 → 把纸屑里的电子推到远端 → 近端的吸引更强 → 纸屑被吸过来。这个过程叫<strong>静电极化</strong>。</p>
+              <p class="life-caveat important">纸屑从头到尾仍然是中性的：它没有凭空多出或少掉电子，只是纸屑内部的电子稍微换了位置。所以“能吸纸屑”不能证明纸屑带正电。</p>
+            </article>
+
+            <article class="life-panel story-panel" role="tabpanel" data-life-panel="spark" hidden>
+              <div class="plain-definition discharge-definition">
+                <span class="definition-tag">什么是放电 <i lang="en">Discharge</i>？</span>
+                <p><strong>放电，就是积累起来的电荷找到了可以移动的通路，于是快速或缓慢地流走，让两边“不平衡的程度”变小。</strong></p>
+                <small>像拥挤的人群终于找到出口：不是“电消失了”，而是电子换了位置，电荷仍然守恒。</small>
+              </div>
+
+              <div class="story-strip discharge-story" aria-label="碰门把手时放电的三个步骤">
+                <section class="story-step">
+                  <b class="step-number">1</b><h4>身体积累电荷</h4>
+                  <div class="body-charge"><span>你</span><i>−</i><i>−</i><i>−</i></div>
+                  <p>脱毛衣或在地毯上走动时，电子转移。假设这次你的身体多了一些电子。</p>
+                </section>
+                <span class="story-arrow" aria-hidden="true">→</span>
+                <section class="story-step">
+                  <b class="step-number">2</b><h4>手指靠近金属</h4>
+                  <div class="gap-demo"><span class="finger">手指 −−−</span><b>很窄的空气缝</b><em>门把手</em></div>
+                  <p>手指离门把手越近，中间空气里的电场越强，但普通空气暂时还不容易导电。</p>
+                </section>
+                <span class="story-arrow" aria-hidden="true">→</span>
+                <section class="story-step spark-step">
+                  <b class="step-number">3</b><h4>电子突然冲过去</h4>
+                  <div class="spark-demo"><span>手指</span><i>e⁻　e⁻　⚡</i><em>金属</em></div>
+                  <p>电场强到一定程度，空气被“打通”，电子穿过空气缝，形成极短的电流。光是小火花，声音是“啪”，皮肤会有刺痛。</p>
+                </section>
+              </div>
+
+              <div class="discharge-compare">
+                <div><span>慢放电</span><b>不知不觉地流走</b><p>潮湿空气或接地让电荷持续缓慢移动，通常没有火花。</p></div>
+                <div><span>快放电</span><b>一瞬间冲过去</b><p>门把手火花和脱毛衣的“噼啪”都属于快速放电。</p></div>
+              </div>
+              <p class="life-caveat important">安全提醒：不要在燃气、汽油或酒精蒸气附近主动尝试火花放电；火花可能点燃可燃气体。</p>
+            </article>
+
+            <article class="life-panel" role="tabpanel" data-life-panel="humidity" hidden>
+              <div class="life-scene weather-scene">
+                <span class="object-chip dry">干燥空气</span><b class="compare-route">电荷留得久　⇄　电荷容易漏走</b><span class="object-chip wet">潮湿表面</span>
+                <small>水分会在物体表面形成较容易导电的薄层</small>
+              </div>
+              <div class="life-reasoning">
+                <div><span>你看到</span><p>冬季脱毛衣、梳头时更容易产生静电；空气湿润时现象减弱。</p></div>
+                <div><span>电子发生什么</span><p>干燥环境中电荷不容易沿物体表面流走；潮湿时电荷可以通过水膜缓慢泄漏。</p></div>
+                <div><span>对应规律</span><p>摩擦产生电荷只是前半程，“电荷积累速度”和“电荷泄漏速度”的竞争决定现象是否明显。</p></div>
+              </div>
+              <p class="life-caveat">所以“冬天静电多”更准确的说法是：干燥时电荷保存得更久、积累得更多。</p>
+            </article>
+
+            <article class="life-panel" role="tabpanel" data-life-panel="screen" hidden>
+              <div class="life-scene">
+                <span class="object-chip field-object">触控屏电极</span><b class="compare-route">局部电场改变</b><span class="object-chip conductor">手指（导体）</span>
+                <small>屏幕检测的不是“按压力气”，而是局部电容的改变</small>
+              </div>
+              <div class="life-reasoning">
+                <div><span>你看到</span><p>手指轻触手机屏幕即可定位；戴普通厚手套时往往无法操作。</p></div>
+                <div><span>电荷发生什么</span><p>手指靠近电极后，会影响附近电荷分布，使该位置的电场和电容发生微小变化。</p></div>
+                <div><span>对应规律</span><p>设备扫描各位置电容的变化来判断触点。能导电的触控笔或专用手套可以模拟手指作用。</p></div>
+              </div>
+              <p class="life-caveat">这会在后面的“电场”和“电容器”两节重新出现。</p>
+            </article>
+
+            <article class="life-panel" role="tabpanel" data-life-panel="flash" hidden>
+              <div class="life-scene">
+                <span class="object-chip source-object">电池慢慢充电</span><b class="electron-route stored"><i>储存能量</i><em>→</em></b><span class="object-chip flash-object">闪光灯瞬间释放</span>
+                <small>慢慢储存，短时间释放：瞬时功率就能很大</small>
+              </div>
+              <div class="life-reasoning">
+                <div><span>你看到</span><p>一些相机闪光后需要等待片刻才能再次闪光。</p></div>
+                <div><span>电荷发生什么</span><p>电源先把正负电荷分别积累到电容器两极板上，在板间电场中储存能量。</p></div>
+                <div><span>对应规律</span><p>放电时，储存的能量在极短时间内送给闪光灯，因此产生很亮的一闪。</p></div>
+              </div>
+              <p class="life-caveat">电容器不像电池那样持续供能，它更擅长快速充放电。</p>
+            </article>
+          </div>
+
+          <div class="common-language">
+            <span>“粘住”<b>静电力大于重力等其他作用</b></span>
+            <span>“噼啪一下”<b>空气击穿与快速放电</b></span>
+            <span>“越干越明显”<b>电荷泄漏得更慢</b></span>
+            <span>“接地”<b>给电荷一条流向大地的通路</b></span>
+          </div>
+        </section>
+
+        <div class="lab-grid">
+          <article class="lab-panel">
+            <div class="panel-head">
+              <div><span class="live-dot"></span> 静电感应实验</div>
+              <output id="inductionReadout">外物带正电 · 距离 34 cm</output>
+            </div>
+            <canvas id="inductionCanvas" width="760" height="380" aria-label="带电体靠近中性导体时，导体内部正负电荷重新分布的动画"></canvas>
+            <div class="controls two-col">
+              <label>外物电性
+                <select id="sourceSign">
+                  <option value="1">正电</option>
+                  <option value="-1">负电</option>
+                </select>
+              </label>
+              <label>离导体的距离 <output id="distanceValue">34 cm</output>
+                <input id="inductionDistance" type="range" min="8" max="60" value="34" step="1">
+              </label>
+            </div>
+          </article>
+
+          <div class="insight-stack">
+            <article class="insight-card accent-cyan">
+              <span class="card-index">A</span>
+              <h3>摩擦起电 <span class="term-en" lang="en">Charging by friction</span></h3>
+              <p>两个物体之间发生<strong>电子转移</strong>。得到电子的一方带负电，失去电子的一方带正电。</p>
+            </article>
+            <article class="insight-card accent-yellow">
+              <span class="card-index">B</span>
+              <h3>接触起电 <span class="term-en" lang="en">Charging by contact</span></h3>
+              <p>带电体与导体接触，电荷重新分配。完全相同的金属球接触后，电荷量平均分配。</p>
+            </article>
+            <article class="insight-card accent-pink">
+              <span class="card-index">C</span>
+              <h3>感应起电 <span class="term-en" lang="en">Charging by induction</span></h3>
+              <p>没有接触也能让导体两端出现异种电荷；若再配合接地和分离，可使导体永久带电。</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="law-strip">
+          <strong>守恒底线</strong>
+          <div class="law-visual" aria-label="电子只是转移，系统总电荷量保持不变">
+            <span>物体 A <b>−3e</b></span><i>电子转移 →</i><span>物体 B <b>＋3e</b></span><em>= 系统总量不变</em>
+          </div>
+        </div>
+
+        <div class="fact-ribbon">
+          <article><span>最小单位</span><strong>e = 1.60 × 10⁻¹⁹ C</strong><p>任何带电体的电荷量都是元电荷的整数倍：Q = ne。</p></article>
+          <article><span>导体 <i class="term-en" lang="en">Conductor</i></span><strong>自由电荷可以移动</strong><p>外电场作用下会重新分布，最终形成静电平衡。</p></article>
+          <article><span>绝缘体 <i class="term-en" lang="en">Insulator</i></span><strong>电荷不易自由移动</strong><p>带电位置通常比较固定，但内部仍可能发生极化。</p></article>
+        </div>
+
+        <section class="equilibrium-guide" aria-labelledby="equilibrium-title">
+          <div class="equilibrium-heading">
+            <p class="eyebrow">静电平衡与应用 · 直白版</p>
+            <h3 id="equilibrium-title">自由电子终于“不再往某一边跑”，就叫静电平衡 <span class="term-en" lang="en">Electrostatic equilibrium</span>。</h3>
+            <p>想象许多能在金属里移动的小珠子。只要金属内部还有电场，电子就会受力并继续移动；当它们重新排好，使金属内部的总电场变成 0，宏观上的定向移动才停止。</p>
+          </div>
+
+          <div class="equilibrium-steps" aria-label="导体达到静电平衡的四个步骤">
+            <article><b>1</b><span>金属里本来就有能移动的自由电子</span><div class="electron-row">e⁻　e⁻　e⁻</div></article>
+            <i aria-hidden="true">→</i>
+            <article><b>2</b><span>外部电场一来，电子受到力，开始向一边移动</span><div class="electron-row moving">e⁻　e⁻　e⁻ →</div></article>
+            <i aria-hidden="true">→</i>
+            <article class="field-build-step"><b>3</b><span>电子向左挤：左端电子多，右端电子少。分开的电荷又产生一个反向电场</span>
+              <div class="field-build-demo" aria-label="电子向左移动，导体左端带负电、右端带正电，感应电场向左逐渐增强">
+                <div class="charge-separation"><em>−　−　−</em><i>金属导体</i><strong>＋　＋　＋</strong><b class="mobile-electrons">e⁻　e⁻　←</b></div>
+                <div class="growing-fields"><span>E<sub>外</sub>　→</span><b>←　E<sub>感</sub>（变强）</b></div>
+              </div>
+              <small class="step-note">右端的“＋”不是质子跑过去，而是右端少了一些电子。</small>
+            </article>
+            <i aria-hidden="true">→</i>
+            <article class="field-balance-step"><b>4</b><span>感应电场增大到恰好抵消外电场，电子受到的合力为 0，于是不再定向移动</span>
+              <div class="field-balance-demo" aria-label="大小相等、方向相反的外电场和感应电场相互抵消，金属内部合电场为零">
+                <div class="balance-arrows"><span>E<sub>外</sub>　→</span><b>←　E<sub>感</sub></b></div>
+                <div class="balance-result"><strong>E<sub>合</sub> = E<sub>外</sub> − E<sub>感</sub> = 0</strong><em>e⁻ 不再定向移动</em></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="shield-explainer">
+            <div class="shield-visual" aria-label="外部正电荷使金属外壳表面电荷重新分布，空腔内的总电场为零">
+              <span class="shield-shell">
+                <i class="shell-negative">−　−　−</i>
+                <strong>空腔</strong>
+                <em>总电场 E = 0</em>
+                <i class="shell-positive">＋　＋　＋</i>
+              </span>
+              <b class="outside-charge">＋</b><b class="outside-charge second">＋</b><b class="outside-charge third">＋</b>
+              <small class="outside-label">外部带正电物体</small>
+            </div>
+            <div class="shield-copy">
+              <span class="definition-tag">金属外壳为什么能“挡住”静电场？</span>
+              <h4>不是外壳把电场硬挡回去，而是表面电子自动换位置，制造出一个抵消它的电场。</h4>
+              <ol>
+                <li>左边有正电物体靠近，它会吸引金属里的电子。</li>
+                <li>电子在外壳左侧聚得多一些，右侧就显得正电多一些。</li>
+                <li>这些感应电荷产生的新电场，在金属内部与外来电场方向相反。</li>
+                <li>达到静电平衡后，封闭外壳及其空腔内的总电场为 0，里面的仪器就不受外部静电场影响。这叫<strong>静电屏蔽 <span class="term-en" lang="en">Electrostatic shielding</span></strong>。</li>
+              </ol>
+              <p class="shield-condition">这里说的是静电情况，并假设封闭空腔里没有另外放入带电体。</p>
+            </div>
+          </div>
+
+          <div class="equilibrium-clarify">
+            <article><span>“内部 E = 0”</span><p>表示放一个试探电荷在导体材料内部，它受到的<strong>合电场力为 0</strong>；不是说里面没有质子和电子。</p></article>
+            <article><span>“净电荷在表面”</span><p>表示多出来或少掉的那部分电荷最后留在表面；导体内部原有的大量正、负电荷仍然存在，只是总体抵消。</p></article>
+            <article><span>“静电平衡”</span><p>表示没有宏观的定向电荷移动；微观粒子并不是全部静止不动。</p></article>
+          </div>
+
+          <div class="field-language" aria-labelledby="field-language-title">
+            <div class="field-language-copy">
+              <span class="definition-tag">先把三个符号分清</span>
+              <h4 id="field-language-title">E<sub>内</sub> 不是第三个“新电场”，而是金属内部最后真正剩下的合电场。</h4>
+              <div class="field-equation" aria-label="内部合电场等于外部电场与感应电场的矢量和">
+                <span><b>E<sub>外</sub></b><small>外部带电物体造成</small></span>
+                <i>＋</i>
+                <span><b>E<sub>感</sub></b><small>表面感应电荷造成</small></span>
+                <i>＝</i>
+                <span class="field-total"><b>E<sub>内</sub></b><small>金属内部的合电场</small></span>
+              </div>
+              <p>刚把外部带电体放过来时，电子还没来得及重排，<strong>E<sub>感</sub> 很小，E<sub>内</sub> 不为 0</strong>，所以电子开始移动。电子越分开，E<sub>感</sub> 越强；最后它与 E<sub>外</sub> 反向等大，便有 <strong>E<sub>内</sub> = 0</strong>。</p>
+            </div>
+
+            <div class="everyday-balance" aria-label="用生活类比理解外部作用与内部合力">
+              <article>
+                <div class="analogy-title"><span>类比 1</span><b>突然启动的公交车</b></div>
+                <div class="bus-analogy"><span class="bus-push">车向右启动 →</span><div class="bus-box"><i>●</i><i>●</i><i>●</i><i>●</i></div><em>乘客相对向左挤</em></div>
+                <p><b>E<sub>外</sub></b>像公交车突然启动带来的外部影响；乘客挤到一边后产生的支撑和挤压力，像逐渐增强的<b>E<sub>感</sub></b>。人最终站稳时，实际合力为 0，类似<b>E<sub>内</sub> = 0</b>。</p>
+              </article>
+              <article>
+                <div class="analogy-title"><span>类比 2</span><b>倾斜水盆里的水</b></div>
+                <div class="water-analogy"><span>外部把盆倾斜</span><div class="water-bowl"><i></i></div><em>水先流动，再停下</em></div>
+                <p>倾斜像施加<b>E<sub>外</sub></b>；水流向一侧并形成高低差，像电荷分离产生<b>E<sub>感</sub></b>；水不再整体流动时，说明内部各种作用已经平衡，类似<b>E<sub>内</sub> = 0</b>。</p>
+              </article>
+            </div>
+            <p class="analogy-warning">类比只帮助理解“先移动、再产生反作用、最后平衡”。电子不是水或乘客，电场也不是风或机械推力。</p>
+          </div>
+
+          <div class="equilibrium-faq" aria-labelledby="equilibrium-faq-title">
+            <h4 id="equilibrium-faq-title">刚才几个问题，一次讲清</h4>
+            <details open><summary>E<sub>外</sub>、E<sub>感</sub>、E<sub>内</sub> 分别是什么？</summary><p><b>E<sub>外</sub></b>来自导体外面的带电物体；<b>E<sub>感</sub></b>来自导体表面重新分布的感应电荷；<b>E<sub>内</sub></b>是金属内部两者叠加后的结果。达到静电平衡时，E<sub>内</sub> = E<sub>外</sub> + E<sub>感</sub> = 0。</p></details>
+            <details><summary>为什么常用金属外壳？</summary><p>关键不是“金属”这个名字，而是金属里有能在整个物体中移动的自由电子。它们能迅速重新分布，产生抵消外场的感应电场。绝缘体里的电子通常只能在原子或分子附近偏移一点。</p></details>
+            <details><summary>导体就是电子能够移动的物体吗？</summary><p>更准确地说，导体内部有能够自由移动的<b>带电粒子</b>。金属中主要是自由电子；盐水中移动的是正、负离子。高中静电题通常研究金属，所以常简化成“自由电子可以移动”。</p></details>
+          </div>
+
+          <div class="application-examples">
+            <article><b>静电屏蔽</b><span>把精密仪器放进封闭金属壳，减小外部静电场的干扰。</span></article>
+            <article><b>尖端放电</b><span>电荷在尖端附近更密集，场强更大，空气更容易被电离。</span></article>
+            <article><b>静电除尘、喷涂</b><span>让尘粒或油漆带电，再用电场控制它们的运动方向。</span></article>
+            <article><b>接地防静电</b><span>给多余电荷一条通往大地的路，避免越积越多。</span></article>
+          </div>
+        </section>
+
+        <article class="worked-example" data-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 01</span><span class="difficulty basic">基础 · 顺序判断</span></div>
+            <h3>感应起电：到底是谁带正、谁带负？</h3>
+            <p>两个相同金属球 A、B 相互接触。将带正电的玻璃棒靠近 A，保持玻璃棒不动，先分开 A、B，再移走玻璃棒。最后两球的带电情况是：</p>
+          </div>
+          <div class="example-body two-part">
+            <div class="induction-question" aria-label="正电棒靠近相互接触的金属球 A 和 B">
+              <span class="rod-positive">＋＋＋</span><i class="field-wave"></i><span class="quiz-sphere">A</span><span class="contact-link"></span><span class="quiz-sphere">B</span>
+              <small>① 靠近　② 先分球　③ 后移棒</small>
+            </div>
+            <div>
+              <div class="answer-options" data-answer="b" data-correct-note="对！关键是“先分球、后移棒”，电荷已经被锁在两球上。" data-wrong-note="再看一眼操作顺序：正电棒先吸引电子，分球时电荷才被固定。">
+                <button data-choice="a">A、B 都带正电</button>
+                <button data-choice="b">A 带负电，B 带正电</button>
+                <button data-choice="c">A 带正电，B 带负电</button>
+                <button data-choice="d">A、B 最后都不带电</button>
+              </div>
+              <p class="answer-feedback" aria-live="polite">先自己判断，再点选答案。</p>
+            </div>
+          </div>
+          <details class="solution-panel">
+            <summary>展开分步解析 <span>不是背结论，要追电子</span></summary>
+            <ol class="solution-steps">
+              <li><b>靠近：</b>正电棒吸引自由电子，电子从 B 移向 A，所以 A 端电子过量，B 端电子不足。</li>
+              <li><b>先分球：</b>A、B 不再连通，负电荷留在 A，正电荷留在 B。</li>
+              <li><b>后移棒：</b>玻璃棒移走只会让各球表面电荷重新分布，不会改变每个球的净电荷。</li>
+            </ol>
+            <div class="takeaway"><span>答案 B</span><b>感应起电题先写操作顺序：靠近 → 分离 → 移开。</b></div>
+          </details>
+        </article>
+      </section>
+
+      <section class="lesson" id="coulomb" data-section="coulomb">
+        <div class="section-heading">
+          <div><span class="chapter-no">02</span><p class="eyebrow">COULOMB FORCE</p></div>
+          <h2>库仑定律 <span class="term-en" lang="en">Coulomb's Law</span></h2>
+          <p>电荷量控制“有多强”，距离控制“衰减得多快”。</p>
+        </div>
+
+        <div class="coulomb-layout">
+          <article class="lab-panel">
+            <div class="panel-head">
+              <div><span class="live-dot"></span> 双电荷测力台</div>
+              <output id="forceReadout">9.0 N · 相互排斥</output>
+            </div>
+            <div class="charge-stage" id="chargeStage" role="img" aria-label="两个点电荷之间的库仑力演示">
+              <div class="force-arrow left" id="leftArrow"></div>
+              <div class="charge-orb positive" id="orb1">＋</div>
+              <div class="distance-line"><span id="distanceTag">2.0 m</span></div>
+              <div class="charge-orb positive" id="orb2">＋</div>
+              <div class="force-arrow right" id="rightArrow"></div>
+            </div>
+            <div class="coulomb-calculation" aria-label="库仑力实时计算过程" aria-live="polite">
+              <div class="calculation-line general-formula">
+                <span>原公式</span>
+                <b>F = k · <span class="formula-fraction"><i>|q<sub>1</sub>q<sub>2</sub>|</i><i>r<sup>2</sup></i></span></b>
+                <small>k = 9.0 × 10⁹ N·m²/C²</small>
+              </div>
+              <div class="calculation-line substitution-line">
+                <span>代入数值</span>
+                <b>F =</b>
+                <output id="coulombSubstitution">(9.0 × 10⁹ N·m²/C²) × |(+2.0 × 10⁻⁶ C) × (+2.0 × 10⁻⁶ C)| ÷ (2.0 m)²</output>
+              </div>
+              <div class="calculation-line result-line">
+                <span>计算结果</span>
+                <b>F =</b>
+                <output id="coulombScientific">9.000 × 10⁻³ N</output>
+                <i>=</i>
+                <output id="coulombDecimal">0.009 N</output>
+                <small id="coulombRelation">两电荷同号，所以相互排斥</small>
+              </div>
+              <p class="unit-reminder">注意：滑块中的电荷单位是 μC，代入公式前已自动换算为 C：1 μC = 10⁻⁶ C。</p>
+            </div>
+            <div class="controls three-col">
+              <label>电荷 (q_1) <output id="q1Value">+2 μC</output>
+                <input id="q1" type="range" min="-5" max="5" value="2" step="1">
+              </label>
+              <label>电荷 (q_2) <output id="q2Value">+2 μC</output>
+                <input id="q2" type="range" min="-5" max="5" value="2" step="1">
+              </label>
+              <label>距离 r <output id="rValue">2.0 m</output>
+                <input id="distanceR" type="range" min="1" max="5" value="2" step="0.1">
+              </label>
+            </div>
+          </article>
+
+          <article class="chart-panel">
+            <div class="panel-head"><div>距离—静电力图像</div><output id="forceScaleReadout">纵轴自动量程</output></div>
+            <svg id="forceChart" viewBox="0 0 520 330" role="img" aria-label="当前电荷量下，实际库仑力随距离增大按照平方反比规律减小的曲线">
+              <g class="grid"></g>
+              <path class="curve" id="forceCurve"></path>
+              <line class="chart-guide" id="forceGuide"></line>
+              <circle class="chart-point" id="forcePoint" r="7"></circle>
+              <text class="point-label" id="forcePointLabel"></text>
+              <text class="axis-label" x="225" y="320">距离 r / m</text>
+              <text class="axis-label" transform="translate(16 205) rotate(-90)">静电力 F / N</text>
+            </svg>
+            <div class="visual-equation">
+              <span>只看距离：从 1 m 变为</span><b id="distanceMultiple">2 倍</b><span>力变为</span><strong id="forceFraction">1/4</strong>
+            </div>
+          </article>
+        </div>
+
+        <div class="exam-note">
+          <span>考试提醒</span>
+          <p>先判断方向，再算大小；多个电荷同时作用时，每一对分别计算，最后做<strong>矢量合成</strong>。</p>
+        </div>
+
+        <div class="problem-cards">
+          <article><span>模型条件</span><h3>什么时候能看成点电荷 <span class="term-en" lang="en">Point charge</span>？</h3><p>当带电体的大小、形状和电荷分布对研究结果的影响可以忽略时。</p></article>
+          <article><span>接触分配</span><h3>相同金属球接触</h3><p>先用电荷守恒求总量，再平均分配；不同大小导体不能简单平均。</p></article>
+          <article><span>平衡问题</span><h3>带电小球与细线</h3><p>把库仑力与重力、拉力放在同一受力图中，再按平衡条件分解。</p></article>
+          <article><span>多电荷</span><h3>矢量叠加</h3><p>每个力单独画方向；共线用正负号，非共线用平行四边形法则。</p></article>
+        </div>
+
+        <article class="worked-example" data-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 02</span><span class="difficulty medium">综合 · 平衡点</span></div>
+            <h3>两个同号电荷之间，合力为零的位置在哪？</h3>
+            <p>A 点固定电荷 +Q，B 点固定电荷 +4Q，AB = 3 m。在两者之间放一个正试探电荷 q，q 距 A 多远时受到的合力为零？</p>
+          </div>
+          <div class="example-body two-part">
+            <div class="number-line-visual" aria-label="A 点正 Q 与 B 点正 4Q 相距 3 米">
+              <span class="line-charge small">+Q<em>A</em></span><i class="segment"><b>x</b><u></u><b>3−x</b></i><span class="test-charge">+q</span><span class="line-charge large">+4Q<em>B</em></span>
+            </div>
+            <div>
+              <div class="answer-options compact-options" data-answer="a" data-correct-note="正确。大电荷推得更强，所以平衡点应更靠近小电荷 A。" data-wrong-note="先做定性判断：平衡点一定更靠近电荷量较小的 A。">
+                <button data-choice="a">1.0 m</button><button data-choice="b">1.5 m</button><button data-choice="c">2.0 m</button><button data-choice="d">不存在</button>
+              </div>
+              <p class="answer-feedback" aria-live="polite">先用“近小远大”缩小范围。</p>
+            </div>
+          </div>
+          <details class="solution-panel">
+            <summary>展开分步解析 <span>定性判断比列式更早</span></summary>
+            <ol class="solution-steps">
+              <li><b>方向：</b>q 在两电荷之间，A 对 q 的力向右，B 对 q 的力向左，方向相反，才可能抵消。</li>
+              <li><b>大小：</b>令 q 距 A 为 x，则距 B 为 3−x。平衡时 kQq/x² = k·4Qq/(3−x)²。</li>
+              <li><b>约去公共量：</b>1/x² = 4/(3−x)²，所以 3−x = 2x，得到 x = 1.0 m。</li>
+            </ol>
+            <div class="takeaway"><span>答案 A</span><b>同号电荷的零场点在中间，并且“近小远大”。</b></div>
+          </details>
+        </article>
+      </section>
+
+      <section class="lesson" id="field" data-section="field">
+        <div class="section-heading">
+          <div><span class="chapter-no">03</span><p class="eyebrow">ELECTRIC FIELD</p></div>
+          <h2>电场强度 <span class="term-en" lang="en">Electric Field Strength</span></h2>
+          <p>电场描述空间本身。即使没有放入试探电荷，电场也已经存在。</p>
+        </div>
+
+        <section class="field-foundations" aria-labelledby="field-foundations-title">
+          <div class="field-foundation-heading">
+            <span class="definition-tag">先认清三个角色</span>
+            <h3 id="field-foundations-title">“电荷”既是一种物理属性，也常被用来简称“带电物体”。</h3>
+            <p>物体带多少电，用电荷量 <b>q</b> 或 <b>Q</b> 表示，单位是库仑（C）。正、负号表示电性；电荷量的绝对值表示带电多少。在电场题里，还要分清是谁产生电场、谁负责探测。</p>
+          </div>
+          <div class="charge-role-grid">
+            <article>
+              <span class="role-symbol split-charge">＋/−</span>
+              <div><small>电荷 / 电荷量</small><h4>物体的一种属性</h4><p>像质量描述“有多重”，电荷量描述“带多少电”。同号排斥，异号吸引。</p></div>
+            </article>
+            <article>
+              <span class="role-symbol source-charge">Q</span>
+              <div><small>场源电荷 Q <i lang="en">Source charge</i></small><h4>负责产生电场</h4><p>它先在周围空间建立电场。没有放入其他电荷时，这个电场也已经存在。</p></div>
+            </article>
+            <article>
+              <span class="role-symbol test-charge-role">q₀</span>
+              <div><small>试探电荷 q₀ <i lang="en">Test charge</i></small><h4>负责探测电场</h4><p>人为放入一个很小的正电荷，看它在该点受到多大的力、方向朝哪。</p></div>
+            </article>
+          </div>
+          <div class="field-wind-analogy">
+            <div class="wind-flow" aria-label="风先存在，小风向标只是用来探测风">
+              <span>看不见的风已经存在</span><b>→　→　→</b><i>小风向标</i>
+            </div>
+            <div>
+              <h4>生活类比：风和小风向标</h4>
+              <p><b>场源电荷</b>像产生风的风机，<b>电场</b>像空间中的风，<b>试探电荷</b>像放进去的小风向标。风向标不是用来制造风，而是用来告诉你“这里的风朝哪、强不强”。</p>
+              <small>这个类比只帮助理解“场先存在、探针后放入”；电场并不是真的空气流动。</small>
+            </div>
+          </div>
+        </section>
+
+        <div class="field-layout">
+          <article class="lab-panel field-lab">
+            <div class="panel-head">
+              <div><span class="live-dot"></span> 电场探测器</div>
+              <output id="fieldReadout">等量异号电荷 · 中点场强向右</output>
+            </div>
+            <canvas id="fieldCanvas" width="900" height="520" aria-label="点电荷产生的电场矢量与电场线动态图"></canvas>
+            <div class="preset-row" role="group" aria-label="电荷组合">
+              <button class="preset-button" data-field-preset="single">单个正电荷</button>
+              <button class="preset-button active" data-field-preset="dipole">等量异号</button>
+              <button class="preset-button" data-field-preset="same">等量同号</button>
+            </div>
+          </article>
+
+          <aside class="field-key">
+            <div class="definition-card">
+              <span class="definition-symbol">E</span>
+              <div><small>电场强度</small><strong>“这个位置推动正电荷的能力”</strong></div>
+            </div>
+            <div class="direction-rule">
+              <span>方向规定</span>
+              <div><i class="mini-charge plus">＋</i><b>正试探电荷受力方向</b></div>
+              <div><i class="mini-charge minus">−</i><b>负电荷受力方向相反</b></div>
+            </div>
+            <div class="compare-grid">
+              <div><small>源电荷 Q 变大</small><strong>场更强</strong><span>箭头更长、更密</span></div>
+              <div><small>距离 r 变大</small><strong>场快速减弱</strong><span>按距离平方衰减</span></div>
+            </div>
+          </aside>
+        </div>
+
+        <section class="test-charge-lab" aria-labelledby="test-charge-title">
+          <div class="test-charge-copy">
+            <span class="definition-tag">为什么试探电荷必须“小而且规定为正”？</span>
+            <h3 id="test-charge-title">它要像一支轻巧的温度计：能读出环境，却尽量不改变环境。</h3>
+            <ul>
+              <li><b>要足够小：</b>它自己也会产生电场。若电荷量太大，可能推拉场源电荷，改变原来的电场。</li>
+              <li><b>规定为正：</b>这样电场方向就直接规定为正试探电荷的受力方向，大家画出的箭头才有统一标准。</li>
+              <li><b>不是必须真实放入：</b>试探电荷是一种测量思想；撤掉它以后，该点的电场仍然存在。</li>
+            </ul>
+          </div>
+          <div class="test-charge-interactive">
+            <div class="test-stage" aria-label="固定位置的正试探电荷增大时，受力增大而场强不变">
+              <span class="test-source">场源 Q<br><b>＋</b></span>
+              <i class="test-field-arrow">该点电场 E　→</i>
+              <span class="test-probe" id="testProbe">q₀<br><b>＋</b></span>
+              <em class="test-force-arrow" id="testForceArrow">受力 F →</em>
+            </div>
+            <label class="test-charge-control">试探电荷 q₀ <output id="testChargeValue">2.0 nC</output>
+              <input id="testChargeSlider" type="range" min="1" max="5" value="2" step="0.5">
+            </label>
+            <div class="test-charge-results" aria-live="polite">
+              <div><span>该点场强（由场源和位置决定）</span><b>E = 7.20 × 10⁴ N/C</b></div>
+              <div><span>试探电荷受到的力</span><b id="testForceValue">F = 1.44 × 10⁻⁴ N</b></div>
+              <div class="test-ratio"><span>用受力反推场强</span><b id="testRatioValue">E = F/q₀ = 1.44×10⁻⁴ ÷ 2.0×10⁻⁹ = 7.20×10⁴ N/C</b></div>
+            </div>
+            <p class="test-conclusion">拖动滑块：q₀ 变大几倍，F 也变大几倍，所以比值 F/q₀ 不变。<strong>同一点的 E 不由试探电荷决定。</strong></p>
+          </div>
+        </section>
+
+        <div class="model-grid">
+          <article><span>点电荷场 <i class="term-en" lang="en">Point-charge field</i></span><b>E ∝ Q / r²</b><div class="model-sketch radial-field"><i>↖　↑　↗</i><strong>←　＋　→</strong><i>↙　↓　↘</i></div><p>正电荷的场向外，负电荷的场向内；距离越远，场越弱。</p></article>
+          <article><span>匀强电场 <i class="term-en" lang="en">Uniform electric field</i></span><b>等长、平行、同向</b><div class="model-sketch uniform-field"><i>＋＋＋＋</i><strong>↓　↓　↓</strong><em>−−−−</em></div><p>两块平行带电板中央可近似看作匀强电场。</p></article>
+          <article><span>电场叠加 <i class="term-en" lang="en">Superposition</i></span><b>先分开，后合成</b><div class="model-sketch vector-sum"><i>E₁ →</i><em>＋</em><i>↑ E₂</i><strong>↗ E合</strong></div><p>每个源电荷单独贡献一个场强，最后像合成力一样做矢量合成。</p></article>
+          <article><span>电场线 <i class="term-en" lang="en">Electric field lines</i></span><b>疏密表示强弱</b><div class="model-sketch density-field"><i>→→→→</i><strong>＋</strong><em>→　→　→</em></div><p>线密处场强，线疏处场弱；电场线不相交，也不闭合。</p></article>
+        </div>
+
+        <div class="graph-explainer">
+          <div>
+            <p class="eyebrow">E–x 图像</p>
+            <h3>图像在横轴上方还是下方，表示方向；离横轴多远，表示大小。</h3>
+          </div>
+          <div class="axis-demo" aria-label="电场强度正负表示方向的示意图">
+            <span class="axis-arrow up">E &gt; 0 · 向右</span><i></i><span class="axis-arrow down">E &lt; 0 · 向左</span>
+          </div>
+        </div>
+
+        <article class="worked-example" data-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 03</span><span class="difficulty trap">易错 · 矢量与标量</span></div>
+            <h3>场强为零，电势也一定为零吗？</h3>
+            <p>两个等量正点电荷 +Q 固定在 A、B 两点，O 为 AB 中点，取无穷远处电势为零。O 点的场强 E 和电势 φ 分别怎样？</p>
+          </div>
+          <div class="example-body two-part">
+            <div class="superposition-visual" aria-label="两个等量正电荷在中点产生方向相反的电场">
+              <span>+Q</span><i class="arrow-to-right">E₁ →</i><b>O</b><i class="arrow-to-left">← E₂</i><span>+Q</span>
+              <small>电场看方向；电势只做代数相加</small>
+            </div>
+            <div>
+              <div class="answer-options" data-answer="c" data-correct-note="正确！E 是矢量相消，φ 是标量相加。" data-wrong-note="不要把 E 和 φ 用同一种叠加方法：一个是矢量，一个是标量。">
+                <button data-choice="a">E = 0，φ = 0</button>
+                <button data-choice="b">E &gt; 0，φ = 0</button>
+                <button data-choice="c">E = 0，φ &gt; 0</button>
+                <button data-choice="d">E &gt; 0，φ &gt; 0</button>
+              </div>
+              <p class="answer-feedback" aria-live="polite">先分别写出 E₁、E₂ 和 φ₁、φ₂。</p>
+            </div>
+          </div>
+          <details class="solution-panel">
+            <summary>展开分步解析 <span>上海卷高频陷阱</span></summary>
+            <ol class="solution-steps">
+              <li><b>算场强：</b>两个正电荷在 O 点产生的场强等大反向，矢量和为 0。</li>
+              <li><b>算电势：</b>正点电荷在 O 点的电势都为正，φ = kQ/r + kQ/r = 2kQ/r &gt; 0。</li>
+              <li><b>辨析：</b>“E = 0”只说明该点没有确定的电场方向，不代表该点处在零电势参考面上。</li>
+            </ol>
+            <div class="takeaway"><span>答案 C</span><b>场强用箭头合成；电势带正负号直接相加。</b></div>
+          </details>
+        </article>
+      </section>
+
+      <section class="lesson" id="potential" data-section="potential">
+        <div class="section-heading">
+          <div><span class="chapter-no">04</span><p class="eyebrow">POTENTIAL & ENERGY</p></div>
+          <h2>电势与能量 <span class="term-en" lang="en">Electric Potential & Energy</span></h2>
+          <p>同一个电场，可以用“力”来描述，也可以像地形一样用“高低”来描述。</p>
+        </div>
+
+        <div class="potential-layout">
+          <article class="lab-panel">
+            <div class="panel-head">
+              <div><span class="live-dot"></span> 立体电势地形图</div>
+              <output id="potentialReadout">探针电势 +3.2 kV</output>
+            </div>
+            <canvas id="potentialCanvas" width="820" height="500" aria-label="等量异号电荷形成的立体电势地形：正电荷附近是山峰，负电荷附近是低谷，黄色探针沿地形移动" aria-describedby="terrainHelp"></canvas>
+            <div class="terrain-legend" aria-hidden="true">
+              <span class="peak-key">▲ 山峰：φ &gt; 0</span>
+              <span class="zero-key">━ 海平面：φ = 0</span>
+              <span class="valley-key">▼ 低谷：φ &lt; 0</span>
+            </div>
+            <div class="controls two-col">
+              <label>探针横向位置 <output id="probeXValue">+1.8 m</output>
+                <input id="probeX" type="range" min="-40" max="40" value="18" step="1">
+              </label>
+              <label>探针电荷
+                <select id="probeSign"><option value="1">正电荷 +q</option><option value="-1">负电荷 −q</option></select>
+              </label>
+            </div>
+            <p class="terrain-help" id="terrainHelp"><b>怎么看：</b>把电势 φ 当成“海拔”。红色正电荷把地形顶成山峰，蓝色负电荷把地形拉成低谷；黄色探针只是测量所在地的高度，不会改变原来的地形。</p>
+          </article>
+
+          <aside class="energy-story">
+            <div class="terrain-scale">
+              <span class="high">高电势</span><i></i><span class="zero">零电势</span><i></i><span class="low">低电势</span>
+            </div>
+            <article class="energy-card positive-energy">
+              <span class="mini-charge plus">＋</span>
+              <div><h3>正电荷</h3><p>自然运动时倾向从高电势走向低电势，电势能减少。</p></div>
+            </article>
+            <article class="energy-card negative-energy">
+              <span class="mini-charge minus">−</span>
+              <div><h3>负电荷：把地形上下翻转</h3><p>因为 E<sub>p</sub> = qφ 且 q&lt;0，乘上负数后大小关系反转：电势越高，负电荷的电势能反而越低。</p></div>
+            </article>
+            <div class="negative-sign-demo" aria-label="负电荷在高电势处具有更低电势能的数字例子">
+              <strong>为什么会“反过来”？</strong>
+              <span>在高电势 +3 kV：<b>(−2 nC)×(+3 kV) = −6 μJ</b></span>
+              <span>在低电势 −1 kV：<b>(−2 nC)×(−1 kV) = +2 μJ</b></span>
+              <em>数轴上 −6 小于 +2，所以高电势处的电势能更低。不是“高变低”，而是负号把乘积的大小关系翻转了。</em>
+            </div>
+            <div class="work-rule"><b>电场力做正功 <small lang="en">Positive work</small></b><span>→</span><b>电势能减少 <small lang="en">Potential energy decreases</small></b></div>
+            <p class="quiet-note" id="energyRuleReadout">电场力做功只看起点和终点，与实际路径无关。</p>
+          </aside>
+        </div>
+
+        <section class="potential-analogy" aria-labelledby="potentialAnalogyTitle">
+          <div class="analogy-topline">
+            <div class="analogy-heading">
+              <p class="eyebrow">CONNECT TO GRADE 10</p>
+              <h3 id="potentialAnalogyTitle">用高一的重力势能，读懂电势能</h3>
+              <p>观察三个物体怎样运动，并盯住下方两根能量条：物体沿保守力运动时，势能减少，动能增加。</p>
+            </div>
+            <button class="quiet-button energy-replay" id="energyReplay" type="button">↻ 重新演示</button>
+          </div>
+
+          <div class="energy-demo-grid is-playing" id="energyDemoGrid">
+            <article class="energy-demo gravity-demo">
+              <span class="analogy-tag gravity-tag">重力场</span>
+              <h4>小球从高处落下</h4>
+              <div class="energy-scene downhill-scene" aria-label="小球在重力作用下从高处沿斜坡运动到低处">
+                <svg viewBox="0 0 300 160" role="img" aria-label="从左上方向右下方下降的斜坡">
+                  <path class="scene-grid" d="M18 137H282M40 18V142" />
+                  <path class="slope-track gravity-track" d="M42 42 C100 43 165 112 265 129" />
+                </svg>
+                <span class="scene-label start-label">h 高<br>E<sub>p重</sub> 高</span>
+                <span class="scene-label end-label">h 低<br>E<sub>p重</sub> 低</span>
+                <i class="energy-body gravity-body" data-force="F重 ↘">球</i>
+              </div>
+              <div class="energy-ledger">
+                <label><span>重力势能 E<sub>p</sub></span><i><b class="potential-meter"></b></i><output>减少</output></label>
+                <label><span>动能 E<sub>k</sub></span><i><b class="kinetic-meter"></b></i><output>增加</output></label>
+              </div>
+              <p><b>m&gt;0：</b>h 降低 → mgh 减少。</p>
+              <code>W<sub>重</sub> &gt; 0 → ΔE<sub>p重</sub> &lt; 0</code>
+            </article>
+
+            <article class="energy-demo positive-demo">
+              <span class="analogy-tag positive-tag">正电荷 +q</span>
+              <h4>正电荷走向低电势</h4>
+              <div class="energy-scene downhill-scene" aria-label="正电荷沿电场力方向从高电势运动到低电势">
+                <svg viewBox="0 0 300 160" role="img" aria-label="从高电势到低电势的下降地形">
+                  <path class="scene-grid" d="M18 137H282M40 18V142" />
+                  <path class="slope-track positive-track" d="M42 42 C100 43 165 112 265 129" />
+                </svg>
+                <span class="scene-label start-label">φ 高<br>qφ 高</span>
+                <span class="scene-label end-label">φ 低<br>qφ 低</span>
+                <i class="energy-body positive-body" data-force="F电 ↘">＋q</i>
+              </div>
+              <div class="energy-ledger">
+                <label><span>电势能 E<sub>p</sub></span><i><b class="potential-meter"></b></i><output>减少</output></label>
+                <label><span>动能 E<sub>k</sub></span><i><b class="kinetic-meter"></b></i><output>增加</output></label>
+              </div>
+              <p><b>q&gt;0：</b>φ 降低 → qφ 减少，和小球“下坡”一致。</p>
+              <code>W<sub>电</sub> &gt; 0 → ΔE<sub>p电</sub> &lt; 0</code>
+            </article>
+
+            <article class="energy-demo negative-demo">
+              <span class="analogy-tag negative-tag">负电荷 −q</span>
+              <h4>负电荷却走向高电势</h4>
+              <div class="energy-scene uphill-scene" aria-label="负电荷沿电场力方向从低电势运动到高电势，但电势能仍然降低">
+                <svg viewBox="0 0 300 160" role="img" aria-label="从低电势到高电势的上升地形">
+                  <path class="scene-grid" d="M18 137H282M40 18V142" />
+                  <path class="slope-track negative-track" d="M42 129 C118 119 188 48 265 42" />
+                </svg>
+                <span class="scene-label start-label">φ 低<br>qφ 高</span>
+                <span class="scene-label end-label">φ 高<br>qφ 低</span>
+                <i class="energy-body negative-body" data-force="F电 ↗">−q</i>
+                <b class="mirror-note">q&lt;0，把 φ 的高低翻转成 Eₚ 的低高</b>
+              </div>
+              <div class="energy-ledger">
+                <label><span>电势能 E<sub>p</sub></span><i><b class="potential-meter"></b></i><output>减少</output></label>
+                <label><span>动能 E<sub>k</sub></span><i><b class="kinetic-meter"></b></i><output>增加</output></label>
+              </div>
+              <p><b>q&lt;0：</b>φ 升高，但乘上负数后 qφ 反而减小。</p>
+              <code>W<sub>电</sub> &gt; 0 → ΔE<sub>p电</sub> &lt; 0</code>
+            </article>
+          </div>
+
+          <div class="work-comparison">
+            <article>
+              <div class="work-vector-demo"><span>重力 F<sub>重</sub></span><i>→</i><span>位移 s</span><i>→</i><b>方向相同</b></div>
+              <div><h4>高一：重力做正功</h4><p>小球向下运动，位移与重力同向，所以重力做正功；同时小球的位置降低，<strong>重力势能减少</strong>。</p></div>
+              <code>W<sub>重</sub> = −ΔE<sub>p重</sub></code>
+            </article>
+            <article>
+              <div class="work-vector-demo"><span>电场力 F<sub>电</sub></span><i>→</i><span>位移 s</span><i>→</i><b>方向相同</b></div>
+              <div><h4>高二：电场力做正功</h4><p>粒子沿电场力方向运动，位移与电场力同向，所以电场力做正功；同时<strong>电势能减少</strong>。</p></div>
+              <code>W<sub>电</sub> = −ΔE<sub>p电</sub></code>
+            </article>
+          </div>
+          <div class="kinetic-bridge" aria-label="重力场与电场中的动能和势能转化对照">
+            <span><small>只受重力时</small><b>重力势能减少</b><i>→</i><strong>动能增加</strong><code>ΔE<sub>k</sub> = W<sub>重</sub> = −ΔE<sub>p重</sub></code></span>
+            <em>同一套能量账本</em>
+            <span><small>只受电场力时</small><b>电势能减少</b><i>→</i><strong>动能增加</strong><code>ΔE<sub>k</sub> = W<sub>电</sub> = −ΔE<sub>p电</sub></code></span>
+          </div>
+          <div class="analogy-conclusion"><b>统一记法：</b>保守力做了多少正功，相应势能就减少多少。重力如此，电场力也如此。</div>
+        </section>
+
+        <div class="dual-view">
+          <div class="view-card"><span>力的视角</span><strong>电场强度 E</strong><p>告诉你“往哪推、推多强”。</p></div>
+          <div class="view-link">同一电场</div>
+          <div class="view-card"><span>能量视角</span><strong>电势 φ</strong><p>告诉你“位置有多高”。</p></div>
+        </div>
+
+        <div class="knowledge-table-wrap">
+          <table class="knowledge-table">
+            <thead><tr><th>关系</th><th>图像理解</th><th>最容易错的地方</th></tr></thead>
+            <tbody>
+              <tr><td>匀强电场中 U 与距离</td><td>沿电场方向走得越远，电势降得越多</td><td>距离必须取沿电场方向的投影</td></tr>
+              <tr><td>电场线与等势面</td><td>处处垂直，电场线指向电势降低方向</td><td>沿同一等势面移动，电场力不做功</td></tr>
+              <tr><td>φ–x 图像</td><td>斜率大小反映场强，斜率符号决定方向</td><td>电势为零的位置，场强不一定为零</td></tr>
+              <tr><td>E–x 图像</td><td>曲线与横轴围成的有向面积对应电势变化</td><td>先规定正方向，再判断面积正负</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <article class="worked-example" data-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 04</span><span class="difficulty medium">综合 · 功能关系</span></div>
+            <h3>负电荷移动：三个正负号一次理清</h3>
+            <p>电荷量 q = −2.0 μC 的粒子从 A 点移到 B 点，φ<sub>A</sub> = 300 V，φ<sub>B</sub> = −100 V。电场力做功 W<sub>AB</sub> 和电势能变化 ΔE<sub>p</sub> 是多少？</p>
+          </div>
+          <div class="example-body two-part">
+            <div class="potential-stairs" aria-label="A 点 300 伏到 B 点负 100 伏的电势下降">
+              <div><b>A</b><span>300 V</span></div><i>电势下降 400 V ↘</i><div><b>B</b><span>−100 V</span></div><em>移动的是负电荷 −q</em>
+            </div>
+            <div>
+              <div class="answer-options" data-answer="d" data-correct-note="正确。负电荷跨越正电势差，电场力做负功，电势能增加。" data-wrong-note="先算 UAB = φA−φB，再把 q 的负号完整代入 W=qUAB。">
+                <button data-choice="a">W = +8.0×10⁻⁴ J，ΔEₚ = +8.0×10⁻⁴ J</button>
+                <button data-choice="b">W = +8.0×10⁻⁴ J，ΔEₚ = −8.0×10⁻⁴ J</button>
+                <button data-choice="c">W = −8.0×10⁻⁴ J，ΔEₚ = −8.0×10⁻⁴ J</button>
+                <button data-choice="d">W = −8.0×10⁻⁴ J，ΔEₚ = +8.0×10⁻⁴ J</button>
+              </div>
+              <p class="answer-feedback" aria-live="polite">建议把“电势差、功、势能”分三行写。</p>
+            </div>
+          </div>
+          <details class="solution-panel">
+            <summary>展开分步解析 <span>正负号一行也不要跳</span></summary>
+            <ol class="solution-steps">
+              <li><b>电势差：</b>U<sub>AB</sub> = φ<sub>A</sub> − φ<sub>B</sub> = 300 − (−100) = 400 V。</li>
+              <li><b>电场力做功：</b>W<sub>AB</sub> = qU<sub>AB</sub> = (−2.0×10⁻⁶)×400 = −8.0×10⁻⁴ J。</li>
+              <li><b>电势能：</b>ΔE<sub>p</sub> = −W<sub>AB</sub> = +8.0×10⁻⁴ J。</li>
+            </ol>
+            <div class="takeaway"><span>答案 D</span><b>稳妥链条：UAB = φA−φB → WAB = qUAB → ΔEp = −WAB。</b></div>
+          </details>
+        </article>
+      </section>
+
+      <section class="lesson" id="particle" data-section="particle">
+        <div class="section-heading">
+          <div><span class="chapter-no">05</span><p class="eyebrow">PARTICLE MOTION</p></div>
+          <h2>带电粒子运动 <span class="term-en" lang="en">Motion of Charged Particles</span></h2>
+          <p>先画受力，再定加速度，最后判断它是直线加速还是类平抛。</p>
+        </div>
+
+        <article class="particle-lab lab-panel">
+          <div class="panel-head">
+            <div><span class="live-dot"></span> 平行板粒子发射器</div>
+            <output id="particleReadout">正粒子向下偏转 · 未撞板</output>
+          </div>
+          <canvas id="particleCanvas" width="1100" height="470" aria-label="带电粒子进入平行板匀强电场后的偏转轨迹"></canvas>
+          <div class="controls four-col">
+            <label>粒子电性
+              <select id="particleSign"><option value="1">正电荷</option><option value="-1">负电荷</option></select>
+            </label>
+            <label>入射速度 <output id="speedValue">6.0</output>
+              <input id="particleSpeed" type="range" min="3" max="10" value="6" step="0.5">
+            </label>
+            <label>板间电压 <output id="plateVoltageValue">80 V</output>
+              <input id="plateVoltage" type="range" min="20" max="140" value="80" step="10">
+            </label>
+            <label>板间距 <output id="plateGapValue">18 cm</output>
+              <input id="plateGap" type="range" min="12" max="28" value="18" step="1">
+            </label>
+          </div>
+        </article>
+
+        <div class="motion-steps">
+          <article><span>1</span><h3>画受力</h3><p>电场力方向：正电荷顺着电场，负电荷逆着电场。</p></article>
+          <article><span>2</span><h3>拆运动</h3><p>水平方向匀速；竖直方向初速度为零的匀加速。</p></article>
+          <article><span>3</span><h3>合轨迹</h3><p>两方向运动同时发生，轨迹是一段抛物线。</p></article>
+          <article><span>4</span><h3>查边界</h3><p>比较粒子离开极板时的偏移量与半板间距，判断是否撞板。</p></article>
+        </div>
+
+        <div class="case-grid">
+          <article><span>直线加速</span><h3>速度与电场平行</h3><p>常用能量方法：电场力做多少功，动能就改变多少。</p></article>
+          <article><span>偏转模型</span><h3>速度与电场垂直</h3><p>与平抛运动同构，关键量是加速度和在板间运动的时间。</p></article>
+          <article><span>复合场平衡</span><h3>电场力与重力抵消</h3><p>带电液滴悬浮时合力为零；先判断电性，再列平衡条件。</p></article>
+        </div>
+
+        <article class="worked-example" data-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 05</span><span class="difficulty graph">模型 · 比例推理</span></div>
+            <h3>电压和速度同时改变，偏转量怎么变？</h3>
+            <p>同一带电粒子水平进入同一对平行板。若板间电压变为原来的 2 倍、入射速度变为原来的 2 倍，其他条件不变，则粒子离开极板时的竖直偏移量变为原来的：</p>
+          </div>
+          <div class="example-body two-part">
+            <div class="trajectory-ratio" aria-label="粒子通过平行板时形成抛物线轨迹">
+              <div class="mini-plates"><span>＋＋＋＋＋</span><i class="path-old"></i><i class="path-new"></i><span>− − − − −</span></div>
+              <p><b>U ×2</b><span>竞争</span><b>v₀ ×2</b></p>
+            </div>
+            <div>
+              <div class="answer-options compact-options" data-answer="b" data-correct-note="正确。电压让加速度 ×2，但速度让板内时间变成 1/2，时间平方带来 1/4。" data-wrong-note="别只看电场变强；偏转时间 t=L/v₀ 也同时改变了。">
+                <button data-choice="a">2 倍</button><button data-choice="b">1/2</button><button data-choice="c">1/4</button><button data-choice="d">不变</button>
+              </div>
+              <p class="answer-feedback" aria-live="polite">提示：偏转量里速度是平方关系。</p>
+            </div>
+          </div>
+          <details class="solution-panel">
+            <summary>展开分步解析 <span>先拆运动，再做比例</span></summary>
+            <div class="derivation-prereq">
+              <div>
+                <h4>先把运动“横竖分家”</h4>
+                <p><b>水平方向：</b>没有电场力，速度一直是 v₀，做匀速直线运动。</p>
+                <p><b>竖直方向：</b>有恒定电场力，初速度为 0，做匀加速直线运动。</p>
+                <small>两个方向同时开始、同时结束，所以共用同一个时间 t。</small>
+              </div>
+              <div class="split-motion-diagram" aria-label="粒子水平方向匀速、竖直方向匀加速的运动分解图">
+                <span class="motion-particle">q</span>
+                <i class="horizontal-motion">水平：v₀ →</i>
+                <i class="vertical-motion">竖直：a ↓</i>
+                <b>合成后：抛物线 ↘</b>
+              </div>
+            </div>
+            <div class="formula-symbols" aria-label="公式中字母的含义">
+              <span><b>L</b>极板长度</span><span><b>d</b>两板间距</span><span><b>U</b>板间电压</span><span><b>v₀</b>水平初速度</span><span><b>q</b>粒子电荷量</span><span><b>m</b>粒子质量</span>
+            </div>
+            <ol class="solution-steps expanded-derivation">
+              <li>
+                <div class="derivation-title"><b>先求粒子在板内待多久</b><code>t = L / v₀</code></div>
+                <p>水平方向没有力，因此没有水平加速度，粒子以 v₀ 匀速走完极板长度 L。由匀速公式 <strong>路程 = 速度 × 时间</strong>：</p>
+                <div class="formula-chain"><span>L = v₀t</span><i>移项</i><strong>t = L/v₀</strong></div>
+                <small>速度越快，穿过极板所用时间越短；若 v₀ 变为 2 倍，t 就变为原来的 1/2。</small>
+              </li>
+              <li>
+                <div class="derivation-title"><b>再求竖直方向的加速度</b><code>a = qU/(md)</code></div>
+                <p>先由板间电压求场强，再由电场力求加速度，连续使用三个熟悉关系：</p>
+                <div class="formula-chain long-chain"><span>E = U/d</span><i>→</i><span>F = qE</span><i>→</i><span>a = F/m</span><i>合并</i><strong>a = qU/(md)</strong></div>
+                <small>q 的正负决定加速度方向。只比较偏转量大小时写作 |a|=|q|U/(md)。本题 U 变为 2 倍，所以加速度大小也变为 2 倍。</small>
+              </li>
+              <li>
+                <div class="derivation-title"><b>用竖直位移公式求偏转量</b><code>y = ½at²</code></div>
+                <p>粒子进入电场时只有水平速度，因此<strong>竖直初速度 v<sub>y0</sub>=0</strong>。匀加速位移公式中的第一项消失：</p>
+                <div class="formula-stack">
+                  <span>y = v<sub>y0</sub>t + ½at²</span>
+                  <i>因为 v<sub>y0</sub> = 0</i>
+                  <span>y = ½at²</span>
+                  <i>代入 a = qU/(md)，t = L/v₀</i>
+                  <strong>y = qUL²/(2mdv₀²)</strong>
+                </div>
+                <small>同一粒子、同一对极板中，q、m、L、d 都不变，所以只剩下 <b>y ∝ U/v₀²</b>。</small>
+              </li>
+              <li>
+                <div class="derivation-title"><b>最后代入“变为几倍”</b><code>y′/y = 1/2</code></div>
+                <p>新电压 U′=2U，新速度 v₀′=2v₀。把新旧两个表达式相除，不需要知道每个量的具体数值：</p>
+                <div class="ratio-calculation">
+                  <span>y′/y</span><b>=</b><span>U′/U</span><b>×</b><span>(v₀/v₀′)²</span><b>=</b><span>2 × (1/2)²</span><b>=</b><strong>1/2</strong>
+                </div>
+                <small>直觉检查：电压 ×2 让加速度 ×2；速度 ×2 让时间 ×1/2，而位移看 t²，所以时间因素贡献 1/4。最终 2×1/4=1/2。</small>
+              </li>
+            </ol>
+            <div class="takeaway"><span>答案 B</span><b>偏转模型的核心结论：y ∝ U、y ∝ 1/v₀²。</b></div>
+          </details>
+        </article>
+      </section>
+
+      <section class="lesson" id="capacitor" data-section="capacitor">
+        <div class="section-heading">
+          <div><span class="chapter-no">06</span><p class="eyebrow">CAPACITOR</p></div>
+          <h2>电容器 <span class="term-en" lang="en">Capacitor</span></h2>
+          <p>电容器不是“装电荷的瓶子”，而是用两个极板建立电场并储存能量。</p>
+        </div>
+
+        <div class="capacitor-layout">
+          <article class="lab-panel">
+            <div class="panel-head">
+              <div><span class="live-dot"></span> 平行板电容器</div>
+              <output id="capacitorReadout">接电源 · 电压保持 12 V</output>
+            </div>
+            <canvas id="capacitorCanvas" width="820" height="480" aria-label="平行板电容器极板、电荷和电场随参数改变的动画"></canvas>
+            <div class="controls two-col capacitor-controls">
+              <label>实验状态
+                <select id="capacitorMode"><option value="voltage">接着电源：U 不变</option><option value="charge">断开电源：Q 不变</option></select>
+              </label>
+              <label>极板距离 d <output id="capDistanceValue">3.0 cm</output>
+                <input id="capDistance" type="range" min="1" max="6" value="3" step="0.2">
+              </label>
+              <label>正对面积 S <output id="capAreaValue">100%</output>
+                <input id="capArea" type="range" min="40" max="100" value="100" step="5">
+              </label>
+              <label>介电常数 εr <output id="dielectricValue">1.0</output>
+                <input id="dielectric" type="range" min="1" max="5" value="1" step="0.5">
+              </label>
+            </div>
+          </article>
+
+          <aside class="cap-dashboard" aria-live="polite">
+            <div class="cap-stat"><span>电容 C</span><strong id="capC">1.00 C₀</strong><div><i id="capCBar"></i></div><small>只由结构和介质决定</small></div>
+            <div class="cap-stat"><span>电荷量 Q</span><strong id="capQ">1.00 Q₀</strong><div><i id="capQBar"></i></div><small id="capQHint">接电源时会随电容改变</small></div>
+            <div class="cap-stat"><span>板间电压 U</span><strong id="capU">1.00 U₀</strong><div><i id="capUBar"></i></div><small id="capUHint">由电源锁定</small></div>
+            <div class="cap-stat"><span>场强 E</span><strong id="capE">1.00 E₀</strong><div><i id="capEBar"></i></div><small>看电压与板间距的共同作用</small></div>
+          </aside>
+        </div>
+
+        <section class="capacitance-explainer" aria-labelledby="capacitance-title">
+          <div class="capacitance-heading">
+            <p class="eyebrow">WHAT DETERMINES C?</p>
+            <h3 id="capacitance-title">电容 C 到底由什么决定？</h3>
+            <p><strong>一句话：</strong>电容器造好以后，它的 C 由结构和两板之间的介质决定；不是由这一次“充了多少电”决定。</p>
+          </div>
+
+          <div class="capacitance-core">
+            <div class="capacitance-formula" aria-label="平行板电容器电容公式">
+              <span>平行板电容器</span>
+              <strong>C = ε<sub>0</sub>ε<sub>r</sub>S / d</strong>
+              <small>ε<sub>0</sub> 是真空介电常数；ε<sub>r</sub> 描述板间材料的影响</small>
+            </div>
+            <div class="capacitance-levers">
+              <article><b>S ↑</b><h4>正对面积越大，C 越大</h4><p>好比停车位变多：两块板上能相互对应地分离更多正、负电荷。</p><code>C ∝ S</code></article>
+              <article><b>d ↓</b><h4>板间距离越小，C 越大</h4><p>两板靠近后，同样数量的电荷产生的电压较小；要达到同一电压，就能容纳更多分离电荷。</p><code>C ∝ 1/d</code></article>
+              <article><b>ε<sub>r</sub> ↑</b><h4>介电常数越大，C 越大</h4><p>插入绝缘介质后会发生极化，削弱电荷造成的部分电场；同一电压下，两板可以带更多电荷。</p><code>C ∝ ε<sub>r</sub></code></article>
+            </div>
+          </div>
+
+          <div class="capacitance-notice">
+            <div><b>公式 C = Q/U 是定义式</b><p>它表示：对同一个电容器，Q 会跟 U 成正比，所以 Q/U 始终是同一个 C。</p></div>
+            <div class="spring-analogy"><span>弹簧</span><strong>k = F/x</strong><i>⇄</i><span>电容器</span><strong>C = Q/U</strong></div>
+            <div><b>不是 Q 和 U “决定” C</b><p>就像增加拉力 F 会让伸长量 x 同比例增加，却不会因此改变弹簧的劲度系数 k。</p></div>
+          </div>
+
+          <section class="ev-capacity" aria-labelledby="ev-capacity-title">
+            <div class="ev-capacity-heading">
+              <span>新能源车里的“容量”</span>
+              <h3 id="ev-capacity-title">电池容量和电容 C，名字像，但不是同一个物理量</h3>
+            </div>
+            <div class="capacity-compare">
+              <article class="battery-capacity-card">
+                <span class="capacity-label">动力电池 Battery</span>
+                <h4>常说“60 kWh 电池”</h4>
+                <p>这里的 60 kWh 表示<strong>可以储存多少能量</strong>，不是电容 C。电池还常用 Ah 表示可转移的电荷量。</p>
+                <div class="capacity-equation"><b>理论续航</b><span>≈ 60 kWh ÷ 15 kWh/100 km</span><strong>≈ 400 km</strong></div>
+                <small>这里只做理想估算；实际续航还受车速、气温、空调、路况和可用电量影响。</small>
+              </article>
+              <article class="vehicle-capacitor-card">
+                <span class="capacity-label">车载电容 Capacitor</span>
+                <h4>常用 μF、mF 或 F</h4>
+                <p>这里描述的是<strong>电压每升高 1 V，需要分离多少电荷</strong>。车载逆变器中的直流母线电容可吸收瞬时波动、稳定电压。</p>
+                <div class="capacity-equation"><b>示例储能</b><span>½×2 mF×(400 V)²</span><strong>= 160 J</strong></div>
+                <small>它反应快、充放电快，但储能通常远小于动力电池，不能用来提供几百公里续航。</small>
+              </article>
+            </div>
+            <div class="energy-scale" aria-label="60千瓦时电池与示例车载电容器储能数量级比较">
+              <div><span>60 kWh 动力电池</span><i class="battery-energy-bar"></i><b>216,000,000 J</b></div>
+              <div><span>2 mF、400 V 电容</span><i class="capacitor-energy-bar"></i><b>160 J</b></div>
+              <p>两条采用不同的视觉量程，否则第二条在同一比例尺下几乎看不见。数值上，前者约是后者的 <strong>135 万倍</strong>。</p>
+            </div>
+            <div class="supercap-note">
+              <b>那“超级电容”呢？</b>
+              <p>超级电容 <span lang="en">supercapacitor</span> 的 C 很大，特别适合在刹车时快速接收回收的能量，再在起步时快速释放；但单位质量储能通常仍低于锂电池。因此它更像“短跑选手”，动力电池更像“长跑选手”。</p>
+            </div>
+          </section>
+        </section>
+
+        <div class="decision-tree">
+          <div class="tree-question">极板移动前，电容器是否仍连接电源？</div>
+          <div class="tree-branches">
+            <article><span>是</span><h3>电压 U 锁定</h3><p>先由结构判断 C，再判断 Q；场强还要结合板间距。</p></article>
+            <article><span>否</span><h3>电荷量 Q 锁定</h3><p>先由结构判断 C，再反推 U；不能继续套“电压不变”。</p></article>
+          </div>
+        </div>
+
+        <div class="application-grid">
+          <article><b>充电</b><span>电源搬运电荷，极板电荷量逐渐增加。</span></article>
+          <article><b>放电</b><span>两板间电荷经外电路中和，能量转化到其他形式。</span></article>
+          <article><b>插入介质</b><span>相同结构下，介质通常使电容增大。</span></article>
+          <article><b>改变结构</b><span>面积越大电容越大；板间距越大电容越小。</span></article>
+        </div>
+
+        <section class="capacitor-life" aria-labelledby="capacitorLifeTitle">
+          <div class="capacitor-life-heading">
+            <p class="eyebrow">EVERYDAY CAPACITORS</p>
+            <h3 id="capacitorLifeTitle">生活里的电容器：先慢慢存，再按需要释放</h3>
+            <p>电容器的核心不是“永远保存电”，而是暂时分离正、负电荷，把能量储存在两板间的电场里。</p>
+          </div>
+
+          <div class="capacitor-water-analogy">
+            <div class="water-cap-visual" aria-label="用水箱容量类比电容器的电容、电荷量和电压">
+              <span class="water-level">储存量 Q</span><i></i><b>容量 C</b><em>水位差类比电压 U</em>
+            </div>
+            <div>
+              <h4>先用“水箱”建立直觉</h4>
+              <p><b>C 像水箱大小：</b>同样的“水位差”，大水箱能装更多水；同样的电压 U，大电容能分离更多电荷 Q。</p>
+              <div class="water-formula"><span>水箱：储水量</span><b>≈</b><span>容量 × 水位差</span><i>对应</i><strong>Q = CU</strong></div>
+              <small>类比的边界：电容器不是空心容器，电荷也不是灌进夹层里的水；实际是电源把电子从一块极板搬到另一块极板。</small>
+            </div>
+          </div>
+
+          <div class="life-cap-grid">
+            <article>
+              <div class="life-cap-flow flash-flow" aria-label="相机闪光灯先充电再快速放电">
+                <span>电池慢慢充电</span><i>→</i><b>电容储能</b><i>→</i><strong>瞬间放电发亮</strong>
+              </div>
+              <h4>相机闪光灯：为什么能突然很亮？</h4>
+              <ol>
+                <li>小电池先用一段时间给电容器充电。</li>
+                <li>电容器储存能量，近似为 E<sub>C</sub>=½CU²。</li>
+                <li>按下快门时，电容器在很短时间内放电，形成较大的瞬时功率，让闪光灯突然变亮。</li>
+              </ol>
+              <p><b>对应知识点：</b>电容器可以“充得慢、放得快”；C 或 U 越大，能够储存的能量通常越多。</p>
+            </article>
+
+            <article>
+              <div class="life-cap-flow led-flow" aria-label="拔下电源后电容器继续向指示灯短暂供电">
+                <span>拔下插头</span><i>→</i><b>电容还有电荷</b><i>→</i><strong>指示灯渐暗</strong>
+              </div>
+              <h4>充电器拔掉后：指示灯为什么还亮一下？</h4>
+              <ol>
+                <li>接通电源时，充电器内部的电容器已经充上电。</li>
+                <li>拔下插头后，外部电源消失，但电容器两端的电压不会瞬间变成零。</li>
+                <li>它继续通过指示灯和电路放电；随着 Q 减少，由 U=Q/C 可知电压逐渐下降，灯也逐渐熄灭。</li>
+              </ol>
+              <p><b>对应知识点：</b>放电是电荷经外电路重新分布，电场能转化为光、热等能量。</p>
+            </article>
+
+            <article>
+              <div class="life-cap-flow touch-flow" aria-label="手指靠近触摸电极使检测到的电容发生变化">
+                <span>手指靠近</span><i>→</i><b>电场分布改变</b><i>→</i><strong>检测到 ΔC</strong>
+              </div>
+              <h4>手机触摸屏：它怎么知道手指碰到了？</h4>
+              <ol>
+                <li>屏幕中有许多透明电极，它们可以组成很小的电容结构。</li>
+                <li>人体能够导电，手指靠近会改变附近电场分布，使测得的电容 C 发生微小变化。</li>
+                <li>控制芯片找到“哪一小块的 C 变了”，从而判断触摸位置。</li>
+              </ol>
+              <p><b>对应知识点：</b>C 由结构和周围介质决定；触摸检测的是电容变化，不是手指主动向屏幕“放电”。</p>
+            </article>
+
+            <article>
+              <div class="smoothing-visual" aria-label="电源滤波电容在电压高时充电、低时放电，让输出电压更平稳">
+                <span>未经滤波</span><i class="rough-wave">⌁⌁⌁⌁</i><span>加电容后</span><b class="smooth-wave">━━━━</b>
+              </div>
+              <h4>充电器内部：为什么需要“滤波电容”？</h4>
+              <ol>
+                <li>整流后的电压会一高一低，并不平稳。</li>
+                <li>电压较高时，电容器充电；电压回落时，电容器向电路放电。</li>
+                <li>它像“小型缓冲仓”，补上电压低谷，使输出电压更加平稳。</li>
+              </ol>
+              <p><b>对应知识点：</b>反复充放电可以削弱电压波动；电容越大，通常维持电压的能力越强。</p>
+            </article>
+          </div>
+
+          <div class="capacitor-life-summary"><b>看到生活题先问：</b><span>它是在储能、快速放能、检测 C 的变化，还是利用充放电让电压更稳定？</span></div>
+        </section>
+
+        <article class="worked-example capacitor-example" data-cap-example>
+          <div class="example-header">
+            <div><span class="example-label">例题 06</span><span class="difficulty trap">压轴易错 · 两种状态</span></div>
+            <h3>极板间距变成 2d，四个物理量怎样联动？</h3>
+            <p>平行板电容器原来充电完毕。保持正对面积和介质不变，把板间距由 d 缓慢增大到 2d。先选择实验状态，再观察 C、Q、U、E 的变化。</p>
+          </div>
+          <div class="cap-case-switch" role="group" aria-label="选择电容器是否连接电源">
+            <button class="active" data-cap-case="connected">仍连接电源（U 不变）</button>
+            <button data-cap-case="isolated">先断开电源（Q 不变）</button>
+          </div>
+          <div class="cap-result-grid" aria-live="polite">
+            <article><span>电容 C</span><strong id="caseC">C/2 ↓</strong><small>C ∝ 1/d</small></article>
+            <article><span>电荷量 Q</span><strong id="caseQ">Q/2 ↓</strong><small id="caseQReason">Q = CU，U 锁定</small></article>
+            <article><span>电压 U</span><strong id="caseU">U 不变</strong><small id="caseUReason">由电源锁定</small></article>
+            <article><span>场强 E</span><strong id="caseE">E/2 ↓</strong><small id="caseEReason">E = U/d</small></article>
+          </div>
+          <details class="solution-panel">
+            <summary>展开通用解法 <span>先锁定不变量</span></summary>
+            <ol class="solution-steps">
+              <li><b>先判结构：</b>C = εS/(4πkd)，d 加倍，因此 C 变为一半，这一步与是否接电源无关。</li>
+              <li><b>再找锁定量：</b>接电源锁定 U，断电源锁定 Q。</li>
+              <li><b>最后联动：</b>用 Q = CU 求第三个量，用 E = U/d 或 E ∝ Q/S 求场强。</li>
+            </ol>
+            <div class="takeaway"><span>决策口令</span><b>结构先判 C，状态锁 U/Q，最后再求 E。</b></div>
+          </details>
+        </article>
+      </section>
+
+      <section class="lesson final-review" id="review" data-section="review">
+        <div class="section-heading">
+          <div><span class="chapter-no">✓</span><p class="eyebrow">FINAL MAP</p></div>
+          <h2>一张图串起静电场 <span class="term-en" lang="en">Electrostatics Map</span></h2>
+          <p>做综合题时，从“谁产生场”开始，一直追踪到“粒子如何运动”。</p>
+        </div>
+        <div class="review-map">
+          <div><span>源电荷 Q</span><small>决定电场</small></div><b>→</b>
+          <div><span>空间中的 E、φ</span><small>力与能量两种描述</small></div><b>→</b>
+          <div><span>放入电荷 q</span><small>受到电场力</small></div><b>→</b>
+          <div><span>功与能量变化</span><small>或列牛顿第二定律</small></div><b>→</b>
+          <div><span>速度与轨迹</span><small>检查边界和临界</small></div>
+        </div>
+        <div class="mistake-grid">
+          <article><strong>场强为零</strong><p>不等于电势为零。</p></article>
+          <article><strong>电势降低</strong><p>不等于所有电荷的电势能都降低。</p></article>
+          <article><strong>电场力做负功</strong><p>意味着电势能增加。</p></article>
+          <article><strong>电容变大</strong><p>不代表电荷量一定变大，要先看是否接电源。</p></article>
+        </div>
+
+        <div class="formula-map">
+          <article><span>电荷之间</span><strong>F = k|q₁q₂| / r²</strong><p>电荷量越大，力越大；距离翻倍，力变为四分之一。</p></article>
+          <article><span>空间中的场</span><strong>E = F / q</strong><p>用单位正电荷受到的力，描述这个位置的电场强弱。</p></article>
+          <article><span>场与能量</span><strong>U = W / q</strong><p>移动单位正电荷时，电场力能够做多少功。</p></article>
+          <article><span>匀强电场</span><strong>E = U / d</strong><p>d 必须取沿电场方向的距离。</p></article>
+          <article><span>粒子受力</span><strong>F = qE</strong><p>接下来可以列牛顿第二定律，或者使用动能定理。</p></article>
+          <article><span>电容器</span><strong>C = Q / U</strong><p>C 描述结构的储电能力，不由某一次的 Q、U 单独决定。</p></article>
+        </div>
+        <section class="bilingual-glossary" aria-labelledby="glossary-title">
+          <div class="glossary-heading">
+            <span>中英术语速查</span>
+            <h3 id="glossary-title">看到英文题，也能认出熟悉的物理量</h3>
+          </div>
+          <dl>
+            <div><dt>电荷</dt><dd lang="en">electric charge</dd></div>
+            <div><dt>电荷量</dt><dd lang="en">quantity of charge</dd></div>
+            <div><dt>元电荷</dt><dd lang="en">elementary charge</dd></div>
+            <div><dt>电子</dt><dd lang="en">electron</dd></div>
+            <div><dt>净电荷</dt><dd lang="en">net charge</dd></div>
+            <div><dt>电荷守恒</dt><dd lang="en">conservation of charge</dd></div>
+            <div><dt>导体</dt><dd lang="en">conductor</dd></div>
+            <div><dt>绝缘体</dt><dd lang="en">insulator</dd></div>
+            <div><dt>静电感应</dt><dd lang="en">electrostatic induction</dd></div>
+            <div><dt>静电极化</dt><dd lang="en">electrostatic polarization</dd></div>
+            <div><dt>接地</dt><dd lang="en">grounding / earthing</dd></div>
+            <div><dt>放电</dt><dd lang="en">electric discharge</dd></div>
+            <div><dt>静电平衡</dt><dd lang="en">electrostatic equilibrium</dd></div>
+            <div><dt>静电屏蔽</dt><dd lang="en">electrostatic shielding</dd></div>
+            <div><dt>库仑力</dt><dd lang="en">Coulomb force</dd></div>
+            <div><dt>点电荷</dt><dd lang="en">point charge</dd></div>
+            <div><dt>电场</dt><dd lang="en">electric field</dd></div>
+            <div><dt>电场强度</dt><dd lang="en">electric field strength</dd></div>
+            <div><dt>试探电荷</dt><dd lang="en">test charge</dd></div>
+            <div><dt>场源电荷</dt><dd lang="en">source charge</dd></div>
+            <div><dt>电场线</dt><dd lang="en">electric field line</dd></div>
+            <div><dt>匀强电场</dt><dd lang="en">uniform electric field</dd></div>
+            <div><dt>电势</dt><dd lang="en">electric potential</dd></div>
+            <div><dt>电势差／电压</dt><dd lang="en">potential difference / voltage</dd></div>
+            <div><dt>等势面</dt><dd lang="en">equipotential surface</dd></div>
+            <div><dt>电势能</dt><dd lang="en">electric potential energy</dd></div>
+            <div><dt>电场力做功</dt><dd lang="en">work done by the electric force</dd></div>
+            <div><dt>电容器</dt><dd lang="en">capacitor</dd></div>
+            <div><dt>电容</dt><dd lang="en">capacitance</dd></div>
+            <div><dt>平行板电容器</dt><dd lang="en">parallel-plate capacitor</dd></div>
+          </dl>
+        </section>
+      </section>
+
+      <section class="lesson quiz-section" id="quiz" data-section="quiz">
+        <div class="section-heading">
+          <div><span class="chapter-no">20</span><p class="eyebrow">REAL-LIFE PRACTICE</p></div>
+          <h2>现实情境选择题</h2>
+          <p>把静电场知识放回生活与科技场景中：先找物理过程，再选规律，不靠关键词猜答案。</p>
+        </div>
+
+        <div class="quiz-origin-note">
+          <b>题目说明</b>
+          <p>以下 20 题为依据上海等级考“真实情境、核心概念、科学推理”的命题方向自主改编，并非高考真题原文。原题请通过上海市教育考试院发布渠道查看。</p>
+        </div>
+
+        <div class="quiz-shell" id="quizShell">
+          <div class="quiz-status">
+            <span id="quizCounter">第 1 / 20 题</span>
+            <div class="quiz-progress" role="progressbar" aria-label="答题进度" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0"><i id="quizProgressBar"></i></div>
+            <strong id="quizScore">已答 0 题 · 答对 0 题</strong>
+          </div>
+
+          <article class="quiz-card" aria-live="polite">
+            <div class="quiz-topic"><span id="quizTopic">静电感应</span><em id="quizDifficulty">基础</em></div>
+            <h3 id="quizQuestion">题目载入中……</h3>
+            <div class="quiz-options" id="quizOptions" role="group" aria-label="选择答案"></div>
+            <div class="quiz-explanation" id="quizExplanation" hidden></div>
+          </article>
+
+          <div class="quiz-actions">
+            <button type="button" id="quizPrevious">← 上一题</button>
+            <button type="button" id="quizReset">重新开始</button>
+            <button type="button" id="quizNext">下一题 →</button>
+          </div>
+        </div>
+
+        <div class="official-source-links">
+          <span>官方命题方向参考：</span>
+          <a href="https://www.shmeea.edu.cn/page/02100/20250506/19305.html" target="_blank" rel="noopener">2025 年物理试卷评析</a>
+          <a href="https://www.shmeea.edu.cn/page/02100/20240505/18404.html" target="_blank" rel="noopener">2024 年物理试卷评析</a>
+          <a href="https://www.shmeea.edu.cn/page/02100/20230506/17431.html" target="_blank" rel="noopener">2023 年物理试卷评析</a>
+        </div>
+      </section>
+
+      <footer class="site-footer"><span>静电场互动课堂 · 上海高中物理</span><a href="#top">回到顶部 ↑</a></footer>
+    </main>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>

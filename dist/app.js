@@ -24,12 +24,16 @@ function drawInduction() {
   const { ctx, width, height } = fitCanvas(canvas);
   const sign = Number($('#sourceSign').value);
   const distance = Number($('#inductionDistance').value);
-  const sourceX = width * (0.12 + (distance - 8) / 52 * 0.18);
   const conductorX = width * 0.62;
   const conductorY = height * 0.5;
   const conductorW = width * 0.52;
   const conductorH = Math.min(130, height * 0.48);
-  const strength = 1 - (distance - 8) / 64;
+  const distanceRatio = (distance - 8) / (60 - 8);
+  const conductorLeft = conductorX - conductorW / 2;
+  const minGap = Math.max(14, width * 0.025);
+  const maxGap = Math.max(minGap + 10, width * 0.18);
+  const sourceX = conductorLeft - 34 - (minGap + distanceRatio * (maxGap - minGap));
+  const strength = 1 - distanceRatio * 0.88;
   ctx.clearRect(0, 0, width, height);
 
   const glow = ctx.createRadialGradient(sourceX, conductorY, 0, sourceX, conductorY, width * 0.24);
@@ -65,13 +69,12 @@ function drawInduction() {
   const right = conductorX + conductorW / 2 - padding;
   for (let i = 0; i < count; i++) {
     const t = i / (count - 1);
-    const bias = (1 - t) * strength;
-    const xNeg = left + (right - left) * Math.pow(t, 1 + strength * 1.8);
-    const xPos = right - (right - left) * Math.pow(1 - t, 1 + strength * 1.8);
+    const xNear = left + (right - left) * Math.pow(t, 1 + strength * 1.8);
+    const xFar = right - (right - left) * Math.pow(1 - t, 1 + strength * 1.8);
     const y = conductorY + (i % 3 - 1) * 28;
     const nearSign = -sign;
-    drawCharge(ctx, nearSign > 0 ? xPos : xNeg, y, nearSign);
-    drawCharge(ctx, nearSign > 0 ? xNeg : xPos, y + 14, -nearSign);
+    drawCharge(ctx, xNear, y, nearSign);
+    drawCharge(ctx, xFar, y + 14, -nearSign);
   }
 
   ctx.fillStyle = '#edf8ff';
@@ -106,8 +109,8 @@ function initCoulomb() {
   const grid = $('.grid', $('#forceChart'));
   const ns = 'http://www.w3.org/2000/svg';
   const left = 58, right = 496, top = 22, bottom = 284;
-  for (let i = 0; i <= 5; i++) {
-    const x = left + (right - left) * i / 5;
+  for (let i = 0; i <= 4; i++) {
+    const x = left + (right - left) * i / 4;
     const line = document.createElementNS(ns, 'line');
     line.setAttribute('x1', x); line.setAttribute('x2', x); line.setAttribute('y1', top); line.setAttribute('y2', bottom);
     grid.appendChild(line);
@@ -115,29 +118,68 @@ function initCoulomb() {
     text.setAttribute('x', x); text.setAttribute('y', 302); text.setAttribute('text-anchor', 'middle'); text.textContent = i + 1;
     grid.appendChild(text);
   }
+  const yLabels = [];
   for (let i = 0; i <= 4; i++) {
     const y = top + (bottom - top) * i / 4;
     const line = document.createElementNS(ns, 'line');
     line.setAttribute('x1', left); line.setAttribute('x2', right); line.setAttribute('y1', y); line.setAttribute('y2', y);
     grid.appendChild(line);
+    const label = document.createElementNS(ns, 'text');
+    label.setAttribute('x', left - 8); label.setAttribute('y', y + 4); label.setAttribute('text-anchor', 'end');
+    grid.appendChild(label);
+    yLabels.push(label);
   }
   const sx = value => left + (value - 1) / 4 * (right - left);
-  const sy = value => bottom - Math.min(1, value) * (bottom - top);
-  let path = '';
-  for (let value = 1; value <= 5.001; value += .04) path += `${path ? 'L' : 'M'}${sx(value).toFixed(1)},${sy(1 / (value * value)).toFixed(1)} `;
-  $('#forceCurve').setAttribute('d', path);
+  const sy = (value, maximum) => bottom - Math.min(1, maximum > 0 ? value / maximum : 0) * (bottom - top);
+
+  const superscript = value => String(value).replace(/-/g, '⁻').replace(/0/g, '⁰').replace(/1/g, '¹').replace(/2/g, '²').replace(/3/g, '³').replace(/4/g, '⁴').replace(/5/g, '⁵').replace(/6/g, '⁶').replace(/7/g, '⁷').replace(/8/g, '⁸').replace(/9/g, '⁹');
+  const signedCharge = value => `${value > 0 ? '+' : ''}${value.toFixed(1)} × 10⁻⁶ C`;
+  const scientificForce = value => {
+    if (value === 0) return '0 N';
+    const exponent = Math.floor(Math.log10(Math.abs(value)));
+    const mantissa = value / (10 ** exponent);
+    return `${mantissa.toFixed(3)} × 10${superscript(exponent)} N`;
+  };
+  const decimalForce = value => {
+    if (value === 0) return '0 N';
+    const digits = value >= 0.1 ? 4 : value >= 0.01 ? 5 : 6;
+    return `${value.toFixed(digits).replace(/0+$/, '').replace(/\.$/, '')} N`;
+  };
+  const niceCeiling = value => {
+    if (value <= 0) return 0.01;
+    const exponent = Math.floor(Math.log10(value));
+    const scale = 10 ** exponent;
+    const fraction = value / scale;
+    const niceFraction = fraction <= 1 ? 1 : fraction <= 2 ? 2 : fraction <= 2.5 ? 2.5 : fraction <= 5 ? 5 : 10;
+    return niceFraction * scale;
+  };
+  const axisForce = value => {
+    if (value === 0) return '0';
+    const digits = value >= 0.1 ? 3 : 4;
+    return value.toFixed(digits).replace(/0+$/, '').replace(/\.$/, '');
+  };
 
   function update() {
     const a = Number(q1.value);
     const b = Number(q2.value);
     const distance = Number(r.value);
     const force = 0.009 * Math.abs(a * b) / (distance * distance);
+    const forceAtOneMetre = 0.009 * Math.abs(a * b);
+    const yMaximum = niceCeiling(forceAtOneMetre);
     const relation = a === 0 || b === 0 ? '无静电力' : Math.sign(a) === Math.sign(b) ? '相互排斥' : '相互吸引';
     $('#q1Value').textContent = `${a >= 0 ? '+' : ''}${a} μC`;
     $('#q2Value').textContent = `${b >= 0 ? '+' : ''}${b} μC`;
     $('#rValue').textContent = `${distance.toFixed(1)} m`;
     $('#distanceTag').textContent = `${distance.toFixed(1)} m`;
-    $('#forceReadout').textContent = `${force.toFixed(2)} N · ${relation}`;
+    $('#forceReadout').textContent = `${decimalForce(force)} · ${relation}`;
+    $('#coulombSubstitution').textContent = `(9.0 × 10⁹ N·m²/C²) × |(${signedCharge(a)}) × (${signedCharge(b)})| ÷ (${distance.toFixed(1)} m)²`;
+    $('#coulombScientific').textContent = scientificForce(force);
+    $('#coulombDecimal').textContent = decimalForce(force);
+    $('#coulombRelation').textContent = a === 0 || b === 0
+      ? '至少一个电荷量为 0，所以库仑力为 0'
+      : Math.sign(a) === Math.sign(b)
+        ? '两电荷同号，所以相互排斥'
+        : '两电荷异号，所以相互吸引';
     setOrb($('#orb1'), a);
     setOrb($('#orb2'), b);
     $('.distance-line').style.width = `${90 + distance * 30}px`;
@@ -148,15 +190,24 @@ function initCoulomb() {
     $('#leftArrow').style.transform = attraction ? 'rotate(180deg)' : '';
     $('#rightArrow').style.transform = attraction ? 'rotate(180deg)' : '';
 
+    yLabels.forEach((label, index) => {
+      label.textContent = axisForce(yMaximum * (1 - index / 4));
+    });
+    $('#forceScaleReadout').textContent = `当前纵轴：0–${axisForce(yMaximum)} N`;
+    let path = '';
+    for (let value = 1; value <= 5.001; value += .04) {
+      const curveForce = 0.009 * Math.abs(a * b) / (value * value);
+      path += `${path ? 'L' : 'M'}${sx(value).toFixed(1)},${sy(curveForce, yMaximum).toFixed(1)} `;
+    }
+    $('#forceCurve').setAttribute('d', path);
     const px = sx(distance);
-    const relativeForce = 1 / (distance * distance);
-    const py = sy(relativeForce);
+    const py = sy(force, yMaximum);
     $('#forceGuide').setAttribute('x1', px); $('#forceGuide').setAttribute('x2', px);
     $('#forceGuide').setAttribute('y1', py); $('#forceGuide').setAttribute('y2', bottom);
     $('#forcePoint').setAttribute('cx', px); $('#forcePoint').setAttribute('cy', py);
     $('#forcePointLabel').setAttribute('x', Math.min(px + 12, 430));
     $('#forcePointLabel').setAttribute('y', Math.max(py - 10, 36));
-    $('#forcePointLabel').textContent = `1/${distance.toFixed(1)}²`;
+    $('#forcePointLabel').textContent = `${axisForce(force)} N`;
     $('#distanceMultiple').textContent = `${distance.toFixed(1)} 倍`;
     $('#forceFraction').textContent = `1/${(distance * distance).toFixed(2)}`;
   }
@@ -268,60 +319,185 @@ function initField() {
   drawField();
 }
 
+function initTestCharge() {
+  const slider = $('#testChargeSlider');
+  if (!slider) return;
+  const fieldStrength = 7.2e4;
+  const exponentText = value => String(value).replace(/-/g, '⁻').replace(/0/g, '⁰').replace(/1/g, '¹').replace(/2/g, '²').replace(/3/g, '³').replace(/4/g, '⁴').replace(/5/g, '⁵').replace(/6/g, '⁶').replace(/7/g, '⁷').replace(/8/g, '⁸').replace(/9/g, '⁹');
+  const scientific = value => {
+    const exponent = Math.floor(Math.log10(Math.abs(value)));
+    return `${(value / (10 ** exponent)).toFixed(2)} × 10${exponentText(exponent)}`;
+  };
+  function updateTestCharge() {
+    const chargeNanoCoulomb = Number(slider.value);
+    const chargeCoulomb = chargeNanoCoulomb * 1e-9;
+    const force = chargeCoulomb * fieldStrength;
+    $('#testChargeValue').textContent = `${chargeNanoCoulomb.toFixed(1)} nC`;
+    $('#testForceValue').textContent = `F = ${scientific(force)} N`;
+    $('#testRatioValue').textContent = `E = F/q₀ = ${scientific(force)} ÷ (${chargeNanoCoulomb.toFixed(1)} × 10⁻⁹) = 7.20 × 10⁴ N/C`;
+    $('#testForceArrow').style.width = `${58 + chargeNanoCoulomb * 18}px`;
+    $('#testProbe').style.transform = `scale(${0.92 + chargeNanoCoulomb * 0.025})`;
+  }
+  slider.addEventListener('input', updateTestCharge);
+  updateTestCharge();
+}
+
+function potentialAt(x, y) {
+  const softening = .075;
+  const positiveDistance = Math.sqrt((x + .42) ** 2 + y ** 2 + softening ** 2);
+  const negativeDistance = Math.sqrt((x - .42) ** 2 + y ** 2 + softening ** 2);
+  return 1 / positiveDistance - 1 / negativeDistance;
+}
+
+function terrainHeight(x, y) {
+  return Math.tanh(potentialAt(x, y) * .56);
+}
+
+function projectTerrain(width, height, x, y, z = 0) {
+  return {
+    x: width * .5 + (x - y) * width * .25,
+    y: height * .53 + (x + y) * height * .12 - z * height * .25
+  };
+}
+
+function drawTerrainLabel(ctx, text, x, y, color, align = 'center') {
+  ctx.font = '800 13px system-ui';
+  ctx.textAlign = align;
+  ctx.textBaseline = 'middle';
+  const metrics = ctx.measureText(text);
+  const padding = 7;
+  const boxX = align === 'center' ? x - metrics.width / 2 - padding : align === 'right' ? x - metrics.width - padding * 2 : x;
+  ctx.fillStyle = 'rgba(7,17,31,.86)';
+  ctx.beginPath();
+  ctx.roundRect(boxX, y - 13, metrics.width + padding * 2, 26, 7);
+  ctx.fill();
+  ctx.fillStyle = color;
+  ctx.fillText(text, align === 'center' ? x : align === 'right' ? x - padding : x + padding, y);
+}
+
 function drawPotential() {
   const canvas = $('#potentialCanvas');
   if (!canvas) return;
-  const { ctx, width, height } = fitCanvas(canvas, .56);
-  const image = ctx.createImageData(Math.floor(width), Math.floor(height));
-  const charges = [{ x: width * .32, y: height * .5, q: 1 }, { x: width * .68, y: height * .5, q: -1 }];
-  const pixels = image.data;
-  for (let py = 0; py < height; py += 1) {
-    for (let px = 0; px < width; px += 1) {
-      let v = 0;
-      charges.forEach(c => { v += c.q / Math.max(12, Math.hypot(px - c.x, py - c.y)); });
-      const normalized = Math.max(-1, Math.min(1, v * width * .12));
-      const band = Math.round(normalized * 12) / 12;
-      const intensity = Math.min(1, Math.abs(band));
-      const index = (py * Math.floor(width) + px) * 4;
-      const base = [8, 20, 35];
-      const target = band >= 0 ? [255, 122, 168] : [109, 229, 255];
-      const mix = .08 + intensity * .42;
-      pixels[index] = base[0] * (1 - mix) + target[0] * mix;
-      pixels[index + 1] = base[1] * (1 - mix) + target[1] * mix;
-      pixels[index + 2] = base[2] * (1 - mix) + target[2] * mix;
-      pixels[index + 3] = 255;
+  const { ctx, width, height } = fitCanvas(canvas, .62);
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.restore();
+
+  const backdrop = ctx.createLinearGradient(0, 0, 0, height);
+  backdrop.addColorStop(0, '#07111f');
+  backdrop.addColorStop(1, '#0b192a');
+  ctx.fillStyle = backdrop;
+  ctx.fillRect(0, 0, width, height);
+
+  const corners = [[-.9, -.9], [.9, -.9], [.9, .9], [-.9, .9]].map(([x, y]) => projectTerrain(width, height, x, y, 0));
+  ctx.fillStyle = 'rgba(237,248,255,.025)';
+  ctx.strokeStyle = 'rgba(237,248,255,.18)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  corners.forEach((point, index) => index ? ctx.lineTo(point.x, point.y) : ctx.moveTo(point.x, point.y));
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+
+  const columns = 25;
+  const rows = 19;
+  const cells = [];
+  for (let row = 0; row < rows - 1; row += 1) {
+    for (let column = 0; column < columns - 1; column += 1) {
+      const x0 = -.9 + column / (columns - 1) * 1.8;
+      const x1 = -.9 + (column + 1) / (columns - 1) * 1.8;
+      const y0 = -.9 + row / (rows - 1) * 1.8;
+      const y1 = -.9 + (row + 1) / (rows - 1) * 1.8;
+      const points = [[x0, y0], [x1, y0], [x1, y1], [x0, y1]].map(([x, y]) => {
+        const z = terrainHeight(x, y);
+        return { ...projectTerrain(width, height, x, y, z), z };
+      });
+      cells.push({ points, depth: (x0 + x1 + y0 + y1) / 4 });
     }
   }
-  ctx.putImageData(image, 0, 0);
-  ctx.strokeStyle = 'rgba(237,248,255,.13)'; ctx.lineWidth = 1;
-  for (let i = 1; i < 8; i++) {
-    ctx.beginPath(); ctx.ellipse(charges[0].x, charges[0].y, i * 23, i * 15, 0, 0, Math.PI * 2); ctx.stroke();
-    ctx.beginPath(); ctx.ellipse(charges[1].x, charges[1].y, i * 23, i * 15, 0, 0, Math.PI * 2); ctx.stroke();
-  }
-  charges.forEach(c => {
-    ctx.beginPath(); ctx.arc(c.x, c.y, 23, 0, Math.PI * 2); ctx.fillStyle = c.q > 0 ? '#ff7aa8' : '#6de5ff'; ctx.fill();
-    ctx.fillStyle = '#07111f'; ctx.font = '900 23px system-ui'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(c.q > 0 ? '+' : '−', c.x, c.y - 1);
+  cells.sort((a, b) => a.depth - b.depth).forEach(cell => {
+    const averageHeight = cell.points.reduce((sum, point) => sum + point.z, 0) / cell.points.length;
+    const strength = .10 + Math.abs(averageHeight) * .3;
+    ctx.fillStyle = averageHeight >= 0
+      ? `rgba(255,122,168,${strength})`
+      : `rgba(109,229,255,${strength})`;
+    ctx.strokeStyle = averageHeight >= 0 ? 'rgba(255,170,195,.31)' : 'rgba(148,238,255,.28)';
+    ctx.lineWidth = .7;
+    ctx.beginPath();
+    cell.points.forEach((point, index) => index ? ctx.lineTo(point.x, point.y) : ctx.moveTo(point.x, point.y));
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
   });
 
+  const zeroStart = projectTerrain(width, height, 0, -.9, 0);
+  const zeroEnd = projectTerrain(width, height, 0, .9, 0);
+  ctx.strokeStyle = 'rgba(255,209,102,.75)';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([6, 5]);
+  ctx.beginPath();
+  ctx.moveTo(zeroStart.x, zeroStart.y);
+  ctx.lineTo(zeroEnd.x, zeroEnd.y);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  const peak = projectTerrain(width, height, -.42, 0, terrainHeight(-.42, 0));
+  const valley = projectTerrain(width, height, .42, 0, terrainHeight(.42, 0));
+  drawTerrainLabel(ctx, '＋Q：高电势山峰', peak.x - 10, Math.max(22, peak.y - 23), '#ff9abb', 'right');
+  drawTerrainLabel(ctx, '−Q：低电势深谷', valley.x + 10, Math.min(height - 20, valley.y + 27), '#8beaff', 'left');
+  const zeroLabel = projectTerrain(width, height, 0, -.72, 0);
+  drawTerrainLabel(ctx, 'φ = 0', zeroLabel.x, zeroLabel.y - 18, '#ffd166');
+
   const probePosition = Number($('#probeX').value) / 40;
-  const probeX = width * (.5 + probePosition * .43);
-  const probeY = height * .73;
-  let potential = 0;
-  charges.forEach(c => { potential += c.q / Math.max(14, Math.hypot(probeX - c.x, probeY - c.y)); });
-  const displayV = potential * width * 6;
-  ctx.strokeStyle = '#ffd166'; ctx.setLineDash([5, 5]); ctx.beginPath(); ctx.moveTo(probeX, 0); ctx.lineTo(probeX, height); ctx.stroke(); ctx.setLineDash([]);
-  ctx.beginPath(); ctx.arc(probeX, probeY, 9, 0, Math.PI * 2); ctx.fillStyle = '#ffd166'; ctx.fill();
-  ctx.fillStyle = '#edf8ff'; ctx.font = '700 14px system-ui'; ctx.fillText('探针', probeX, probeY + 25);
+  const terrainX = probePosition * .84;
+  const terrainY = 0;
+  const rawPotential = potentialAt(terrainX, terrainY);
+  const probeHeight = terrainHeight(terrainX, terrainY);
+  const probeBase = projectTerrain(width, height, terrainX, terrainY, 0);
+  const probePoint = projectTerrain(width, height, terrainX, terrainY, probeHeight);
+  const displayV = rawPotential * 1.35;
+  ctx.strokeStyle = '#ffd166';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([5, 5]);
+  ctx.beginPath();
+  ctx.moveTo(probeBase.x, probeBase.y);
+  ctx.lineTo(probePoint.x, probePoint.y);
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.beginPath();
+  ctx.arc(probePoint.x, probePoint.y, 8, 0, Math.PI * 2);
+  ctx.fillStyle = '#ffd166';
+  ctx.shadowColor = '#ffd166';
+  ctx.shadowBlur = 16;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  drawTerrainLabel(ctx, '探针', probePoint.x, Math.max(18, probePoint.y - 22), '#ffd166');
   const probeCharge = Number($('#probeSign').value);
-  const energyTrend = displayV * probeCharge;
+  const probeChargeNanoCoulomb = probeCharge * 2;
+  const energyMicroJoule = probeChargeNanoCoulomb * displayV;
   $('#probeXValue').textContent = `${probePosition >= 0 ? '+' : ''}${(probePosition * 4).toFixed(1)} m`;
-  $('#potentialReadout').textContent = `探针电势 ${displayV >= 0 ? '+' : ''}${displayV.toFixed(1)} kV · 电势能${energyTrend >= 0 ? '为正' : '为负'}`;
+  $('#potentialReadout').textContent = `φ = ${displayV >= 0 ? '+' : ''}${displayV.toFixed(1)} kV · Eₚ = ${energyMicroJoule >= 0 ? '+' : ''}${energyMicroJoule.toFixed(1)} μJ`;
+  $('#energyRuleReadout').textContent = probeCharge > 0
+    ? '当前选择 +2 nC：正电荷的电势能地形与电势地形同向，山峰处 Eₚ 高，低谷处 Eₚ 低。'
+    : '当前选择 −2 nC：电势地形本身不变，但 Eₚ=qφ 乘上负数，电势能地形上下翻转。';
 }
 
 function initPotential() {
   $('#probeX')?.addEventListener('input', drawPotential);
   $('#probeSign')?.addEventListener('change', drawPotential);
   drawPotential();
+}
+
+function initEnergyAnalogy() {
+  const demo = $('#energyDemoGrid');
+  const replay = $('#energyReplay');
+  if (!demo || !replay) return;
+  replay.addEventListener('click', () => {
+    demo.classList.remove('is-playing');
+    void demo.offsetWidth;
+    demo.classList.add('is-playing');
+  });
 }
 
 let particlePhase = 0;
@@ -578,6 +754,220 @@ function initLifeCases() {
   selectCase(buttons.find(button => button.classList.contains('active'))?.dataset.lifeCase || buttons[0].dataset.lifeCase);
 }
 
+const situationQuestions = [
+  {
+    topic: '静电感应', difficulty: '基础',
+    question: '冬天，把摩擦过毛衣的气球靠近没有带电的墙面，气球能暂时贴在墙上。对此解释正确的是：',
+    options: ['墙面被摩擦后整体带上了与气球异号的电荷', '墙内电荷发生微小分离，靠近气球的一侧异号电荷偏多', '气球把墙内所有电子都吸走了', '气球与墙之间产生了万有引力以外的新力'],
+    answer: 1,
+    explanation: '墙整体仍近似电中性，但其中的正、负电荷发生微小偏移；近端异号电荷距离更近，吸引作用占优势。这就是静电感应（或极化）。'
+  },
+  {
+    topic: '静电与湿度', difficulty: '基础',
+    question: '同样用塑料梳子梳头，干燥的冬天比潮湿天气更容易出现静电。主要原因是：',
+    options: ['冬天电子的电荷量更大', '潮湿空气会完全阻止摩擦起电', '潮湿表面形成较易导电的水膜，电荷更容易泄漏', '干燥时库仑常量会明显变大'],
+    answer: 2,
+    explanation: '潮湿环境会使物体表面更容易导电，积累的电荷会逐渐流走，所以不容易保持明显的净电荷。电子的电荷量和库仑常量并未因此改变。'
+  },
+  {
+    topic: '带电体吸引轻小物体', difficulty: '基础',
+    question: '带电梳子能吸起原本不带电的小纸屑。在纸屑尚未接触梳子时，最合理的判断是：',
+    options: ['纸屑一定已经带上与梳子等量的异号电荷', '纸屑内部电荷重新分布，近端受到的吸引强于远端的排斥', '纸屑中的质子移动到了靠近梳子的一端', '纸屑和梳子之间没有电场'],
+    answer: 1,
+    explanation: '纸屑可以保持总电荷为零。带电梳子的电场使纸屑发生极化，近端异号电荷更近，库仑力更大，因此合力表现为吸引。固体中的质子不会整体搬家。'
+  },
+  {
+    topic: '静电安全', difficulty: '基础',
+    question: '油罐车装卸燃油时常用导线把车体接地。这样做的主要目的是什么？',
+    options: ['让车体获得更多电子以增加重量', '把积累的静电缓慢导入大地，避免火花放电', '增大车体与地面之间的摩擦力', '利用大地给燃油加热'],
+    answer: 1,
+    explanation: '燃油流动和摩擦可能使车体积累静电。接地提供持续、缓慢的泄放通道，减小电势差，从而降低火花引燃油气的风险。'
+  },
+  {
+    topic: '尖端放电', difficulty: '基础',
+    question: '高层建筑上的避雷针做得很尖，并通过导体与大地连接。按静电学模型，尖端的主要特点是：',
+    options: ['尖端附近电荷密度较小，电场较弱', '尖端附近电荷密度较大，电场较强，空气更容易被电离', '尖端内部电场永远最大', '尖端可以把雷电储存在内部'],
+    answer: 1,
+    explanation: '导体尖端曲率大，表面电荷更容易密集，附近电场较强，可能发生尖端放电；接地导体还为电荷提供通向大地的路径。'
+  },
+  {
+    topic: '静电屏蔽', difficulty: '基础',
+    question: '汽车遭遇雷击时，车内人员通常比站在车外更安全。从静电屏蔽角度看，关键原因是：',
+    options: ['橡胶轮胎能挡住一切电流', '金属车壳上的电荷主要分布在外表面，车内区域电场很弱', '车内没有任何自由电子', '雷电只会选择最高的树木'],
+    answer: 1,
+    explanation: '封闭金属外壳达到静电平衡时，多余电荷主要分布在外表面，壳内电场接近零。现实中仍应避免触碰金属车身，并听从安全指引。'
+  },
+  {
+    topic: '静电除尘', difficulty: '基础',
+    question: '静电空气净化器先使灰尘颗粒带电，再让它们经过带异号电荷的集尘板。灰尘被收集主要因为：',
+    options: ['带电灰尘在电场中受到电场力', '灰尘的质量在电场中消失', '集尘板只产生磁场', '电场把灰尘变成了电子'],
+    answer: 0,
+    explanation: '颗粒带电后，在集尘板形成的电场中受到 F=qE 的作用，运动到集尘板并被吸附。电场改变的是颗粒运动状态，不会消除其质量。'
+  },
+  {
+    topic: '静电喷涂', difficulty: '基础',
+    question: '汽车零件进行静电喷漆时，让雾化漆滴带同种电荷，并使工件接地。这样的好处是：',
+    options: ['漆滴相互吸引并聚成大液滴', '漆滴相互排斥而分散，并在电场力作用下趋向工件', '工件接地后一定不受任何电场力', '漆滴带电后不再受重力'],
+    answer: 1,
+    explanation: '同号漆滴相互排斥，有利于喷雾分散；带电漆滴又会受到工件附近电场的作用，更多地沉积到工件表面，提高覆盖率。'
+  },
+  {
+    topic: '同种电荷排斥', difficulty: '基础',
+    question: '体验静电起电机时，人的头发会一根根张开。最主要的原因是：',
+    options: ['每根头发带有同种电荷，彼此排斥', '头发中的质子全部离开了头发', '头发受到的重力突然消失', '空气只对头发产生向外的压力'],
+    answer: 0,
+    explanation: '人体和头发获得同种净电荷后，各根头发之间存在排斥力，于是尽量相互远离。头发仍然受到重力，只是静电力足以改变其形状。'
+  },
+  {
+    topic: '静电复印', difficulty: '进阶',
+    question: '激光打印机中，带电墨粉会有选择地附着在感光鼓的某些区域。这个过程主要利用：',
+    options: ['电荷在电场中的受力及异号电荷吸引', '墨粉在真空中自动寻找文字', '所有导体内部电场都无限大', '电荷守恒说明墨粉一定落到纸上'],
+    answer: 0,
+    explanation: '感光鼓表面形成与图像对应的电荷分布，带电墨粉在电场力作用下被选择性吸附，再转移到纸面。核心仍是电场对电荷的作用。'
+  },
+  {
+    topic: '电容式触摸屏', difficulty: '基础',
+    question: '手指靠近电容式触摸屏后，控制芯片能够判断触摸位置，主要依据是：',
+    options: ['手指使屏幕局部电容发生变化', '手指给屏幕施加的压力一定相同', '手指放出的光改变了屏幕亮度', '人体只会产生磁场，不会影响电场'],
+    answer: 0,
+    explanation: '人体可以影响电场分布。手指靠近透明电极时，局部等效电容发生微小变化，芯片测出哪些电极的 C 改变，从而定位触摸点。'
+  },
+  {
+    topic: '电容传感器', difficulty: '进阶',
+    question: '电容式麦克风中，一块薄膜会随声音振动，它与固定极板组成电容器。声音主要通过改变哪个量引起电容变化？',
+    options: ['两板间距 d', '电子的元电荷 e', '真空中的光速 c', '库仑常量 k'],
+    answer: 0,
+    explanation: '薄膜振动使两板间距 d 改变。由 C∝S/d 可知，d 的变化会转化成 C 的变化，随后电路把这种变化转换为电信号。'
+  },
+  {
+    topic: '电容储能', difficulty: '基础',
+    question: '相机闪光灯由小电池供电，却能在短时间内发出很强的光。电容器在其中的主要作用是：',
+    options: ['先储存电场能，再在短时间内放出', '永久制造电荷而不消耗能量', '把所有电能转化为重力势能', '使电池电压永远保持为零'],
+    answer: 0,
+    explanation: '电池先较慢地给电容器充电，能量储存在电场中；触发闪光时电容器快速放电，于是短时间内输出较大的功率。'
+  },
+  {
+    topic: '电容放电', difficulty: '基础',
+    question: '某充电器拔下插座后，指示灯仍亮了一小会儿再逐渐熄灭。合理解释是：',
+    options: ['电网仍通过空气持续供电', '内部电容器继续放电，Q 减少使 U=Q/C 逐渐减小', '拔下插头后电容自动增大到无限大', '指示灯不需要能量也能发光'],
+    answer: 1,
+    explanation: '断开外部电源后，电容器可能仍带电。它通过内部电路放电，Q 逐渐减小；结构不变时 C 近似不变，因此 U 逐渐降低。'
+  },
+  {
+    topic: '接电源的电容器', difficulty: '进阶',
+    question: '平行板电容器始终连接恒压电源。保持正对面积和介质不变，将板间距增大，则：',
+    options: ['C 增大，Q 增大，E 增大', 'C 减小，Q 减小，E 减小', 'C 减小，Q 不变，E 不变', 'C 不变，Q 减小，E 增大'],
+    answer: 1,
+    explanation: '连接恒压电源时 U 不变。d 增大使 C∝1/d 减小；Q=CU 因而减小；E=U/d 也减小。'
+  },
+  {
+    topic: '断开电源的电容器', difficulty: '进阶',
+    question: '理想平行板电容器充电后与电源断开。保持面积和介质不变，将板间距增大，则：',
+    options: ['Q 不变，C 减小，U 增大，E 近似不变', 'Q 减小，C 增大，U 不变，E 增大', 'Q 不变，C 不变，U 减小，E 减小', 'Q 增大，C 减小，U 不变，E 不变'],
+    answer: 0,
+    explanation: '断开电源后没有电荷交换通道，所以 Q 不变。d 增大使 C 减小，U=Q/C 增大；理想模型中 E=Q/(εS)，因此 E 近似不变。'
+  },
+  {
+    topic: '介质与电容', difficulty: '进阶',
+    question: '平行板电容器连接恒压电源，板间距不变。把介电常数更大的材料完全插入两板之间，则：',
+    options: ['C 增大，U 不变，Q 增大', 'C 减小，U 增大，Q 不变', 'C 不变，U 不变，Q 减小', 'C 增大，U 减小，Q 不变'],
+    answer: 0,
+    explanation: '插入介质使 C 增大；电源仍连接，所以 U 被锁定；由 Q=CU 可知电源会继续搬运电荷，使 Q 增大。'
+  },
+  {
+    topic: '滤波电容', difficulty: '基础',
+    question: '手机充电器中的滤波电容可以使整流后的输出电压更平稳。其工作方式主要是：',
+    options: ['电压较高时充电，电压回落时向电路放电', '只在电压为零时吸收全部电荷', '不断改变电子所带的电荷量', '把交流电场完全变成磁场'],
+    answer: 0,
+    explanation: '电压较高时电容器储存能量，电压回落时再释放能量，相当于填补电压的低谷，从而减小输出电压的波动。'
+  },
+  {
+    topic: '防静电措施', difficulty: '基础',
+    question: '维修电脑芯片时常佩戴带电阻的防静电手环，并把它可靠接地。手环中串联较大电阻主要是为了：',
+    options: ['让积累电荷较缓慢、安全地泄放，限制瞬时电流', '让人体迅速获得大量电荷', '完全阻止任何电荷移动', '增大人体与芯片之间的库仑力'],
+    answer: 0,
+    explanation: '接地用于释放静电；串联电阻可以限制电流，使电荷以较缓慢的方式泄放，既保护器件，也提高人员安全性。'
+  },
+  {
+    topic: '电容式检测', difficulty: '进阶',
+    question: '电容式土壤湿度传感器可以根据电容变化估计含水量。湿土通常比干土使传感器电容更大，主要因为：',
+    options: ['水使周围介质的等效介电常数增大', '水使电子的质量变为零', '湿土一定让两电极正对面积减小', '水会使所有电场立即消失'],
+    answer: 0,
+    explanation: '水的介电性质与空气、干土不同。含水量增加会改变电极周围的等效介电常数，从而改变电容 C；电路再把 C 的变化换算成湿度。'
+  }
+];
+
+function initSituationQuiz() {
+  const questionElement = $('#quizQuestion');
+  const optionsElement = $('#quizOptions');
+  if (!questionElement || !optionsElement) return;
+
+  let current = 0;
+  let answers = Array(situationQuestions.length).fill(null);
+  const letters = ['A', 'B', 'C', 'D'];
+
+  function renderQuiz() {
+    const item = situationQuestions[current];
+    const answered = answers[current];
+    $('#quizCounter').textContent = `第 ${current + 1} / ${situationQuestions.length} 题`;
+    $('#quizTopic').textContent = item.topic;
+    $('#quizDifficulty').textContent = item.difficulty;
+    questionElement.textContent = item.question;
+    optionsElement.replaceChildren();
+
+    item.options.forEach((option, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'quiz-option';
+      const letter = document.createElement('b');
+      letter.textContent = letters[index];
+      const copy = document.createElement('span');
+      copy.textContent = option;
+      button.append(letter, copy);
+      if (answered !== null) {
+        button.disabled = true;
+        if (index === item.answer) button.classList.add('correct');
+        if (index === answered && answered !== item.answer) button.classList.add('wrong');
+      }
+      button.addEventListener('click', () => {
+        if (answers[current] !== null) return;
+        answers[current] = index;
+        renderQuiz();
+      });
+      optionsElement.appendChild(button);
+    });
+
+    const explanation = $('#quizExplanation');
+    if (answered === null) {
+      explanation.hidden = true;
+      explanation.replaceChildren();
+    } else {
+      const heading = document.createElement('strong');
+      heading.textContent = answered === item.answer ? `回答正确 · ${letters[item.answer]}` : `回答错误 · 正确答案 ${letters[item.answer]}`;
+      const copy = document.createElement('p');
+      copy.textContent = item.explanation;
+      explanation.replaceChildren(heading, copy);
+      explanation.className = `quiz-explanation ${answered === item.answer ? 'correct' : 'wrong'}`;
+      explanation.hidden = false;
+    }
+
+    const answeredCount = answers.filter(answer => answer !== null).length;
+    const correctCount = answers.reduce((total, answer, index) => total + (answer === situationQuestions[index].answer ? 1 : 0), 0);
+    $('#quizScore').textContent = answeredCount === situationQuestions.length
+      ? `完成 · ${correctCount} / ${situationQuestions.length} 题正确`
+      : `已答 ${answeredCount} 题 · 答对 ${correctCount} 题`;
+    $('#quizProgressBar').style.width = `${answeredCount / situationQuestions.length * 100}%`;
+    $('.quiz-progress').setAttribute('aria-valuenow', answeredCount);
+    $('#quizPrevious').disabled = current === 0;
+    $('#quizNext').disabled = current === situationQuestions.length - 1;
+  }
+
+  $('#quizPrevious').addEventListener('click', () => { current = Math.max(0, current - 1); renderQuiz(); });
+  $('#quizNext').addEventListener('click', () => { current = Math.min(situationQuestions.length - 1, current + 1); renderQuiz(); });
+  $('#quizReset').addEventListener('click', () => { current = 0; answers = Array(situationQuestions.length).fill(null); renderQuiz(); });
+  renderQuiz();
+}
+
 $('#sourceSign')?.addEventListener('change', drawInduction);
 $('#inductionDistance')?.addEventListener('input', drawInduction);
 window.addEventListener('resize', drawInduction);
@@ -588,10 +978,13 @@ window.addEventListener('scroll', updateNav, { passive: true });
 drawInduction();
 initCoulomb();
 initField();
+initTestCharge();
 initPotential();
+initEnergyAnalogy();
 initParticle();
 initCapacitor();
 initWorkedExamples();
 initChargeLedger();
 initLifeCases();
+initSituationQuiz();
 updateNav();
