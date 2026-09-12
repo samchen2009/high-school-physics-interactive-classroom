@@ -1174,57 +1174,6 @@
             </div>
           </section>
 
-          <section class="ev-capacity" aria-labelledby="ev-capacity-title">
-            <div class="ev-capacity-heading">
-              <span>新能源车里的“容量”</span>
-              <h3 id="ev-capacity-title">电池容量和电容 C，名字像，但不是同一个物理量</h3>
-            </div>
-            <div class="capacity-compare">
-              <article class="battery-capacity-card">
-                <span class="capacity-label">动力电池 Battery</span>
-                <h4>常说“60 kWh 电池”</h4>
-                <p>这里的 60 kWh 表示<strong>可以储存多少能量</strong>，不是电容 C。电池还常用 Ah 表示可转移的电荷量。</p>
-                <div class="capacity-equation"><b>理论续航</b><span>≈ 60 kWh ÷ 15 kWh/100 km</span><strong>≈ 400 km</strong></div>
-                <small>这里只做理想估算；实际续航还受车速、气温、空调、路况和可用电量影响。</small>
-              </article>
-              <article class="vehicle-capacitor-card">
-                <span class="capacity-label">车载电容 Capacitor</span>
-                <h4>常用 μF、mF 或 F</h4>
-                <p>这里描述的是<strong>电压每升高 1 V，需要分离多少电荷</strong>。车载逆变器中的直流母线电容可吸收瞬时波动、稳定电压。</p>
-                <div class="capacity-equation"><b>示例储能</b><span>½×2 mF×(400 V)²</span><strong>= 160 J</strong></div>
-                <small>它反应快、充放电快，但储能通常远小于动力电池，不能用来提供几百公里续航。</small>
-              </article>
-            </div>
-            <div class="energy-scale" aria-label="60千瓦时电池与示例车载电容器储能数量级比较">
-              <div><span>60 kWh 动力电池</span><i class="battery-energy-bar"></i><b>216,000,000 J</b></div>
-              <div><span>2 mF、400 V 电容</span><i class="capacitor-energy-bar"></i><b>160 J</b></div>
-              <p>两条采用不同的视觉量程，否则第二条在同一比例尺下几乎看不见。数值上，前者约是后者的 <strong>135 万倍</strong>。</p>
-            </div>
-            <div class="supercap-note">
-              <b>那“超级电容”呢？</b>
-              <p>超级电容 <span lang="en">supercapacitor</span> 的 C 很大，特别适合在刹车时快速接收回收的能量，再在起步时快速释放；但单位质量储能通常仍低于锂电池。因此它更像“短跑选手”，动力电池更像“长跑选手”。</p>
-            </div>
-
-            <div class="battery-device-compare" aria-labelledby="battery-device-title">
-              <div class="battery-device-heading">
-                <span>BATTERY LABELS</span>
-                <h4 id="battery-device-title">动力电池、充电宝、纽扣电池：真正要看哪些数？</h4>
-                <p>它们主要靠化学反应储能，不能把铭牌上的 mAh 或 kWh 当成电容 C，更不能直接套 U=Q/C。</p>
-              </div>
-              <div class="battery-device-table" role="table" aria-label="三类电池设备参数对比，数值为便于理解的典型示例">
-                <div class="battery-device-row table-head" role="row"><span role="columnheader">设备</span><span role="columnheader">电压 U</span><span role="columnheader">容量 / 能量</span><span role="columnheader">大小意味着什么</span></div>
-                <div class="battery-device-row" role="row"><b role="cell">纽扣电池</b><span role="cell">约 3 V</span><span role="cell">约 220 mAh<br>≈ 0.66 Wh</span><p role="cell">体积小、能量少，适合钟表和小传感器长期小电流工作；不适合带动大功率设备。</p></div>
-                <div class="battery-device-row" role="row"><b role="cell">充电宝</b><span role="cell">电芯约 3.7 V<br>输出常见 5 V 等</span><span role="cell">10000 mAh<br>约 37 Wh</span><p role="cell">mAh 越大通常可充次数越多，但也更重；输出电压由转换电路调节，转换中会有能量损耗。</p></div>
-                <div class="battery-device-row" role="row"><b role="cell">动力电池</b><span role="cell">常见约 400 V<br>或 800 V 平台</span><span role="cell">例如 60 kWh</span><p role="cell">kWh 越大通常续航潜力越大；电压越高，在相同功率 P 下电流 I=P/U 越小，可减小线路的 I²R 发热。</p></div>
-              </div>
-              <div class="battery-formula-bridge">
-                <div><span>电池的 mAh / Ah</span><strong>Q = It</strong><small>表示可转移的电荷量；1 Ah = 3600 C</small></div>
-                <i>再结合电压</i>
-                <div><span>电池的 Wh / kWh</span><strong>W ≈ UQ</strong><small>表示可提供的能量；实际还受放电条件影响</small></div>
-                <p>简化例子：400 V、60 kWh 的动力电池，若把电压近似看作不变，则容量约为 <b>60,000 Wh ÷ 400 V = 150 Ah</b>。这是电池的电荷容量，不是 150 F。</p>
-              </div>
-            </div>
-          </section>
         </section>
 
         <div class="decision-tree">
